@@ -29,6 +29,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -48,6 +49,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+    // Use for Bottom Navigation Bar
     implementation ("com.gauravk.bubblenavigation:bubblenavigation:1.0.7")
+
+
+
+
 }

@@ -5,9 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.Adapter.ActivityMainViewPager
+import com.example.todoapp.Fragment.AddTaskDialogFragment
 import com.example.todoapp.Fragment.CalendarFragment
 import com.example.todoapp.Fragment.HomeFragment
 import com.example.todoapp.Fragment.SettingFragment
+import com.example.todoapp.Fragment.StatisticFragment
 import com.example.todoapp.databinding.ActivityMainBinding
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
@@ -29,10 +31,13 @@ class MainActivity : AppCompatActivity() {
     private fun initComponent(){
         viewPager = binding.viewPager
         bubbleNavigationView = binding.bottomNavigationViewLinear
+        binding.btAddTask.setOnClickListener{
+            AddTaskDialogFragment().show(supportFragmentManager, "AddTaskDialogFragment")
+        }
     }
     private fun initBehavior(){
             pagerAdapter = ActivityMainViewPager(supportFragmentManager, lifecycle, arrayListOf(
-                HomeFragment(), CalendarFragment(), SettingFragment()))
+                HomeFragment(), CalendarFragment(),StatisticFragment(), SettingFragment()))
     }
     private fun initViewPager(){
         viewPager.adapter = pagerAdapter
@@ -46,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                     bubbleNavigationView.setCurrentActiveItem(position)
                 }
             })
-
         }
 
         bubbleNavigationView.apply {

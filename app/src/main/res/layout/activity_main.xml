@@ -11,6 +11,14 @@
         android:layout_height="match_parent"
 
     />
+    <ImageButton
+        android:id="@+id/bt_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_navigation_view_linear"
+        android:background="@drawable/ic_bt_add_task"
+        android:layout_alignParentEnd="true"
+        />
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="wrap_content"
@@ -42,7 +50,15 @@
             app:bt_icon="@drawable/ic_calendar"
             app:bt_shape="@drawable/transition_background_drawable_calendar"
             app:bt_title="Calendar" />
-
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/statistic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/blue_active"
+            app:bt_colorInactive="@color/blue_inactive"
+            app:bt_icon="@drawable/ic_statistic"
+            app:bt_shape="@drawable/transition_background_drawable_statistic"
+            app:bt_title="Statistic" />
         <com.gauravk.bubblenavigation.BubbleToggleView
             android:id="@+id/setting"
             android:layout_width="wrap_content"

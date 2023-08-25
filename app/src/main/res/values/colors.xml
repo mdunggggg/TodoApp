@@ -27,4 +27,7 @@
     <color name="yellow_bg_light">#fffde7</color>
     <color name="orange_bg_light">#fff3e0</color>
     <color name="grey_bg_light">#fafafa</color>
+    <color name="before_current_day">#FFBDBDBD</color>
+    <color name="current_day">#2196F3</color>
+    <color name="after_current_day">#FFBDBDBD</color>
 </resources>
