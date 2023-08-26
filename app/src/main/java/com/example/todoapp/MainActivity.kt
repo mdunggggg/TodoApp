@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.example.todoapp.Adapter.ActivityMainViewPager
+import com.example.todoapp.Adapter.ViewPagerAdapter.ActivityMainViewPager
 import com.example.todoapp.Fragment.AddTaskDialogFragment
 import com.example.todoapp.Fragment.CalendarFragment
 import com.example.todoapp.Fragment.HomeFragment

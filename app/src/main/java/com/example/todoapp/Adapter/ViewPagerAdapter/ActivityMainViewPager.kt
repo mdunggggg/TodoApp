@@ -1,4 +1,4 @@
-package com.example.todoapp.Adapter
+package com.example.todoapp.Adapter.ViewPagerAdapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
