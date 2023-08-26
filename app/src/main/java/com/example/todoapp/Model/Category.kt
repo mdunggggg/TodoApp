@@ -1,7 +1,7 @@
 package com.example.todoapp.Model
 
-class Category(
+data class Category(
     var id : Int,
     var title: String,
-    var color : String
+    var color : Int
 )

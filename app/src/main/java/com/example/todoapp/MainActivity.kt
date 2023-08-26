@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         viewPager = binding.viewPager
         bubbleNavigationView = binding.bottomNavigationViewLinear
         binding.btAddTask.setOnClickListener{
-            AddTaskDialogFragment().show(supportFragmentManager, "AddTaskDialogFragment")
+            AddTaskDialogFragment().show(supportFragmentManager, AddTaskDialogFragment.TAG)
         }
     }
     private fun initBehavior(){

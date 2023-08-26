@@ -1,13 +1,9 @@
-package com.example.todoapp.Fragment
+package com.example.todoapp.Dialog
 
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -78,18 +74,22 @@ class DateTimePickerDialog(
             }
         timepicker.show()
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private val onTimeSet = { _: TimePicker, hour: Int, minute: Int ->
-        time = LocalTime.of(hour, minute)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            time = LocalTime.of(hour, minute)
+        }
         updateTime()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun updateTime() {
         val timeForTimePicker = if (time == null) getString(R.string.set_time)
-        else time!!.format(
-            DateTimeFormatter.ofPattern(DateTimeUtils.patternTime)
-        )
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeUtils.convertToStringTime(time)
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
         binding.btSetDueTime.text = timeForTimePicker
     }
 

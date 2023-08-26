@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Dialog.CategoryPickerDialog">
+
+    <View
+        android:layout_width="48dp"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_handle"
+        android:layout_gravity="center_horizontal"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_categories"
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:layout_marginBottom="16dp"
+       tools:listitem="@layout/item_category_rv"
+
+        />
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_add"
+        android:text="@string/new_category"
+        app:iconGravity="textStart"
+
+
+        />
+
+</LinearLayout>
