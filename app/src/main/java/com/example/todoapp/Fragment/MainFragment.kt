@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
     private val taskViewModel : TaskViewModel by activityViewModels(){
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
-  // private val taskViewModel : TaskViewModel by activityViewModels()
+    // private val taskViewModel : TaskViewModel by activityViewModels()
     private lateinit var goToDetailTaskFragment : ((Task) -> Unit)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,58 +44,58 @@ class MainFragment : Fragment() {
             }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-             initBehavior()
-             initComponent()
-             initViewPager()
+        initBehavior()
+        initComponent()
+        initViewPager()
     }
-   private fun initComponent(){
-       viewPager = binding.viewPager
-       bubbleNavigationView = binding.bottomNavigationViewLinear
-       pagerAdapter = FragmentMainViewPager(childFragmentManager, lifecycle, arrayListOf(
-          HomeFragment.newInstance(object : IItemTaskListener{
-              override fun onClickItemTask(task: Task) {
+    private fun initComponent(){
+        viewPager = binding.viewPager
+        bubbleNavigationView = binding.bottomNavigationViewLinear
+        pagerAdapter = FragmentMainViewPager(childFragmentManager, lifecycle, arrayListOf(
+            HomeFragment.newInstance(object : IItemTaskListener{
+                override fun onClickItemTask(task: Task) {
                     goToDetailTaskFragment.invoke(task)
-              }
+                }
 
-          }), CalendarFragment(), StatisticFragment(), SettingFragment()
-       ))
+            }), CalendarFragment(), StatisticFragment(), SettingFragment()
+        ))
 
-      viewPager.adapter = pagerAdapter
-   }
-   private fun initBehavior(){
+        viewPager.adapter = pagerAdapter
+    }
+    private fun initBehavior(){
 
-       binding.btAddTask.setOnClickListener {
-           AddTaskDialogFragment(object : IAddTaskListener {
-               override fun onAddTask(task: Task) {
-                   taskViewModel.insertTask(task)
-               }
-           }).show(parentFragmentManager, AddTaskDialogFragment.TAG)
-       }
-   }
-   private fun initViewPager(){
-       viewPager.apply {
-           setPageTransformer( ViewPager2.PageTransformer { page, position ->
-               page.pivotX = (if (position < 0) 0 else page.width).toFloat()
-               page.scaleX = if (position < 0) 1f + position else 1f - position
-           })
-           registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-               override fun onPageSelected(position: Int) {
-                   bubbleNavigationView.setCurrentActiveItem(position)
-               }
-           })
-       }
+        binding.btAddTask.setOnClickListener {
+            AddTaskDialogFragment(object : IAddTaskListener {
+                override fun onAddTask(task: Task) {
+                    taskViewModel.insertTask(task)
+                }
+            }).show(parentFragmentManager, AddTaskDialogFragment.TAG)
+        }
+    }
+    private fun initViewPager(){
+        viewPager.apply {
+            setPageTransformer( ViewPager2.PageTransformer { page, position ->
+                page.pivotX = (if (position < 0) 0 else page.width).toFloat()
+                page.scaleX = if (position < 0) 1f + position else 1f - position
+            })
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    bubbleNavigationView.setCurrentActiveItem(position)
+                }
+            })
+        }
 
-       bubbleNavigationView.apply {
-           setNavigationChangeListener { _, position ->
-               viewPager.setCurrentItem(position, true)
-           }
-           setNavigationChangeListener(BubbleNavigationChangeListener { _: View?, position: Int ->
-               viewPager.setCurrentItem(
-                   position,
-                   true
-               )
-           })
-       }
-   }
+        bubbleNavigationView.apply {
+            setNavigationChangeListener { _, position ->
+                viewPager.setCurrentItem(position, true)
+            }
+            setNavigationChangeListener(BubbleNavigationChangeListener { _: View?, position: Int ->
+                viewPager.setCurrentItem(
+                    position,
+                    true
+                )
+            })
+        }
+    }
 
 }

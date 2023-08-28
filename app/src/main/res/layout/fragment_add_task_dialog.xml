@@ -50,6 +50,7 @@
             android:layout_toStartOf="@+id/bt_add_task"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="16dp"
+            android:padding="8dp"
             >
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -78,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_confirm"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 

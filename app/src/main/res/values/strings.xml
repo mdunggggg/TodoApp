@@ -14,4 +14,9 @@
     <string name="no_category">No category</string>
     <string name="tasks">tasks</string>
     <string name="new_category">New Category</string>
+    <string name="task_title">Task title</string>
+    <string name="due_date">Due Date</string>
+    <string name="descriptions">Descriptions</string>
+    <string name="subtasks">Subtasks</string>
+    <string name="go_to_school">Go to school</string>
 </resources>
