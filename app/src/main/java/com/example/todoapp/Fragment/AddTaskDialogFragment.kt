@@ -1,20 +1,25 @@
 package com.example.todoapp.Fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.todoapp.Dialog.CategoryPickerDialog
 import com.example.todoapp.Dialog.DateTimePickerDialog
+import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Interfaces.ITimeListener
+import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 import java.time.LocalTime
 
-class AddTaskDialogFragment : BottomSheetDialogFragment() {
+class AddTaskDialogFragment(private val addTaskListener: IAddTaskListener) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddTaskDialogBinding
     private var date = ""
     private var time = ""
@@ -38,6 +43,9 @@ class AddTaskDialogFragment : BottomSheetDialogFragment() {
             }
             btSetCategory.setOnClickListener {
                 setCategory()
+            }
+            btAddTask.setOnClickListener{
+                addTask()
             }
         }
     }
@@ -64,6 +72,23 @@ class AddTaskDialogFragment : BottomSheetDialogFragment() {
             }
         })
         category.show(childFragmentManager, CategoryPickerDialog.TAG)
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun addTask(){
+        if (binding.etTaskName.text.toString().isEmpty() || binding.etTaskDescription.text.toString().isEmpty() || binding.btSetCategory.text.toString().isEmpty() || binding.btSetDueDate.text.toString().isEmpty()){
+            Toast.makeText(context, "Please fill all information", Toast.LENGTH_SHORT).show()
+            return
+        }
+        addTaskListener.onAddTask(
+            Task(
+               title = binding.etTaskName.text.toString(),
+                content = binding.etTaskDescription.text.toString(),
+                idCategory = 10,
+                dueDate = date,
+                dueTime = time
+            )
+        )
+        dismiss()
     }
 
 }
