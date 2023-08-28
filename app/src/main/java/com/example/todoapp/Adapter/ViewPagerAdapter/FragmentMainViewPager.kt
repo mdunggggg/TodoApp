@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ActivityMainViewPager(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val fragmentList: ArrayList<Fragment>) :
+class FragmentMainViewPager(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val fragmentList: ArrayList<Fragment>) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return fragmentList.size

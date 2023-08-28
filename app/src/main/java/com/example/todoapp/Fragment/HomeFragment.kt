@@ -12,39 +12,52 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
+import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
 
 
-class HomeFragment() : Fragment() {
+class HomeFragment(
+
+) : Fragment() {
     private lateinit var binding : FragmentHomeBinding
-   private val taskViewModel : TaskViewModel by lazy {
-       ViewModelProvider(requireActivity())[TaskViewModel::class.java]
-   }
+    private lateinit var onItemClick: IItemTaskListener
+    private val homeTaskAdapter: HomeTaskAdapter by lazy {
+        HomeTaskAdapter { task: Task ->
+            onItemClick.onClickItemTask(task)
+        }
+    }
+    private val taskViewModel : TaskViewModel by activityViewModels {
+        TaskViewModel.TaskViewModelFactory(requireActivity().application)
+    }
     companion object{
         const val TAG = "HomeFragment"
+        @JvmStatic
+        fun newInstance(onIItemTaskListener: IItemTaskListener) =
+            HomeFragment().apply {
+                this.onItemClick = onIItemTaskListener
+            }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initComponent()
         taskViewModel.getAllTasks().observe(
             viewLifecycleOwner
         ) {
-            binding.rvTaskHome.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = HomeTaskAdapter(it)
-            }
+            homeTaskAdapter.submitList(it)
         }
+    }
+    private fun initComponent(){
+        binding.rvTaskHome.adapter = homeTaskAdapter
     }
 
 
