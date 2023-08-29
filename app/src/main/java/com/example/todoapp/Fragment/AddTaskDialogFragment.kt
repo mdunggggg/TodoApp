@@ -12,6 +12,7 @@ import com.example.todoapp.Dialog.DateTimePickerDialog
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Interfaces.ITimeListener
+import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
@@ -79,6 +80,7 @@ class AddTaskDialogFragment(private val addTaskListener: IAddTaskListener) : Bot
             Toast.makeText(context, "Please fill all information", Toast.LENGTH_SHORT).show()
             return
         }
+
         addTaskListener.onAddTask(
             Task(
                title = binding.etTaskName.text.toString(),

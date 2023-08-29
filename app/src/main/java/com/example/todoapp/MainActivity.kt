@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         supportFragmentManager.commit {
+            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             replace(
                 binding.root.id,
                 MainFragment.newInstance {
@@ -31,17 +33,18 @@ class MainActivity : AppCompatActivity() {
                 },
             )
             setReorderingAllowed(true)
-            addToBackStack("MainFragment")
+            addToBackStack(MainFragment.TAG)
         }
     }
     private fun goToDetailTaskFragment(task: Task){
         supportFragmentManager.commit {
+            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             replace(
                 binding.root.id,
-                DetailTaskFragment(),
+                DetailTaskFragment.newInstance(task)
             )
             setReorderingAllowed(true)
-            addToBackStack("DetailTaskFragment")
+            addToBackStack(DetailTaskFragment.TAG)
         }
     }
 

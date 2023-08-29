@@ -5,10 +5,6 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-
-
-
-
 object DateTimeUtils {
     const val patternDate : String = "dd/MM/yyyy"
      private const val patternDateWithStringMonth : String = "dd MMM yyyy"
@@ -20,6 +16,11 @@ object DateTimeUtils {
             date.toDateWithStringMonth()
         else
             date.toDateWithStringMonth() + " " + time.toStringTime()
+    }
+    fun formatDateTime(date : String? , time : String?) : String?{
+        val localDate = date?.toLocalDate()
+        val localTime = time?.toLocalTime()
+        return formatDateTime(localDate, localTime)
     }
     fun convertToStringTime(time: LocalTime?): String? {
         return time?.toStringTime()
@@ -43,4 +44,21 @@ object DateTimeUtils {
         }
         return this.format(formatter)
     }
+    private fun String.toLocalDate(): LocalDate? {
+        return try {
+            LocalDate.parse(this, DateTimeFormatter.ISO_DATE)
+        } catch (e: Exception) {
+            null
+        }
+
+    }
+
+    private fun String.toLocalTime(): LocalTime? {
+        return try {
+            LocalTime.parse(this, DateTimeFormatter.ISO_TIME)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 }

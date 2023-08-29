@@ -19,9 +19,7 @@ import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
 
 
-class HomeFragment(
-
-) : Fragment() {
+class HomeFragment() : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private lateinit var onItemClick: IItemTaskListener
     private val homeTaskAdapter: HomeTaskAdapter by lazy {
