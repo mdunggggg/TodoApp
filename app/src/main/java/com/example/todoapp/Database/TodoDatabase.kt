@@ -14,7 +14,7 @@ import com.example.todoapp.Model.Task
 @TypeConverters(Converters::class)
 abstract class TodoDatabase : RoomDatabase(){
     abstract fun taskDao() : TaskDao
-    abstract val categoryDao : CategoryDao
+    abstract fun categoryDao() : CategoryDao
     companion object{
         private const val DATABASE_NAME = "todo_db"
         private const val NUMBER_OF_THREADS = 4

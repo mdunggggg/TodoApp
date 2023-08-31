@@ -1,5 +1,6 @@
 package com.example.todoapp.Database.Category
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,17 +13,17 @@ import com.example.todoapp.Model.Relation.CategoryWithTasks
 @Dao
 interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertCategory(category: Category)
+     suspend fun insertCategory(category: Category)
     @Delete
-    fun deleteCategory(category: Category)
+    suspend  fun deleteCategory(category: Category)
     @Update
-     fun updateCategory(category: Category)
+    suspend fun updateCategory(category: Category)
     @Query("SELECT * FROM category_table")
-    fun getAllCategory(): List<Category>
+    fun getAllCategory(): LiveData<List<Category>>
 
     @Transaction
     @Query("SELECT * FROM category_table")
-    fun getCategoryWithTasks(): List<CategoryWithTasks>
+    fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
 
 
 }

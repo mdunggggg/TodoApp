@@ -87,18 +87,18 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
             <EditText
-                android:padding="8dp"
-                android:layout_margin="16dp"
+                android:padding="16dp"
+
                 android:id="@+id/ed_add_subtask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter subtask"
+                android:hint="@string/new_subtask"
                 android:textSize="20sp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
                 android:maxLines="1"
                 android:inputType="text"
                 android:imeOptions="actionDone"
+                android:layout_marginHorizontal="16dp"
                 />
 
         </LinearLayout>
