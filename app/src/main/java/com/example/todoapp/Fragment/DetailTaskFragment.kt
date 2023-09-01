@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.todoapp.Adapter.RecyclerViewAdapter.SubtasksAdapter
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
@@ -25,10 +27,10 @@ import com.example.todoapp.databinding.FragmentDetailTaskBinding
 class DetailTaskFragment : Fragment() {
     private lateinit var binding : FragmentDetailTaskBinding
     private lateinit var task : Task
+    private val args : DetailTaskFragmentArgs by navArgs()
     private val subtasksAdapter : SubtasksAdapter by lazy {
         SubtasksAdapter { _: Subtask ->
             taskViewModel.updateTask(task)
-
         }
     }
     private val taskViewModel : TaskViewModel by activityViewModels {
@@ -36,11 +38,6 @@ class DetailTaskFragment : Fragment() {
     }
     companion object{
         const val TAG = "DetailTaskFragment"
-        @JvmStatic
-        fun newInstance(task : Task)
-            =  DetailTaskFragment().apply {
-                this.task = task
-             }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,14 +45,17 @@ class DetailTaskFragment : Fragment() {
     ): View? {
         binding = FragmentDetailTaskBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        receiveData()
         initComponent()
         initBehavior()
+    }
+    private fun receiveData(){
+            task = args.taskArgs
     }
     private fun initComponent(){
         binding.apply {
@@ -68,7 +68,7 @@ class DetailTaskFragment : Fragment() {
     }
     private fun initBehavior(){
         binding.toolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            findNavController().navigateUp()
         }
        binding.edAddSubtask.onDone {
            addSubtask()

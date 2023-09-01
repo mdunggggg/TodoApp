@@ -20,4 +20,4 @@ data class Task (
     var dueTime: String = "",
     var idCategory: Long,
     var isFinish: Boolean = false
-)
+) : Serializable

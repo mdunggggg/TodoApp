@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Interfaces.IItemTaskListener
@@ -24,7 +25,7 @@ class HomeFragment() : Fragment() {
     private lateinit var onItemClick: IItemTaskListener
     private val homeTaskAdapter: HomeTaskAdapter by lazy {
         HomeTaskAdapter { task: Task ->
-            onItemClick.onClickItemTask(task)
+            goToDetailFragment(task)
         }
     }
     private val taskViewModel : TaskViewModel by activityViewModels {
@@ -32,11 +33,6 @@ class HomeFragment() : Fragment() {
     }
     companion object{
         const val TAG = "HomeFragment"
-        @JvmStatic
-        fun newInstance(onIItemTaskListener: IItemTaskListener) =
-            HomeFragment().apply {
-                this.onItemClick = onIItemTaskListener
-            }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +52,11 @@ class HomeFragment() : Fragment() {
     }
     private fun initComponent(){
         binding.rvTaskHome.adapter = homeTaskAdapter
+    }
+    private fun goToDetailFragment(task: Task){
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToDetailTaskFragment(task)
+        )
     }
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
 import com.example.todoapp.Interfaces.IAddTaskListener
@@ -25,7 +26,7 @@ class MainFragment : Fragment() {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
     // private val taskViewModel : TaskViewModel by activityViewModels()
-    private lateinit var goToDetailTaskFragment : ((Task) -> Unit)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +38,6 @@ class MainFragment : Fragment() {
     }
     companion object{
         const val TAG = "MainFragment"
-        @JvmStatic
-        fun newInstance(goToOnDetailTaskFragment: ((Task) -> Unit)) =
-            MainFragment().apply {
-                this.goToDetailTaskFragment = goToOnDetailTaskFragment
-            }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initBehavior()
@@ -52,12 +48,7 @@ class MainFragment : Fragment() {
         viewPager = binding.viewPager
         bubbleNavigationView = binding.bottomNavigationViewLinear
         pagerAdapter = FragmentMainViewPager(childFragmentManager, lifecycle, arrayListOf(
-            HomeFragment.newInstance(object : IItemTaskListener{
-                override fun onClickItemTask(task: Task) {
-                    goToDetailTaskFragment.invoke(task)
-                }
-
-            }), CalendarFragment(), StatisticFragment(), SettingFragment()
+            HomeFragment(), CalendarFragment(), StatisticFragment(), SettingFragment()
         ))
 
         viewPager.adapter = pagerAdapter
@@ -97,5 +88,6 @@ class MainFragment : Fragment() {
             })
         }
     }
+
 
 }

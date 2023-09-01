@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 
     id("com.google.devtools.ksp")
+    //safe args
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -77,5 +79,12 @@ dependencies {
 
     // Gson
     implementation ("com.google.code.gson:gson:2.10.1")
+
+
+    // Navigation
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
+
+
 
 }
