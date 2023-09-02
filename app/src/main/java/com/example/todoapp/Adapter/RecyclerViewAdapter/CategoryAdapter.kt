@@ -22,11 +22,13 @@ class CategoryAdapter(
         fun bind(category: Category){
             binding.apply {
                 tvCategoryName.apply {
-                    text = category.title
+                    text = category.titleCategory
                     setTextColor(category.color)
                 }
+                tvTasksCountNumber.text = category.numTask.toString()
+
                 root.setOnClickListener {
-                    categoryListener.onClickCategory(category.title)
+                    categoryListener.onClickCategory(category.titleCategory)
                     onDismiss()
                 }
             }
@@ -51,7 +53,7 @@ class CategoryAdapter(
             }
 
             override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-                return oldItem.idCategory == newItem.idCategory
+                return oldItem.titleCategory == newItem.titleCategory
             }
 
         }

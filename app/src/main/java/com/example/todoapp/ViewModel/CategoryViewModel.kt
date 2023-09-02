@@ -28,8 +28,9 @@ class CategoryViewModel(application: Application) : ViewModel(){
     fun clearCategory() = viewModelScope.launch {
         categoryRepository.clearCategory()
     }
-    fun getAllCategory() : LiveData<List<Category>>
-        = categoryRepository.getAllCategory()
+    fun getAllCategory() = categoryRepository.getAllCategory()
+    fun getCategoryByTitle(titleCategory: String) = categoryRepository.getCategoryByTitle(titleCategory)
+
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
         = categoryRepository.getCategoryWithTasks()
     class CategoryViewModelFactory(private val application: Application) : ViewModelProvider.Factory{

@@ -21,11 +21,16 @@ interface CategoryDao {
     @Query("DELETE FROM category_table")
     suspend fun clearCategory()
     @Query("SELECT * FROM category_table")
-    fun getAllCategory(): LiveData<List<Category>>
+     fun getAllCategory(): LiveData<List<Category>>
+    @Query("SELECT * FROM category_table WHERE titleCategory = :titleCategory")
+     fun getCategoryByTitle(titleCategory: String): LiveData<Category>
 
     @Transaction
     @Query("SELECT * FROM category_table")
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
+    @Transaction
+    @Query("SELECT * FROM category_table WHERE titleCategory = :titleCategory")
+    fun getCategoryWithTasksByTitle(titleCategory: String): LiveData<CategoryWithTasks>
 
 
 }

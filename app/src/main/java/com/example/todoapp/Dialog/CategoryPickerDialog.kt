@@ -69,7 +69,6 @@ class CategoryPickerDialog(
         AddCategoryDialog(object : IAddCategoryListener{
             override fun onAddCategory(category: Category) {
                 categoryViewModel.insertCategory(category)
-                Toast.makeText(requireContext(), "Add category successfully", Toast.LENGTH_SHORT).show()
             }
 
         }).show(childFragmentManager, AddCategoryDialog.TAG)

@@ -9,7 +9,7 @@ import com.example.todoapp.Model.Task
 
 class TaskRepository(application: Application) {
     private var taskDao : TaskDao =
-        Room.databaseBuilder(application, TodoDatabase::class.java, "MyDatabase").allowMainThreadQueries().build().taskDao()
+        Room.databaseBuilder(application, TodoDatabase::class.java, "DatabaseVersion3").allowMainThreadQueries().build().taskDao()
     suspend fun insertTask(task: Task) = taskDao.insertTask(task)
     suspend fun deleteTask(task: Task) = taskDao.deleteTask(task)
     suspend fun updateTask(task: Task) = taskDao.updateTask(task)

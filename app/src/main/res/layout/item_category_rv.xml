@@ -27,6 +27,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/tasks"/>
         <TextView
+            android:id="@+id/tv_tasks_count_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/tv_tasks_count"

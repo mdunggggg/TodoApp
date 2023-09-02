@@ -69,7 +69,7 @@ class AddCategoryDialog(private val onAddCategory : IAddCategoryListener) : Bott
     }
     private fun addCategory(){
         onAddCategory.onAddCategory(
-            Category(title = binding.etCategoryName.text.toString(), color = color)
+            Category(titleCategory = binding.etCategoryName.text.toString(), color = color)
         )
         dismiss()
     }

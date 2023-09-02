@@ -9,7 +9,7 @@ import com.example.todoapp.Model.Relation.CategoryWithTasks
 
 class CategoryRepository(application: Application) {
     private val categoryDao: CategoryDao =
-        Room.databaseBuilder(application, TodoDatabase::class.java, "MyDatabase")
+        Room.databaseBuilder(application, TodoDatabase::class.java, "DatabaseVersion3")
             .allowMainThreadQueries().build().categoryDao()
         suspend fun insertCategory(category: Category)
             = categoryDao.insertCategory(category)
@@ -19,8 +19,11 @@ class CategoryRepository(application: Application) {
             = categoryDao.updateCategory(category)
         suspend fun clearCategory()
             = categoryDao.clearCategory()
+
         fun getAllCategory() : LiveData<List<Category>>
             = categoryDao.getAllCategory()
+        fun getCategoryByTitle(titleCategory: String)
+            = categoryDao.getCategoryByTitle(titleCategory)
         fun getCategoryWithTasks() : LiveData<List<CategoryWithTasks>>
             = categoryDao.getCategoryWithTasks()
 

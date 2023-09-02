@@ -15,9 +15,9 @@ data class Task (
     var title: String,
     var content : String = "",
     var subtasks : List<Subtask> = emptyList(),
-    var dateCreated : String = "",
+    var dateCreated : String,
     var dueDate: String = "",
     var dueTime: String = "",
-    var idCategory: Long,
+    var titleCategory: String,
     var isFinish: Boolean = false
 ) : Serializable
