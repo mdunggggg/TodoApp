@@ -18,6 +18,10 @@ import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import kotlin.math.log
@@ -33,19 +37,24 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     companion object{
         const val TAG = "AddTaskDialogFragment"
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddTaskDialogBinding.inflate(inflater, container, false)
         initComponent()
         initBehavior()
         return binding.root
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initComponent(){
         binding.apply{
             btSetDueDate.setOnClickListener{
                 setDueDate()
+            }
+            btSetDueTime.setOnClickListener{
+                setDueTime()
             }
             btSetCategory.setOnClickListener {
                 setCategory()
@@ -58,17 +67,44 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     private fun initBehavior(){
 
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueDate() {
-        val dialog = DateTimePickerDialog(object : ITimeListener {
-            override fun onDateTimeSelected(date: LocalDate?, time: LocalTime?) {
-                setDueDate(date, time)
-            }
-        }).show(childFragmentManager, "DateTimePickerDialog")
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setTitleText("Select date")
+            .build()
+        datePicker.addOnPositiveButtonClickListener {
+            setDueDate(datePicker.headerText)
+        }
+
+        datePicker.show(childFragmentManager, "DatePickerDialog")
     }
-    private fun setDueDate(date: LocalDate?, time: LocalTime?){
-        this.date = date?.toString() ?: ""
-        this.time = time?.toString() ?: ""
-        binding.btSetDueDate.text = DateTimeUtils.formatDateTime(date, time)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDueTime(){
+        val timePicker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(LocalTime.now().hour)
+            .setMinute(LocalTime.now().minute)
+            .setTitleText("Select time")
+            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+            .build()
+        timePicker.addOnPositiveButtonClickListener {
+            setDueTime(timePicker.hour, timePicker.minute)
+        }
+        timePicker.show(childFragmentManager, "TimePickerDialog")
+    }
+
+    private fun setDueDate(date : String){
+
+        this.date = DateTimeUtils.formatDate(date)
+        Log.d(TAG, "setDueDate: ${this.date}")
+        binding.btSetDueDate.text = date
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDueTime(hour : Int, minute : Int){
+        this.time = DateTimeUtils.formatTime(hour, minute)
+        binding.btSetDueTime.text = this.time
     }
 
     private fun setCategory(){

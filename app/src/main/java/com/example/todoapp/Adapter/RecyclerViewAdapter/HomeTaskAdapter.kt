@@ -19,7 +19,7 @@ class HomeTaskAdapter(
                          tvTaskName.text = task.title
                          tvTaskTime.text = task.dueTime
                          tvTaskDescription.text = task.content
-
+                          tvCategoryName.text = task.titleCategory
                           itemView.setOnClickListener {
                                 onItemClicked(task)
                           }

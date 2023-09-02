@@ -63,6 +63,7 @@ class DetailTaskFragment : Fragment() {
         binding.apply {
             tvTaskName.text = task.title
             tvTaskDescription.text = task.content
+            Log.d(TAG, "initComponent: ${task.dueDate} ${task.dueTime}")
             tvTaskDueDate.text = DateTimeUtils.formatDateTime(task.dueDate, task.dueTime)
             rvSubtasks.adapter = subtasksAdapter
         }

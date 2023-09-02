@@ -49,7 +49,6 @@ class CategoryPickerDialog(
         initBehavior()
     }
     private fun initComponent(){
-
         binding.rvCategories.apply {
             adapter = categoryAdapter
         }
