@@ -1,4 +1,4 @@
-package com.example.todoapp.Fragment
+package com.example.todoapp.Dialog
 
 import android.os.Build
 import android.os.Bundle
@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.todoapp.Dialog.CategoryPickerDialog
-import com.example.todoapp.Dialog.DateTimePickerDialog
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Interfaces.ITimeListener
-import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
@@ -20,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 import java.time.LocalTime
 
-class AddTaskDialogFragment(private val addTaskListener: IAddTaskListener) : BottomSheetDialogFragment() {
+class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddTaskDialogBinding
     private var date = ""
     private var time = ""

@@ -7,7 +7,7 @@ import java.io.Serializable
 @Entity(tableName = "category_table")
 data class Category(
     @PrimaryKey(autoGenerate = true)
-    var idCategory : Long,
+    var idCategory : Long = 0,
     var title: String,
     var color : Int
 )

@@ -53,18 +53,20 @@ class DetailTaskFragment : Fragment() {
         receiveData()
         initComponent()
         initBehavior()
+
     }
     private fun receiveData(){
-            task = args.taskArgs
+        task = args.taskArgs
     }
     private fun initComponent(){
+        subtasksAdapter.updateData(task.subtasks)
         binding.apply {
             tvTaskName.text = task.title
             tvTaskDescription.text = task.content
             tvTaskDueDate.text = DateTimeUtils.formatDateTime(task.dueDate, task.dueTime)
             rvSubtasks.adapter = subtasksAdapter
         }
-        subtasksAdapter.updateData(task.subtasks)
+
     }
     private fun initBehavior(){
         binding.toolbar.setNavigationOnClickListener {

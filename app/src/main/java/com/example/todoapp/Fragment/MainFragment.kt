@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
+import com.example.todoapp.Dialog.AddTaskDialog
 import com.example.todoapp.Interfaces.IAddTaskListener
-import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.Task
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentMainBinding
@@ -56,11 +55,11 @@ class MainFragment : Fragment() {
     private fun initBehavior(){
 
         binding.btAddTask.setOnClickListener {
-            AddTaskDialogFragment(object : IAddTaskListener {
+            AddTaskDialog(object : IAddTaskListener {
                 override fun onAddTask(task: Task) {
                     taskViewModel.insertTask(task)
                 }
-            }).show(parentFragmentManager, AddTaskDialogFragment.TAG)
+            }).show(parentFragmentManager, AddTaskDialog.TAG)
         }
     }
     private fun initViewPager(){

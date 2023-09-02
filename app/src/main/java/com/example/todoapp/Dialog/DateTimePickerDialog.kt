@@ -8,10 +8,12 @@ import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.afollestad.materialdialogs.MaterialDialog
 import com.example.todoapp.Interfaces.ITimeListener
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.FragmentDateTimePickerDialogBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -38,7 +40,7 @@ class DateTimePickerDialog(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             updateTime()
         }
-        val dialog = AlertDialog.Builder(requireContext()).setView(binding.root)
+        val dialog = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
             .setTitle(getString(R.string.pick_a_date_and_time))
             .setPositiveButton(getString(R.string.save)
             ) { _, _ -> timeSelected.onDateTimeSelected(date, time) }

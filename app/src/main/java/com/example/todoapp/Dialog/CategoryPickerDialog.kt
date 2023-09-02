@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryAdapter
+import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Model.Category
 import com.example.todoapp.R
+import com.example.todoapp.ViewModel.CategoryViewModel
+import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.example.todoapp.databinding.FragmentCategoryPickerDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,6 +26,12 @@ class CategoryPickerDialog(
 
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentCategoryPickerDialogBinding
+    private val categoryAdapter: CategoryAdapter by lazy {
+        CategoryAdapter( categoryListener, this@CategoryPickerDialog::dismiss)
+    }
+    private val categoryViewModel : CategoryViewModel by activityViewModels {
+        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
+    }
     companion object{
         const val TAG = "CategoryPickerDialog"
     }
@@ -33,19 +43,38 @@ class CategoryPickerDialog(
         initComponent()
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initComponent()
+        initBehavior()
+    }
     private fun initComponent(){
-        val list : List<Category> = listOf(
-            Category(1, "Personal", ContextCompat.getColor(requireContext(), R.color.black)),
-            Category(2, "Work", ContextCompat.getColor(requireContext(), R.color.red_active)),
-            Category(3, "Study", ContextCompat.getColor(requireContext(), R.color.green_active)),
-            Category(4, "Shopping", ContextCompat.getColor(requireContext(), R.color.purple_active)),
-        )
 
         binding.rvCategories.apply {
-            adapter = CategoryAdapter(list, categoryListener, this@CategoryPickerDialog::dismiss)
-            layoutManager = LinearLayoutManager(requireContext())
+            adapter = categoryAdapter
+        }
+
+        categoryViewModel.getAllCategory().observe(viewLifecycleOwner){
+            categoryAdapter.submitList(it)
+        }
+
+
+    }
+    private fun initBehavior(){
+        binding.btAddCategory.setOnClickListener {
+            addCategory()
         }
     }
+    private fun addCategory(){
+        AddCategoryDialog(object : IAddCategoryListener{
+            override fun onAddCategory(category: Category) {
+                categoryViewModel.insertCategory(category)
+                Toast.makeText(requireContext(), "Add category successfully", Toast.LENGTH_SHORT).show()
+            }
+
+        }).show(childFragmentManager, AddCategoryDialog.TAG)
+    }
+
 
 
 }

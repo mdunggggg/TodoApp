@@ -1,6 +1,8 @@
 package com.example.todoapp
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 //    private val taskViewModel : TaskViewModel by viewModels(){
 //        TaskViewModel.TaskViewModelFactory(application)
 //    }
+
+
     private val taskViewModel : TaskViewModel by viewModels(){
         TaskViewModel.TaskViewModelFactory(application)
     }
@@ -27,29 +31,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        supportFragmentManager.commit {
-//            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-//            replace(
-//                binding.root.id,
-//                MainFragment.newInstance {
-//                     goToDetailTaskFragment(it)
-//                },
+//        with(window){
+//            setFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 //            )
-//            setReorderingAllowed(true)
-//            addToBackStack(MainFragment.TAG)
 //        }
     }
-//    private fun goToDetailTaskFragment(task: Task){
-//        supportFragmentManager.commit {
-//            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-//            replace(
-//                binding.root.id,
-//                DetailTaskFragment.newInstance(task)
-//            )
-//            setReorderingAllowed(true)
-//            addToBackStack(DetailTaskFragment.TAG)
-//        }
-//    }
-
 }
 

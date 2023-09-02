@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Fragment.AddTaskDialogFragment">
+    tools:context=".Dialog.AddTaskDialog">
     <View
         android:layout_width="48dp"
         android:layout_height="4dp"
