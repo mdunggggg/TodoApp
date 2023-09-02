@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Model.Category
+import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.databinding.ItemCategoryRvBinding
 
 class CategoryAdapter(
@@ -22,7 +23,7 @@ class CategoryAdapter(
             binding.apply {
                 tvCategoryName.apply {
                     text = category.title
-                    setTextColor(ContextCompat.getColor(itemView.context, category.color))
+                    setTextColor(category.color)
                 }
                 root.setOnClickListener {
                     categoryListener.onClickCategory(category.title)

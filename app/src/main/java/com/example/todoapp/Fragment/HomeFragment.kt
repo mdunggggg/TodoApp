@@ -44,6 +44,7 @@ class HomeFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initComponent()
+
         taskViewModel.getAllTasks().observe(
             viewLifecycleOwner
         ) {

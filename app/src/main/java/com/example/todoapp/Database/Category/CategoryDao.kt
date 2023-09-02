@@ -18,6 +18,8 @@ interface CategoryDao {
     suspend  fun deleteCategory(category: Category)
     @Update
     suspend fun updateCategory(category: Category)
+    @Query("DELETE FROM category_table")
+    suspend fun clearCategory()
     @Query("SELECT * FROM category_table")
     fun getAllCategory(): LiveData<List<Category>>
 

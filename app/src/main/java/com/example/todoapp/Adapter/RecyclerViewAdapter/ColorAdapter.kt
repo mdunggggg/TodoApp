@@ -2,7 +2,9 @@ package com.example.todoapp.Adapter.RecyclerViewAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.databinding.ColorCircleBinding
 
 class ColorAdapter(
@@ -13,7 +15,7 @@ class ColorAdapter(
     inner class ColorViewHolder(private val binding : ColorCircleBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                color.backgroundTintList = itemView.context.getColorStateList(colors[position])
+                color.setCardBackgroundColor(colors[position])
                 root.setOnClickListener {
                     onColorClicked(colors[position])
                     onDismiss()

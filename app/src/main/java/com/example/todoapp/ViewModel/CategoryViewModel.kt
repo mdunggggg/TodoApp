@@ -25,6 +25,9 @@ class CategoryViewModel(application: Application) : ViewModel(){
     fun updateCategory(category: Category) = viewModelScope.launch {
         categoryRepository.updateCategory(category)
     }
+    fun clearCategory() = viewModelScope.launch {
+        categoryRepository.clearCategory()
+    }
     fun getAllCategory() : LiveData<List<Category>>
         = categoryRepository.getAllCategory()
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>

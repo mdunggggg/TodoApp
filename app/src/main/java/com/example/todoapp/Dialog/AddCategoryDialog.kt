@@ -28,6 +28,7 @@ import com.afollestad.materialdialogs.color.colorChooser
 import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Model.Category
 import com.example.todoapp.R
+import com.example.todoapp.Utils.ColorUtils.getColorArray
 import com.example.todoapp.databinding.FragmentAddCategoryDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialDialogs
@@ -35,7 +36,7 @@ import com.google.android.material.dialog.MaterialDialogs
 
 class AddCategoryDialog(private val onAddCategory : IAddCategoryListener) : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddCategoryDialogBinding
-    private var color = 0
+    private var color = Color.BLACK
     companion object{
         const val TAG = "AddCategoryDialog"
     }
@@ -60,7 +61,7 @@ class AddCategoryDialog(private val onAddCategory : IAddCategoryListener) : Bott
     private fun setColorCategory(){
         val colorPickerDialog = ColorPickerDialog{
             color -> binding.apply {
-                btSetColorCategory.backgroundTintList = (ContextCompat.getColorStateList(requireContext(), color))
+                btSetColorCategory.backgroundTintList = ColorStateList.valueOf(color)
              }
             this.color = color
         }

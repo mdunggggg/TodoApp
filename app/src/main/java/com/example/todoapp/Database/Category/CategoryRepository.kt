@@ -17,6 +17,8 @@ class CategoryRepository(application: Application) {
             = categoryDao.deleteCategory(category)
         suspend fun updateCategory(category: Category)
             = categoryDao.updateCategory(category)
+        suspend fun clearCategory()
+            = categoryDao.clearCategory()
         fun getAllCategory() : LiveData<List<Category>>
             = categoryDao.getAllCategory()
         fun getCategoryWithTasks() : LiveData<List<CategoryWithTasks>>

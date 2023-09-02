@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.todoapp.Adapter.RecyclerViewAdapter.ColorAdapter
+
 import com.example.todoapp.R
+import com.example.todoapp.Utils.ColorUtils
+import com.example.todoapp.Utils.ColorUtils.getColorArray
 import com.example.todoapp.databinding.FragmentColorPickerDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -31,18 +34,9 @@ class ColorPickerDialog(
     }
 
     private fun initBehavior() {
+
         binding.rvColorPicker.apply {
-            adapter = ColorAdapter(listOf(
-                R.color.black,
-                R.color.red_active,
-                R.color.purple_active,
-                R.color.blue_active,
-                R.color.green_active,
-                R.color.yellow_active,
-                R.color.orange_active,
-                R.color.blue_active,
-                R.color.yellow_active,
-                ),
+            adapter = ColorAdapter(requireContext().getColorArray(R.array.colors),
                 {color -> onColorClicked(color)},
                 this@ColorPickerDialog::dismiss
             )
