@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp">
+
         <TextView
             android:id="@+id/tv_task_time"
             android:layout_width="wrap_content"
@@ -17,38 +18,41 @@
             android:text="08:30"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:orientation="vertical"
+            android:layout_toStartOf="@+id/tv_category_name"
             android:layout_toEndOf="@+id/tv_task_time"
-            android:layout_marginStart="16dp"
-            >
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_task_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task Name"
-                android:layout_marginStart="16dp"
-                android:layout_alignParentStart="true"
-                />
+                android:layout_marginHorizontal="16dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/task_name" />
+
             <TextView
                 android:id="@+id/tv_task_description"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Task Description"
-                android:layout_marginStart="16dp"
-                android:layout_alignParentStart="true"
-                />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:maxLines="2"
+                android:text="@string/task_description" />
         </LinearLayout>
         <TextView
             android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="@string/home"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             />

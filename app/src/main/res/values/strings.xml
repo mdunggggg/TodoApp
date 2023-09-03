@@ -26,4 +26,7 @@
     <string name="enter_name_of_category">Enter name of category</string>
     <string name="color">Color</string>
     <string name="time">Time</string>
+    <string name="task_description">Task Description</string>
+    <string name="task_name">Task Name</string>
+    <string name="home">Home</string>
 </resources>
