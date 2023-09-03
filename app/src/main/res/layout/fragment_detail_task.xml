@@ -29,13 +29,16 @@
                 android:layout_marginTop="8dp"
                 android:textSize="16sp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/tv_task_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="32sp"
                 android:layout_margin="16dp"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage"
+                android:background="@android:color/transparent"
                 android:text="@string/nft_web_app_prototype"
                 />
             <TextView
@@ -61,7 +64,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:textSize="16sp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/tv_task_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,6 +72,9 @@
                 android:text="@string/last_year_was_a_fantastic_year_for_nfts_with_the_market_reaching_a_40_billion_valuation_for_the_first_time_in_addition_more_than_10_billion_worth_of_nfts_are_now_sold_every_week_with_nft"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:background="@android:color/transparent"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -88,7 +94,6 @@
                 />
             <EditText
                 android:padding="16dp"
-
                 android:id="@+id/ed_add_subtask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

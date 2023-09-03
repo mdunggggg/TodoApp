@@ -29,4 +29,5 @@
     <string name="task_description">Task Description</string>
     <string name="task_name">Task Name</string>
     <string name="home">Home</string>
+    <string name="todo">TODO</string>
 </resources>

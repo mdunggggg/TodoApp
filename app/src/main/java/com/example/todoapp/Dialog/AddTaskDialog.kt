@@ -11,8 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Interfaces.ICategoryListener
+import com.example.todoapp.Interfaces.IDateListener
 import com.example.todoapp.Interfaces.ITimeListener
-import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.ViewModel.CategoryViewModel
@@ -69,36 +69,28 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueDate() {
-
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .setTitleText("Select date")
-            .build()
-        datePicker.addOnPositiveButtonClickListener {
-            setDueDate(datePicker.headerText)
-        }
-
-        datePicker.show(childFragmentManager, "DatePickerDialog")
+        DatePickerDialog(
+            object : IDateListener {
+                override fun onDateSelected(date: String) {
+                    setDueDate(date)
+                }
+            }
+        ).show(parentFragmentManager, "SET_DATE")
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueTime(){
-        val timePicker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(LocalTime.now().hour)
-            .setMinute(LocalTime.now().minute)
-            .setTitleText("Select time")
-            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
-            .build()
-        timePicker.addOnPositiveButtonClickListener {
-            setDueTime(timePicker.hour, timePicker.minute)
-        }
-        timePicker.show(childFragmentManager, "TimePickerDialog")
+        TimePickerDialog(
+            object : ITimeListener {
+                override fun onTimeSelected(hour: Int, minute: Int) {
+                    setDueTime(hour, minute)
+                }
+            }
+        ).show(parentFragmentManager, "SET_TIME")
     }
 
     private fun setDueDate(date : String){
 
         this.date = DateTimeUtils.formatDate(date)
-        Log.d(TAG, "setDueDate: ${this.date}")
         binding.btSetDueDate.text = date
     }
     @RequiresApi(Build.VERSION_CODES.O)
