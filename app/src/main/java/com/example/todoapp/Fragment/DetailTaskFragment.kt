@@ -2,6 +2,7 @@ package com.example.todoapp.Fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,8 @@ import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
+import com.example.todoapp.Utils.KeyBoardUtils
+import com.example.todoapp.Utils.KeyBoardUtils.onDone
 import com.example.todoapp.ViewModel.DetailTaskViewModel
 import com.example.todoapp.ViewModel.DetailTaskViewModelFactory
 import com.example.todoapp.ViewModel.TaskViewModel
@@ -84,13 +87,12 @@ class DetailTaskFragment : Fragment() {
     private fun initBehavior(){
         binding.toolbar.setNavigationOnClickListener {
             onBack()
-           // findNavController().navigateUp()
         }
        binding.edAddSubtask.onDone {
+           hideSoftKeyBoard()
            addSubtask()
        }
         detailTaskViewModel._subTasks.observe(viewLifecycleOwner) {
-
             subtasksAdapter.updateData(it)
         }
     }
@@ -105,16 +107,7 @@ class DetailTaskFragment : Fragment() {
 
    }
 
-    private fun EditText.onDone(callback : () -> Unit){
-        setOnEditorActionListener { _, type, _ ->
-            return@setOnEditorActionListener if (type == EditorInfo.IME_ACTION_DONE) {
-                callback()
-                true
-            } else {
-                false
-            }
-        }
-    }
+
     private fun onBack(){
         updateDetailTaskViewModel()
         if (detailTaskViewModel.isChanged()){
@@ -148,6 +141,9 @@ class DetailTaskFragment : Fragment() {
     }
     private fun onUpdateSubtask(position : Int){
         detailTaskViewModel.onUpdatedSubtask(position)
+    }
+    private fun hideSoftKeyBoard(){
+        KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())
     }
 
 }

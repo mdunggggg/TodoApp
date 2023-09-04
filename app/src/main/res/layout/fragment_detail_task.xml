@@ -101,9 +101,10 @@
                 android:textSize="20sp"
                 android:layout_gravity="center_vertical"
                 android:maxLines="1"
-                android:inputType="text"
                 android:imeOptions="actionDone"
                 android:layout_marginHorizontal="16dp"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textShortMessage|textNoSuggestions"
                 />
 
         </LinearLayout>

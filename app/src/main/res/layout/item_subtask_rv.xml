@@ -5,15 +5,18 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="24dp"
     app:cardBackgroundColor="@color/bg_subtask"
+    app:cardMaxElevation="0dp"
+    app:cardElevation="0dp"
     android:layout_marginVertical="8dp">
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:padding="8dp">
+       android:padding="16dp">
       <CheckBox
           android:id="@+id/cb_subtask_status"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+           style="@style/CustomCheckBox"
           />
       <TextView
           android:id="@+id/tv_subtask_name"

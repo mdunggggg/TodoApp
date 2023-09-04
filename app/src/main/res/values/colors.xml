@@ -30,7 +30,7 @@
     <color name="before_current_day">#FFBDBDBD</color>
     <color name="current_day">#2196F3</color>
     <color name="after_current_day">#FFBDBDBD</color>
-    <color name="bg_subtask">#F1F6F6</color>
+    <color name="bg_subtask">#F9F9FB</color>
 
 
 </resources>

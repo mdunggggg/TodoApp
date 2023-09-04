@@ -15,6 +15,8 @@ import com.example.todoapp.Interfaces.IDateListener
 import com.example.todoapp.Interfaces.ITimeListener
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
+import com.example.todoapp.Utils.KeyBoardUtils
+import com.example.todoapp.Utils.KeyBoardUtils.onDone
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -50,6 +52,16 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initComponent(){
         binding.apply{
+            etTaskDescription.apply {
+                onDone {
+                    KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())
+                }
+            }
+            etTaskName.apply {
+                onDone {
+                    KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())
+                }
+            }
             btSetDueDate.setOnClickListener{
                 setDueDate()
             }
@@ -62,6 +74,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
             btAddTask.setOnClickListener{
                 addTask()
             }
+
         }
     }
     private fun initBehavior(){
