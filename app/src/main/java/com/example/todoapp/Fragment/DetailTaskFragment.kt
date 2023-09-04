@@ -1,5 +1,6 @@
 package com.example.todoapp.Fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -11,6 +12,7 @@ import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
@@ -19,6 +21,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.example.todoapp.Adapter.RecyclerViewAdapter.SubtasksAdapter
+import com.example.todoapp.Dialog.DatePickerDialog
+import com.example.todoapp.Dialog.TimePickerDialog
+import com.example.todoapp.Interfaces.IDateListener
+import com.example.todoapp.Interfaces.ITimeListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
@@ -83,7 +89,8 @@ class DetailTaskFragment : Fragment() {
         binding.apply {
             tvTaskName.setText(task.title)
             tvTaskDescription.setText(task.content)
-            tvTaskDueDate.text = DateTimeUtils.formatDateTime(task.dueDate, task.dueTime)
+            tvTaskDueDate.text = DateTimeUtils.formatToCustomPattern(task.dueDate)
+            tvTaskDueTime.text = task.dueTime
             rvSubtasks.adapter = subtasksAdapter
         }
 
@@ -98,6 +105,12 @@ class DetailTaskFragment : Fragment() {
        }
         detailTaskViewModel._subTasks.observe(viewLifecycleOwner) {
             subtasksAdapter.updateData(it)
+        }
+        binding.tvTaskDueDate.setOnClickListener{
+            setDueDate()
+        }
+        binding.tvTaskDueTime.setOnClickListener{
+            setDueTime()
         }
     }
     private fun addSubtask(){
@@ -131,6 +144,7 @@ class DetailTaskFragment : Fragment() {
                 .show()
         }
         else{
+
             findNavController().navigateUp()
         }
     }
@@ -138,8 +152,6 @@ class DetailTaskFragment : Fragment() {
         detailTaskViewModel.apply {
             newTitle = binding.tvTaskName.text.toString().trim()
             newDescription = binding.tvTaskDescription.text.toString().trim()
-            newDueDate = task.dueDate
-            newDueTime = task.dueTime
         }
     }
     private fun onUpdateSubtask(position : Int){
@@ -150,6 +162,34 @@ class DetailTaskFragment : Fragment() {
     }
     private fun hideSoftKeyBoard(){
         KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())
+    }
+    private fun setDueDate(){
+        DatePickerDialog(
+            object : IDateListener {
+                override fun onDateSelected(date: String) {
+                    setDueDate(date)
+                }
+            }
+        ).show(parentFragmentManager, "SET_DATE")
+    }
+    private fun setDueDate(date : String){
+        detailTaskViewModel.newDueDate = DateTimeUtils.formatToDefaultPattern(date)
+        binding.tvTaskDueDate.text =  date
+    }
+    private fun setDueTime(){
+        TimePickerDialog(
+            object : ITimeListener {
+                @RequiresApi(Build.VERSION_CODES.O)
+                override fun onTimeSelected(hour: Int, minute: Int) {
+                    setDueTime(hour, minute)
+                }
+            }
+        ).show(parentFragmentManager, "SET_TIME")
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDueTime(hour : Int, minute : Int){
+        detailTaskViewModel.newDueTime = DateTimeUtils.formatTime(hour, minute)
+        binding.tvTaskDueTime.text = DateTimeUtils.formatTime(hour, minute)
     }
 
 }

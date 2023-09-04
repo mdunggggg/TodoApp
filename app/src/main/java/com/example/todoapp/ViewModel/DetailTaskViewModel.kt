@@ -20,6 +20,7 @@ class DetailTaskViewModel(private val task : Task) : ViewModel() {
         get() = subTasks
 
     fun isChanged() : Boolean{
+
         return newTitle != task.title ||
                 newDescription != task.content ||
                 newDueDate != task.dueDate ||

@@ -102,8 +102,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     }
 
     private fun setDueDate(date : String){
-
-        this.date = DateTimeUtils.formatDate(date)
+        this.date = DateTimeUtils.formatToDefaultPattern(date)
         binding.btSetDueDate.text = date
     }
     @RequiresApi(Build.VERSION_CODES.O)

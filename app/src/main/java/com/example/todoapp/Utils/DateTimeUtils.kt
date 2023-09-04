@@ -10,31 +10,30 @@ import java.util.Locale
 
 
 object DateTimeUtils {
-    private const val patternDate : String = "dd/MM/yyyy"
-    private const val patternMMMDYYYY : String = "MMM d, yyyy"
-     private const val patternDateWithStringMonth : String = "dd MMM yyyy"
+    private const val defaultPatternDate : String = "dd/MM/yyyy"
+    private const val customPatternDate : String = "MMM d, yyyy"
      private const val patternTime : String = "HH:mm"
 
-    fun formatDate(date: String): String {
-        val inputFormat = SimpleDateFormat(patternMMMDYYYY, Locale.ENGLISH)
-        val outputFormat = SimpleDateFormat(patternDate, Locale.ENGLISH)
+
+    private fun formatDateToPattern(date: String, inputPattern: String, outputPattern: String): String {
+        val inputFormat = SimpleDateFormat(inputPattern, Locale.ENGLISH)
+        val outputFormat = SimpleDateFormat(outputPattern, Locale.ENGLISH)
         val dateNew: Date? = inputFormat.parse(date)
-        return outputFormat.format(dateNew!!)
+        return dateNew?.let { outputFormat.format(it) } ?: ""
+    }
+
+    fun formatToDefaultPattern(date: String): String {
+        return formatDateToPattern(date, customPatternDate, defaultPatternDate) ?: ""
+    }
+
+    fun formatToCustomPattern(date: String): String {
+        return formatDateToPattern(date, defaultPatternDate, customPatternDate) ?: ""
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun formatTime(hour : Int, minute : Int) : String{
         val time = LocalTime.of(hour, minute)
         return time.toStringTime()!!
     }
-
-    fun formatDateTime(date : String , time : String?) : String?{
-        val inputFormat = SimpleDateFormat(patternDate, Locale.ENGLISH)
-        val outputFormat = SimpleDateFormat(patternMMMDYYYY, Locale.ENGLISH)
-        val dateNew: Date? = inputFormat.parse(date)
-        val formattedDate = outputFormat.format(dateNew)
-        return "$formattedDate $time"
-    }
-
     private fun LocalTime.toStringTime(): String? {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter.ofPattern(DateTimeUtils.patternTime)

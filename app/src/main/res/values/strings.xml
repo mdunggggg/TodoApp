@@ -30,4 +30,5 @@
     <string name="task_name">Task Name</string>
     <string name="home">Home</string>
     <string name="todo">TODO</string>
+    <string name="due_time">Due Time</string>
 </resources>
