@@ -10,4 +10,4 @@ data class Category(
     var titleCategory: String,
     var color : Int,
     var numTask : Int = 0
-)
+) : Serializable

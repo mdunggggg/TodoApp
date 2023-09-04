@@ -6,4 +6,4 @@ import java.util.Date
 data class Subtask(
     var title: String,
     var isFinish : Boolean = false
-)
+) : Serializable

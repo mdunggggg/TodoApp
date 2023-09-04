@@ -13,6 +13,7 @@ import com.example.todoapp.databinding.ItemSubtaskRvBinding
 
 class SubtasksAdapter(
     private val onUpdate : (Int) -> Unit,
+    private val onRemove : (Int) -> Unit
 ) : ListAdapter<Subtask, SubtasksAdapter.SubtasksViewHolder>(DiffCallback) {
 
     inner class SubtasksViewHolder(private val binding : ItemSubtaskRvBinding) : RecyclerView.ViewHolder(binding.root){
@@ -20,8 +21,11 @@ class SubtasksAdapter(
             binding.apply {
                 tvSubtaskName.text = subtask.title
                 cbSubtaskStatus.isChecked = subtask.isFinish
-                cbSubtaskStatus.setOnCheckedChangeListener { _, _ ->
+                cbSubtaskStatus.setOnClickListener {
                     onUpdate(adapterPosition)
+                }
+                ivRemoveSubtask.setOnClickListener {
+                    onRemove(adapterPosition)
                 }
             }
         }
@@ -32,11 +36,12 @@ class SubtasksAdapter(
     }
 
     fun updateData(list : List<Subtask>){
-        submitList(list)
+        submitList(list.toList())
     }
 
     override fun onBindViewHolder(holder: SubtasksViewHolder, position: Int) {
         val current = getItem(position)
+        Log.d("SubtaskAdapter", "onBindViewHolder: ${current.title}")
         holder.bind(current)
     }
     companion object{
@@ -45,7 +50,7 @@ class SubtasksAdapter(
                 return oldItem == newItem
             }
             override fun areContentsTheSame(oldItem: Subtask, newItem: Subtask): Boolean {
-                return (oldItem.title == newItem.title) && (oldItem.isFinish == newItem.isFinish)
+                return (oldItem.isFinish == newItem.isFinish) && (oldItem.title == newItem.title)
             }
         }
     }

@@ -36,18 +36,14 @@ class DetailTaskFragment : Fragment() {
     private lateinit var binding : FragmentDetailTaskBinding
     private lateinit var task : Task
     private val args : DetailTaskFragmentArgs by navArgs()
-    private val subtasksAdapter : SubtasksAdapter by lazy {
-        SubtasksAdapter {
-            onUpdateSubtask(it)
-        }
-    }
+    private lateinit var subtasksAdapter: SubtasksAdapter
     private val taskViewModel : TaskViewModel by activityViewModels {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
     private val detailTaskViewModel by lazy {
             ViewModelProvider(this,
                 DetailTaskViewModelFactory(
-                    task, requireActivity().application)
+                    task)
             )[DetailTaskViewModel::class.java]
     }
 
@@ -75,6 +71,14 @@ class DetailTaskFragment : Fragment() {
 
     }
     private fun initComponent(){
+        subtasksAdapter = SubtasksAdapter(
+            onUpdate = { position ->
+                onUpdateSubtask(position)
+            },
+            onRemove = { position ->
+                onRemoveSubtask(position)
+            }
+        )
         subtasksAdapter.updateData(task.subtasks)
         binding.apply {
             tvTaskName.setText(task.title)
@@ -97,10 +101,9 @@ class DetailTaskFragment : Fragment() {
         }
     }
     private fun addSubtask(){
-        val subtask = task.subtasks.toMutableList()
-        subtask.add(Subtask(binding.edAddSubtask.text.toString(), false))
+        val subtask = Subtask(binding.edAddSubtask.text.toString(), false)
+        detailTaskViewModel.addSubtask(subtask)
         binding.edAddSubtask.apply {
-            detailTaskViewModel.addSubtask(Subtask(binding.edAddSubtask.text.toString(), false))
             text.clear()
             clearFocus()
         }
@@ -141,6 +144,9 @@ class DetailTaskFragment : Fragment() {
     }
     private fun onUpdateSubtask(position : Int){
         detailTaskViewModel.onUpdatedSubtask(position)
+    }
+    private fun onRemoveSubtask(position : Int){
+        detailTaskViewModel.onRemoveSubtask(position)
     }
     private fun hideSoftKeyBoard(){
         KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())

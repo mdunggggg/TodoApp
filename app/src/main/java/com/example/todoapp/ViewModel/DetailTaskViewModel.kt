@@ -1,6 +1,7 @@
 package com.example.todoapp.ViewModel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 
-class DetailTaskViewModel(private val task : Task, private val application: Application) : ViewModel() {
+class DetailTaskViewModel(private val task : Task) : ViewModel() {
     var newTitle = task.title
     var newDescription = task.content
     var newDueDate = task.dueDate
@@ -48,15 +49,21 @@ class DetailTaskViewModel(private val task : Task, private val application: Appl
         subTasks.value = newSubtasks
     }
     fun onUpdatedSubtask(position: Int){
-        newSubtasks[position] = newSubtasks[position].copy(isFinish = !newSubtasks[position].isFinish)
+        val isFinish = !newSubtasks[position].isFinish
+        newSubtasks[position] = newSubtasks[position].copy(isFinish = isFinish )
+        Log.d("DetailTaskViewModel", "onUpdatedSubtask: ${newSubtasks[position].isFinish}")
+        subTasks.value = newSubtasks
+    }
+    fun onRemoveSubtask(position: Int){
+        newSubtasks.removeAt(position)
         subTasks.value = newSubtasks
     }
 }
-class DetailTaskViewModelFactory(private val task: Task, private val application: Application) : ViewModelProvider.Factory{
+class DetailTaskViewModelFactory(private val task: Task) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(DetailTaskViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return DetailTaskViewModel(task, application) as T
+            return DetailTaskViewModel(task) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
