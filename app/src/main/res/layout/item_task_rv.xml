@@ -26,6 +26,7 @@
             android:layout_height="80dp"
             android:layout_toStartOf="@+id/tv_category_name"
             android:layout_toEndOf="@+id/tv_task_time"
+            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView

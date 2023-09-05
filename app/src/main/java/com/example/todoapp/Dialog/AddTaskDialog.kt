@@ -136,21 +136,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
                 dueTime = time
             )
         )
-        updateCategory()
         dismiss()
-    }
-    private fun updateCategory(){
-        val category = categoryViewModel.getCategoryByTitle(category).observe(
-            viewLifecycleOwner
-        ) {
-            it?.let {
-                categoryViewModel.updateCategory(
-                    it.copy(
-                        numTask = it.numTask + 1
-                    )
-                )
-            }
-        }
     }
 
 }

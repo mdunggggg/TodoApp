@@ -30,7 +30,7 @@ interface CategoryDao {
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
     @Transaction
     @Query("SELECT * FROM category_table WHERE titleCategory = :titleCategory")
-    fun getCategoryWithTasksByTitle(titleCategory: String): LiveData<CategoryWithTasks>
+    fun getCategoryWithTasksByTitle(titleCategory: String): CategoryWithTasks
 
 
 }

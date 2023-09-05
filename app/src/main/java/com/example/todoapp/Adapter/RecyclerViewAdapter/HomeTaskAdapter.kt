@@ -16,13 +16,28 @@ class HomeTaskAdapter(
         inner class HomeTaskViewHolder(private val binding : ItemTaskRvBinding) : RecyclerView.ViewHolder(binding.root){
                fun bind(task : Task){
                       binding.apply {
-                         tvTaskName.text = task.title
+                         tvTaskName.apply {
+                             text = task.title
+                             paintFlags = if(task.isFinish){
+                                 paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                             }else{
+                                 paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                             }
+                         }
                          tvTaskTime.text = task.dueTime
-                         tvTaskDescription.text = task.content
+                         tvTaskDescription.apply {
+                             text = task.content
+                             paintFlags = if(task.isFinish){
+                                 paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                             }else{
+                                 paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                             }
+                         }
                           tvCategoryName.text = task.titleCategory
                           itemView.setOnClickListener {
                                 onItemClicked(task)
                           }
+
 
                       }
                }

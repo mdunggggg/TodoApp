@@ -15,6 +15,7 @@ import com.example.todoapp.databinding.ItemCategoryRvBinding
 
 class CategoryAdapter(
     private val categoryListener : ICategoryListener,
+    private val onCountTask : (String) -> String,
     private val onDismiss : () -> Unit
 ) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
 
@@ -25,7 +26,7 @@ class CategoryAdapter(
                     text = category.titleCategory
                     setTextColor(category.color)
                 }
-                tvTasksCountNumber.text = category.numTask.toString()
+                tvTasksCountNumber.text = onCountTask(category.titleCategory)
 
                 root.setOnClickListener {
                     categoryListener.onClickCategory(category.titleCategory)
