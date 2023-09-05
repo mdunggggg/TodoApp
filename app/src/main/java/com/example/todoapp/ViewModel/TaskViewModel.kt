@@ -30,7 +30,9 @@ class TaskViewModel(application: Application) : ViewModel() {
         taskRepository.clearTasks()
     }
 
+
     fun getAllTasks() : LiveData<List<Task>> = taskRepository.getAllTasks()
+    fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskRepository.getAllTasksOrderByFinish()
     fun getAllFinishTasks() : LiveData<List<Task>> = taskRepository.getAllFinishTasks()
     fun getAllUnFinishTasks() : LiveData<List<Task>> = taskRepository.getAllUnFinishTasks()
 

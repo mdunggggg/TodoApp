@@ -14,6 +14,7 @@ class DetailTaskViewModel(private val task : Task) : ViewModel() {
     var newDescription = task.content
     var newDueDate = task.dueDate
     var newDueTime = task.dueTime
+    var newIsFinished = task.isFinish
     private var newSubtasks = task.subtasks.toMutableList()
     private val subTasks = MutableLiveData<List<Subtask>>()
     val _subTasks
@@ -25,6 +26,7 @@ class DetailTaskViewModel(private val task : Task) : ViewModel() {
                 newDescription != task.content ||
                 newDueDate != task.dueDate ||
                 newDueTime != task.dueTime ||
+                newIsFinished != task.isFinish ||
                 subTasksChanged()
     }
     private fun subTasksChanged() : Boolean{
@@ -42,7 +44,8 @@ class DetailTaskViewModel(private val task : Task) : ViewModel() {
             content = newDescription,
             dueDate = newDueDate,
             dueTime = newDueTime,
-            subtasks = newSubtasks
+            subtasks = newSubtasks,
+            isFinish = newIsFinished
         )
     }
     fun addSubtask(subtask: Subtask){
@@ -52,7 +55,6 @@ class DetailTaskViewModel(private val task : Task) : ViewModel() {
     fun onUpdatedSubtask(position: Int){
         val isFinish = !newSubtasks[position].isFinish
         newSubtasks[position] = newSubtasks[position].copy(isFinish = isFinish )
-        Log.d("DetailTaskViewModel", "onUpdatedSubtask: ${newSubtasks[position].isFinish}")
         subTasks.value = newSubtasks
     }
     fun onRemoveSubtask(position: Int){

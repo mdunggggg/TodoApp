@@ -92,6 +92,7 @@ class DetailTaskFragment : Fragment() {
             tvTaskDueDate.text = DateTimeUtils.formatToCustomPattern(task.dueDate)
             tvTaskDueTime.text = task.dueTime
             rvSubtasks.adapter = subtasksAdapter
+            cbTaskStatus.isChecked = task.isFinish
         }
 
     }
@@ -152,6 +153,7 @@ class DetailTaskFragment : Fragment() {
         detailTaskViewModel.apply {
             newTitle = binding.tvTaskName.text.toString().trim()
             newDescription = binding.tvTaskDescription.text.toString().trim()
+            newIsFinished = binding.cbTaskStatus.isChecked
         }
     }
     private fun onUpdateSubtask(position : Int){
