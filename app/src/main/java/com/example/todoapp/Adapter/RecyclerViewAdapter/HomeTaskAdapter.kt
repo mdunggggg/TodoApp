@@ -33,6 +33,7 @@ class HomeTaskAdapter(
                                  paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
                              }
                          }
+                          cvCategoryColor.setCardBackgroundColor(task.color)
                           tvCategoryName.text = task.titleCategory
                           itemView.setOnClickListener {
                                 onItemClicked(task)

@@ -9,7 +9,7 @@ import com.example.todoapp.Model.Relation.CategoryWithTasks
 
 class CategoryRepository(application: Application) {
     private val categoryDao: CategoryDao =
-        Room.databaseBuilder(application, TodoDatabase::class.java, "DatabaseVersion3")
+        Room.databaseBuilder(application, TodoDatabase::class.java, "DatabaseVersion4")
             .allowMainThreadQueries().build().categoryDao()
         suspend fun insertCategory(category: Category)
             = categoryDao.insertCategory(category)

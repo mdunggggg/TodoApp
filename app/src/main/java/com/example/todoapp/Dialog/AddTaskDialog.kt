@@ -32,6 +32,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     private lateinit var binding: FragmentAddTaskDialogBinding
     private var date = ""
     private var time = ""
+    private var color = 0
     private lateinit var category: String
     private val categoryViewModel : CategoryViewModel by activityViewModels {
         CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
@@ -113,9 +114,10 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
 
     private fun setCategory(){
         val category = CategoryPickerDialog(object : ICategoryListener{
-            override fun onClickCategory(nameCategory: String) {
+            override fun onClickCategory(nameCategory: String, colorCategory : Int) {
                 binding.btSetCategory.text = nameCategory
                 category = nameCategory
+                color = colorCategory
             }
         })
         category.show(childFragmentManager, CategoryPickerDialog.TAG)
@@ -133,6 +135,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
                 titleCategory = category,
                 dateCreated = LocalDate.now().toString(),
                 dueDate = date,
+                color = color,
                 dueTime = time
             )
         )

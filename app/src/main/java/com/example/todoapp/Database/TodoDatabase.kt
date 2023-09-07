@@ -10,7 +10,7 @@ import com.example.todoapp.Database.Task.TaskDao
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
 
-@Database(entities = [Category::class, Task::class], version = 3, exportSchema = false)
+@Database(entities = [Category::class, Task::class], version = 4, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class TodoDatabase : RoomDatabase(){
     abstract fun taskDao() : TaskDao

@@ -8,6 +8,5 @@ import java.io.Serializable
 data class Category(
     @PrimaryKey(autoGenerate = false)
     var titleCategory: String,
-    var color : Int,
-    var numTask : Int = 0
+    var color : Int
 ) : Serializable

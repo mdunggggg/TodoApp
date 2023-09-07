@@ -19,5 +19,6 @@ data class Task (
     var dueDate: String = "",
     var dueTime: String = "",
     var titleCategory: String,
+    var color : Int,
     var isFinish: Boolean = false
 ) : Serializable

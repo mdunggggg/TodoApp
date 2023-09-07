@@ -29,7 +29,7 @@ class CategoryAdapter(
                 tvTasksCountNumber.text = onCountTask(category.titleCategory)
 
                 root.setOnClickListener {
-                    categoryListener.onClickCategory(category.titleCategory)
+                    categoryListener.onClickCategory(category.titleCategory, category.color)
                     onDismiss()
                 }
             }
