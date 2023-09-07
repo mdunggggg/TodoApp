@@ -17,6 +17,7 @@ class ItemCategoryStatisticAdapter() : ListAdapter<CategoryAndTask, ItemCategory
                 tvCategoryName.text = categoryAndTask.titleCategory
                 tvTotalFinishedTask.text = categoryAndTask.totalTaskFinish.toString()
                 tvTotalTask.text = categoryAndTask.totalTask.toString()
+                cvCategoryColor.setCardBackgroundColor(categoryAndTask.color)
                 if(categoryAndTask.totalTask == 0){
                     tvPercentTask.text = "0"
                 }

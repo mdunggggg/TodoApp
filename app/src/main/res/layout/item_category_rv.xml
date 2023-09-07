@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     app:cardMaxElevation="24dp"
@@ -9,30 +10,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:padding="10dp">
-
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_category_color"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="3dp">
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center"
+                app:cardCornerRadius="3dp"
+                android:layout_width="11dp"
+                android:layout_height="11dp"/>
+        </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_category"
-            android:layout_marginStart="16dp"
-           android:layout_alignParentStart="true"
+            android:layout_toEndOf="@+id/cv_category_color"
+            android:layout_marginStart="12dp"
+            android:layout_centerVertical="true"
             />
         <TextView
             android:id="@+id/tv_tasks_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:text="@string/tasks"/>
         <TextView
             android:id="@+id/tv_tasks_count_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/tv_tasks_count"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
-            android:text="7"
+            tools:text="7"
             />
 
     </RelativeLayout>

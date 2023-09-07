@@ -24,8 +24,8 @@ class CategoryAdapter(
             binding.apply {
                 tvCategoryName.apply {
                     text = category.titleCategory
-                    setTextColor(category.color)
                 }
+                cvCategoryColor.setCardBackgroundColor(category.color)
                 tvTasksCountNumber.text = onCountTask(category.titleCategory)
 
                 root.setOnClickListener {
