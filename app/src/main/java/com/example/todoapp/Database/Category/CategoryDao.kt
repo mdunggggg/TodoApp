@@ -10,6 +10,8 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Relation.CategoryWithTasks
+import com.example.todoapp.Model.Task
+
 @Dao
 interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -31,6 +33,7 @@ interface CategoryDao {
     @Transaction
     @Query("SELECT * FROM category_table WHERE titleCategory = :titleCategory")
     fun getCategoryWithTasksByTitle(titleCategory: String): CategoryWithTasks
+
 
 
 }

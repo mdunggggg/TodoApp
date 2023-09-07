@@ -6,7 +6,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
+import com.example.todoapp.Model.Relation.CategoryWithTasks
 import com.example.todoapp.Model.Task
 @Dao
 interface TaskDao {
@@ -27,6 +29,10 @@ interface TaskDao {
     fun getAllFinishTasks(): LiveData<List<Task>>
     @Query("SELECT * FROM task_table WHERE isFinish = 0")
     fun getAllUnFinishTasks(): LiveData<List<Task>>
+
+    @Transaction
+    @Query("SELECT * FROM category_table")
+    fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
 
 
 }

@@ -31,4 +31,8 @@
     <string name="home">Home</string>
     <string name="todo">TODO</string>
     <string name="due_time">Due Time</string>
+    <string name="percent">%</string>
+    <string name="completion_rate">Completion rate</string>
+    <string name="divide">/</string>
+    <string name="tasks_completed">Tasks completed</string>
 </resources>

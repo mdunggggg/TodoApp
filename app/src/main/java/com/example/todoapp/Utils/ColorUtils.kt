@@ -18,6 +18,12 @@ object ColorUtils {
     private fun ContextCompat.getColor(context: Context, color: Int): Int {
         return ContextCompat.getColor(context, color)
     }
+    fun getColorTransparent(color : Int, alpha : Int = 25) : Int {
+        val red = android.graphics.Color.red(color)
+        val green = android.graphics.Color.green(color)
+        val blue = android.graphics.Color.blue(color)
+        return android.graphics.Color.argb(alpha, red, green, blue)
+    }
     fun Context.getColorArray(id: Int): List<Int> {
         val colorList = mutableListOf<Int>()
         val colors: TypedArray = resources.obtainTypedArray(id)

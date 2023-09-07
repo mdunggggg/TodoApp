@@ -35,6 +35,7 @@ class TaskViewModel(application: Application) : ViewModel() {
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskRepository.getAllTasksOrderByFinish()
     fun getAllFinishTasks() : LiveData<List<Task>> = taskRepository.getAllFinishTasks()
     fun getAllUnFinishTasks() : LiveData<List<Task>> = taskRepository.getAllUnFinishTasks()
+    fun getCategoryWithTasks() = taskRepository.getCategoryWithTasks()
 
     class TaskViewModelFactory(private val application: Application) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

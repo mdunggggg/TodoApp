@@ -18,6 +18,7 @@ import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
+import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
@@ -34,6 +35,9 @@ class HomeFragment() : Fragment() {
     private val taskViewModel : TaskViewModel by activityViewModels {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
+    private val categoryViewModel : CategoryViewModel by activityViewModels{
+        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
+    }
     companion object{
         const val TAG = "HomeFragment"
     }
@@ -44,7 +48,6 @@ class HomeFragment() : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initComponent()
         taskViewModel.getAllTasksOrderByFinish().observe(
