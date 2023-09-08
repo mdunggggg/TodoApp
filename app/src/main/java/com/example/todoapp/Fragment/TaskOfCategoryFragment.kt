@@ -52,7 +52,6 @@ class TaskOfCategoryFragment : Fragment() {
     }
     private fun receiveData(){
         category = args.categoryArgs
-        Toast.makeText(requireContext(), category.titleCategory, Toast.LENGTH_SHORT).show()
     }
     private fun goToDetailFragment(task: Task){
         findNavController().navigate(

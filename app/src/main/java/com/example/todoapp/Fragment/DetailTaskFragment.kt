@@ -12,6 +12,7 @@ import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
@@ -62,7 +63,19 @@ class DetailTaskFragment : Fragment() {
     ): View? {
         binding = FragmentDetailTaskBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setUpOnBackPress()
         return binding.root
+    }
+    private fun setUpOnBackPress(){
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onBack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            callback
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
