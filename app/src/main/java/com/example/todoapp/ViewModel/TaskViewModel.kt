@@ -26,6 +26,7 @@ class TaskViewModel(application: Application) : ViewModel() {
     fun updateTask(task: Task) = viewModelScope.launch {
         taskRepository.updateTask(task)
     }
+    fun getAllTasksByDate(date: String): LiveData<List<Task>> = taskRepository.getAllTasksByDate(date)
     fun clearTasks() = viewModelScope.launch {
         taskRepository.clearTasks()
     }

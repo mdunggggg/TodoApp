@@ -11,6 +11,5 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_task_rv"
-        android:layout_marginBottom="80dp"
         />
 </LinearLayout>

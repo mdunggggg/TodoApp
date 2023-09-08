@@ -29,7 +29,30 @@ object DateTimeUtils {
     fun formatToCustomPattern(date: String): String {
         return formatDateToPattern(date, defaultPatternDate, customPatternDate) ?: ""
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+    fun formatToDefaultPattern(day : Int, month : Int, year : Int) : String{
+        val dayString = if(day < 10){
+            "0$day"
+         } else {
+            day.toString()
+        }
+        val monthString = if(month < 10){
+            "0$month"
+        } else {
+            month.toString()
+        }
+        return "$dayString/$monthString/$year"
+    }
+    fun getAmPm(time : String) : String{
+        val timeSplit = time.split(":")
+        val hour = timeSplit[0].toInt()
+        val minute = timeSplit[1].toInt()
+        return if(hour < 12){
+            "AM"
+        } else {
+            "PM"
+        }
+    }
+        @RequiresApi(Build.VERSION_CODES.O)
     fun formatTime(hour : Int, minute : Int) : String{
         val time = LocalTime.of(hour, minute)
         return time.toStringTime()!!

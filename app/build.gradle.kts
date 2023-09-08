@@ -87,6 +87,9 @@ dependencies {
 
     implementation ("com.afollestad.material-dialogs:color:3.2.1")
 
+    
+    implementation ("devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4")
+
 
 
 }
