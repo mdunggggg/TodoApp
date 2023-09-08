@@ -4,12 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
     tools:context=".Fragment.HomeFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:text="@string/categories"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category_home"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_category_home"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:text="@string/my_tasks"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_task_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
         tools:listitem="@layout/item_task_rv"
         />
 </LinearLayout>

@@ -30,7 +30,7 @@ class TaskViewModel(application: Application) : ViewModel() {
     fun clearTasks() = viewModelScope.launch {
         taskRepository.clearTasks()
     }
-
+    fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskRepository.getAllTasksByCategory(titleCategory)
 
     fun getAllTasks() : LiveData<List<Task>> = taskRepository.getAllTasks()
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskRepository.getAllTasksOrderByFinish()

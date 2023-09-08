@@ -15,6 +15,9 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_mainFragment_to_taskOfCategoryFragment"
+            app:destination="@id/taskOfCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailTaskFragment"
@@ -24,5 +27,17 @@
         <argument
             android:name="TaskArgs"
             app:argType="com.example.todoapp.Model.Task" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskOfCategoryFragment"
+        android:name="com.example.todoapp.Fragment.TaskOfCategoryFragment"
+        android:label="fragment_task_of_category"
+        tools:layout="@layout/fragment_task_of_category" >
+        <action
+            android:id="@+id/action_taskOfCategoryFragment_to_detailTaskFragment"
+            app:destination="@id/detailTaskFragment" />
+        <argument
+            android:name="categoryArgs"
+            app:argType="com.example.todoapp.Model.Category" />
     </fragment>
 </navigation>

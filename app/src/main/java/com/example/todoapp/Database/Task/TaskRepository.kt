@@ -17,6 +17,7 @@ class TaskRepository(application: Application) {
     suspend fun deleteTask(task: Task) = taskDao.deleteTask(task)
     suspend fun updateTask(task: Task) = taskDao.updateTask(task)
     suspend fun clearTasks() = taskDao.clearTasks()
+    fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskDao.getAllTasksByCategory(titleCategory)
     fun getAllTasksByDate(date: String): LiveData<List<Task>> = taskDao.getAllTasksByDate(date)
     fun getAllTasks() : LiveData<List<Task>> = taskDao.getAllTasks()
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskDao.getAllTasksOrderByFinish()

@@ -14,8 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Interfaces.IItemTaskListener
+import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.ViewModel.CategoryViewModel
@@ -30,6 +32,11 @@ class HomeFragment() : Fragment() {
     private val homeTaskAdapter: HomeTaskAdapter by lazy {
         HomeTaskAdapter { task: Task ->
             goToDetailFragment(task)
+        }
+    }
+    private val categoryHomeAdapter : CategoryHomeAdapter by lazy {
+        CategoryHomeAdapter{ titleCategory ->
+            goToTaskByCategoryFragment(titleCategory)
         }
     }
     private val taskViewModel : TaskViewModel by activityViewModels {
@@ -55,15 +62,36 @@ class HomeFragment() : Fragment() {
         ) {
             homeTaskAdapter.submitList(it)
         }
+        taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
+            val listData : MutableList<CategoryAndTask> = mutableListOf()
+            for(category in it){
+                var totalFinishedTask = 0
+                var totalTask = 0
+                for(task in category.tasks){
+                    if (task.isFinish) totalFinishedTask += 1
+                }
+                totalTask = category.tasks.size
+                listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
+            }
+            categoryHomeAdapter.submitList(listData.toList())
+        }
         setUpSwipeAction()
     }
     private fun initComponent(){
         binding.rvTaskHome.adapter = homeTaskAdapter
+        binding.rvCategoryHome.adapter = categoryHomeAdapter
     }
     private fun goToDetailFragment(task: Task){
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToDetailTaskFragment(task)
         )
+    }
+    private fun goToTaskByCategoryFragment(titleCategory : String){
+        categoryViewModel.getCategoryByTitle(titleCategory).observe(viewLifecycleOwner){ category ->
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToTaskOfCategoryFragment(category)
+            )
+        }
     }
     private fun setUpSwipeAction(){
         val touchHelper = ItemTouchHelper(

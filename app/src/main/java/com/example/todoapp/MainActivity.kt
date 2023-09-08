@@ -16,16 +16,6 @@ import com.example.todoapp.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
-//    private val taskViewModel : TaskViewModel by viewModels(){
-//        TaskViewModel.TaskViewModelFactory(application)
-//    }
-
-
-    private val taskViewModel : TaskViewModel by viewModels(){
-        TaskViewModel.TaskViewModelFactory(application)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,5 +28,6 @@ class MainActivity : AppCompatActivity() {
 //            )
 //        }
     }
+
 }
 

@@ -35,4 +35,7 @@
     <string name="completion_rate">Completion rate</string>
     <string name="divide">/</string>
     <string name="tasks_completed">Tasks completed</string>
+    <string name="categories">Categories</string>
+    <string name="my_tasks">My tasks</string>
+    <string name="progress">Progress</string>
 </resources>
