@@ -30,7 +30,8 @@ class CategoryViewModel(application: Application) : ViewModel(){
     }
     fun getAllCategory() = categoryRepository.getAllCategory()
     fun getCategoryByTitle(titleCategory: String) = categoryRepository.getCategoryByTitle(titleCategory)
-
+    fun getListCategoryByTitle(title: String): LiveData<List<Category>>
+        = categoryRepository.getListCategoryByTitle(title)
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>
         = categoryRepository.getCategoryWithTasks()
 

@@ -38,4 +38,6 @@
     <string name="categories">Categories</string>
     <string name="my_tasks">My tasks</string>
     <string name="progress">Progress</string>
+    <string name="search">Search</string>
+    <string name="task">Task</string>
 </resources>

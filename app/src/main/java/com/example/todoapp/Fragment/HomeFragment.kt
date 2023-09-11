@@ -3,17 +3,26 @@ package com.example.todoapp.Fragment
 import android.R
 import android.graphics.Canvas
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
+import com.example.todoapp.Adapter.RecyclerViewAdapter.CategorySearchViewAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
+import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskSearchViewAdapter
 import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Model.Task
@@ -21,6 +30,7 @@ import com.example.todoapp.Utils.SwipeHelper
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
+import com.google.android.material.search.SearchView
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
@@ -32,6 +42,12 @@ class HomeFragment() : Fragment() {
         HomeTaskAdapter { task: Task ->
             goToDetailFragment(task)
         }
+    }
+    private val categorySearchViewAdapter: CategorySearchViewAdapter by lazy {
+        CategorySearchViewAdapter(onCountTask)
+    }
+    private val taskSearchViewAdapter : TaskSearchViewAdapter by lazy {
+        TaskSearchViewAdapter()
     }
     private val categoryHomeAdapter : CategoryHomeAdapter by lazy {
         CategoryHomeAdapter{ titleCategory ->
@@ -73,12 +89,39 @@ class HomeFragment() : Fragment() {
                 listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
             }
             categoryHomeAdapter.submitList(listData.toList())
+
         }
         setUpSwipeAction()
     }
     private fun initComponent(){
         binding.rvTaskHome.adapter = homeTaskAdapter
         binding.rvCategoryHome.adapter = categoryHomeAdapter
+        binding.rvTaskSearchView.adapter = taskSearchViewAdapter
+        binding.rvCategorySearchView.adapter = categorySearchViewAdapter
+        binding.searchView.editText.doOnTextChanged { text, _, _, _ ->
+            if(text.isNullOrEmpty()) {
+                taskViewModel.getAllTasksOrderByFinish().observe(
+                    viewLifecycleOwner
+                ) {
+                    taskSearchViewAdapter.submitList(it)
+                }
+                categoryViewModel.getAllCategory().observe(viewLifecycleOwner){
+                    categorySearchViewAdapter.submitList(it)
+                }
+            }
+            else{
+                taskViewModel.getTaskByTitle(text.toString()).observe(viewLifecycleOwner){
+                    taskSearchViewAdapter.submitList(it)
+                }
+                categoryViewModel.getListCategoryByTitle(text.toString()).observe(viewLifecycleOwner){
+                    categorySearchViewAdapter.submitList(it)
+                }
+
+            }
+
+        }
+
+
     }
     private fun goToDetailFragment(task: Task){
         findNavController().navigate(
@@ -106,6 +149,9 @@ class HomeFragment() : Fragment() {
                 }
             }
         }).attachToRecyclerView(binding.rvTaskHome)
+    }
+    private val onCountTask = { titleCategory : String ->
+        categoryViewModel.getCategoryWithTasksByTitle(titleCategory).tasks.size.toString()
     }
 
 

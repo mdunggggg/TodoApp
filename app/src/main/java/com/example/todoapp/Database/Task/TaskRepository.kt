@@ -20,6 +20,7 @@ class TaskRepository(application: Application) {
     fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskDao.getAllTasksByCategory(titleCategory)
     fun getAllTasksByDate(date: String): LiveData<List<Task>> = taskDao.getAllTasksByDate(date)
     fun getAllTasks() : LiveData<List<Task>> = taskDao.getAllTasks()
+    fun getTaskByTitle(title: String) : LiveData<List<Task>> = taskDao.getTaskByTitle(title)
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskDao.getAllTasksOrderByFinish()
     fun getAllFinishTasks() : LiveData<List<Task>> = taskDao.getAllFinishTasks()
     fun getAllUnFinishTasks() : LiveData<List<Task>> = taskDao.getAllUnFinishTasks()

@@ -31,7 +31,7 @@ class TaskViewModel(application: Application) : ViewModel() {
         taskRepository.clearTasks()
     }
     fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskRepository.getAllTasksByCategory(titleCategory)
-
+    fun getTaskByTitle(title: String) : LiveData<List<Task>> = taskRepository.getTaskByTitle(title)
     fun getAllTasks() : LiveData<List<Task>> = taskRepository.getAllTasks()
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskRepository.getAllTasksOrderByFinish()
     fun getAllFinishTasks() : LiveData<List<Task>> = taskRepository.getAllFinishTasks()

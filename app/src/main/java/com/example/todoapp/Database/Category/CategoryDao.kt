@@ -26,7 +26,8 @@ interface CategoryDao {
      fun getAllCategory(): LiveData<List<Category>>
     @Query("SELECT * FROM category_table WHERE titleCategory = :titleCategory")
      fun getCategoryByTitle(titleCategory: String): LiveData<Category>
-
+    @Query("SELECT * FROM category_table WHERE titleCategory LIKE '%' || :title || '%'")
+    fun getListCategoryByTitle(title: String): LiveData<List<Category>>
     @Transaction
     @Query("SELECT * FROM category_table")
     fun getCategoryWithTasks(): LiveData<List<CategoryWithTasks>>

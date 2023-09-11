@@ -22,6 +22,8 @@ class CategoryRepository(application: Application) {
 
         fun getAllCategory() : LiveData<List<Category>>
             = categoryDao.getAllCategory()
+         fun getListCategoryByTitle(title: String): LiveData<List<Category>>
+            = categoryDao.getListCategoryByTitle(title)
         fun getCategoryByTitle(titleCategory: String)
             = categoryDao.getCategoryByTitle(titleCategory)
         fun getCategoryWithTasks() : LiveData<List<CategoryWithTasks>>
