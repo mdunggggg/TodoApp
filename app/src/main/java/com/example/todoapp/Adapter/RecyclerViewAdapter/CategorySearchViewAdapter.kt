@@ -17,6 +17,7 @@ import com.example.todoapp.databinding.ItemTaskSearchViewBinding
 
 class CategorySearchViewAdapter(
     private val onCountTask : (String) -> String,
+    private val onItemClick : (String) -> Unit
 ) : ListAdapter<Category, CategorySearchViewAdapter.CategorySearchViewViewHolder>(DiffCallback()) {
 
     inner class CategorySearchViewViewHolder(private val binding : ItemCategorySearchViewBinding) : RecyclerView.ViewHolder(binding.root){
@@ -25,6 +26,9 @@ class CategorySearchViewAdapter(
                 cvCategoryColorSearchView.setCardBackgroundColor(category.color)
                 tvCategoryNameSearchView.text = category.titleCategory
                 tvTasksCountNumber.text = onCountTask(category.titleCategory)
+                root.setOnClickListener{
+                    onItemClick(category.titleCategory)
+                }
             }
         }
     }

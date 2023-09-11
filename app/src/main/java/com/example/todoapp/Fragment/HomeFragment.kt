@@ -44,10 +44,14 @@ class HomeFragment() : Fragment() {
         }
     }
     private val categorySearchViewAdapter: CategorySearchViewAdapter by lazy {
-        CategorySearchViewAdapter(onCountTask)
+        CategorySearchViewAdapter(onCountTask){
+            goToTaskByCategoryFragment(it)
+        }
     }
     private val taskSearchViewAdapter : TaskSearchViewAdapter by lazy {
-        TaskSearchViewAdapter()
+        TaskSearchViewAdapter{ task ->
+            goToDetailFragment(task)
+        }
     }
     private val categoryHomeAdapter : CategoryHomeAdapter by lazy {
         CategoryHomeAdapter{ titleCategory ->
@@ -100,7 +104,7 @@ class HomeFragment() : Fragment() {
         binding.rvCategorySearchView.adapter = categorySearchViewAdapter
         binding.searchView.editText.doOnTextChanged { text, _, _, _ ->
             if(text.isNullOrEmpty()) {
-                taskViewModel.getAllTasksOrderByFinish().observe(
+                taskViewModel.getAllUnFinishTasks().observe(
                     viewLifecycleOwner
                 ) {
                     taskSearchViewAdapter.submitList(it)

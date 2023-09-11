@@ -9,7 +9,9 @@ import com.example.todoapp.Model.Task
 import com.example.todoapp.databinding.ItemTaskRvBinding
 import com.example.todoapp.databinding.ItemTaskSearchViewBinding
 
-class TaskSearchViewAdapter : ListAdapter<Task, TaskSearchViewAdapter.TaskSearchViewViewHolder>(DiffCallback) {
+class TaskSearchViewAdapter(
+    private val onItemClick : (Task) -> Unit
+) : ListAdapter<Task, TaskSearchViewAdapter.TaskSearchViewViewHolder>(DiffCallback) {
     inner class TaskSearchViewViewHolder(private val binding : ItemTaskSearchViewBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(task : Task){
             binding.apply {
@@ -23,6 +25,9 @@ class TaskSearchViewAdapter : ListAdapter<Task, TaskSearchViewAdapter.TaskSearch
                 }
                 cvCategoryColorSearchView.setCardBackgroundColor(task.color)
                 tvCategoryNameSearchView.text = task.titleCategory
+                root.setOnClickListener{
+                    onItemClick(task)
+                }
             }
         }
     }
