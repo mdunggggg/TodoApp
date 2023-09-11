@@ -87,9 +87,10 @@ dependencies {
 
     implementation ("com.afollestad.material-dialogs:color:3.2.1")
 
-    
+    // Horizontal Calendar
     implementation ("devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4")
 
-
+    // RecyclerView
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
 
 }

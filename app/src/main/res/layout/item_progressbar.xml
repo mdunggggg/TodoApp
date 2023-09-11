@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp"
+    android:paddingHorizontal="16dp"
+    android:layout_marginTop="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -14,7 +15,7 @@
         android:layout_height="40dp"
         android:progress="18"
         app:trackThickness="32dp"
-        app:trackCornerRadius="15dp"
+        app:trackCornerRadius="10dp"
         />
 
 

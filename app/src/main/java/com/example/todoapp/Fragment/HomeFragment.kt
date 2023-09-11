@@ -1,29 +1,28 @@
 package com.example.todoapp.Fragment
 
-import android.app.Application
+import android.R
+import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.CategoryAndTask
-import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Utils.SwipeHelper
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class HomeFragment() : Fragment() {
@@ -94,33 +93,19 @@ class HomeFragment() : Fragment() {
         }
     }
     private fun setUpSwipeAction(){
-        val touchHelper = ItemTouchHelper(
-            object : ItemTouchHelper.SimpleCallback(
-                0, ItemTouchHelper.RIGHT
-            ){
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false;
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition
-                    val task = homeTaskAdapter.currentList[position]
-                    taskViewModel.deleteTask(task)
-                    Snackbar.make(binding.root, "Task deleted", Snackbar.LENGTH_LONG).apply {
-                        setAction("Undo"){
-                            taskViewModel.insertTask(task)
-                        }
-                        show()
+        ItemTouchHelper(object : SwipeHelper(requireContext()){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.absoluteAdapterPosition
+                val task = homeTaskAdapter.currentList[position]
+                taskViewModel.deleteTask(task)
+                Snackbar.make(binding.root, "Task deleted", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo"){
+                        taskViewModel.insertTask(task)
                     }
+                    show()
                 }
             }
-
-        )
-        touchHelper.attachToRecyclerView(binding.rvTaskHome)
+        }).attachToRecyclerView(binding.rvTaskHome)
     }
 
 
