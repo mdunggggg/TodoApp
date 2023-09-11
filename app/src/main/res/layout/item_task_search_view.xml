@@ -12,6 +12,7 @@
         tools:text="Design Dribble concept"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:textSize="18sp"
         />
 
     <androidx.cardview.widget.CardView
@@ -33,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/home"
+        android:alpha="0.8"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         />
@@ -40,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/tv_category_name_search_view"
         android:layout_marginTop="16dp"
+        android:alpha="0.5"
         android:layout_height="1dp"/>
 
 </RelativeLayout>

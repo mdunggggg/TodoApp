@@ -9,7 +9,14 @@
         <item name="android:button">@drawable/checkbox_selector</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
-     
+    <style name="CustomSearchView" parent="Widget.Material3.SearchView">
+        <!-- Add any other custom attributes you want to set for your SearchView here -->
+        <item name="materialThemeOverlay">@style/CustomThemeOverlay</item>
+    </style>
+    <style name="CustomThemeOverlay">
+        <!-- Add any custom attributes or overrides you want here -->
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
     <style name="Theme.TodoApp" parent="Base.Theme.TodoApp" />
 
 

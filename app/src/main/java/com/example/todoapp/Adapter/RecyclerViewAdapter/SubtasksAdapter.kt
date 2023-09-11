@@ -22,10 +22,10 @@ class SubtasksAdapter(
                 tvSubtaskName.text = subtask.title
                 cbSubtaskStatus.isChecked = subtask.isFinish
                 cbSubtaskStatus.setOnClickListener {
-                    onUpdate(adapterPosition)
+                    onUpdate(absoluteAdapterPosition)
                 }
                 ivRemoveSubtask.setOnClickListener {
-                    onRemove(adapterPosition)
+                    onRemove(absoluteAdapterPosition)
                 }
             }
         }

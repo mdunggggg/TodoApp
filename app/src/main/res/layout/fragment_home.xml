@@ -22,11 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/search"
-        app:backgroundTint="@color/white"
-        app:queryBackground="@color/white"
-        app:layout_anchor="@id/search_bar">
+        app:layout_anchor="@id/search_bar"
+        style="@style/CustomSearchView"
+        >
         <ScrollView
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -35,12 +34,15 @@
                 android:paddingHorizontal="16dp"
                 android:orientation="vertical">
                 <TextView
+                    android:alpha="0.8"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/task"
                     />
                 <com.google.android.material.divider.MaterialDivider
+                    android:layout_marginTop="8dp"
+                    android:alpha="0.5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
                 <androidx.recyclerview.widget.RecyclerView
@@ -54,9 +56,12 @@
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:alpha="0.8"
                     android:text="@string/category"
                     />
                 <com.google.android.material.divider.MaterialDivider
+                    android:layout_marginTop="8dp"
+                    android:alpha="0.5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
                 <androidx.recyclerview.widget.RecyclerView
