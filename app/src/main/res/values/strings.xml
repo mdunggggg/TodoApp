@@ -40,4 +40,10 @@
     <string name="progress">Progress</string>
     <string name="search">Search</string>
     <string name="task">Task</string>
+
+    <string name="chanel_name">Chanel 1</string>
+    <string name="chanel_description">This is chanel 1</string>
+    <string name="notification_title">Notification</string>
+    <string name="account">Account</string>
+
 </resources>

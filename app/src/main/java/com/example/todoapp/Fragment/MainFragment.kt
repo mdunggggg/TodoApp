@@ -1,20 +1,38 @@
 package com.example.todoapp.Fragment
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
 import com.example.todoapp.Dialog.AddTaskDialog
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Model.Task
+import com.example.todoapp.MyApplication
+import com.example.todoapp.R
+import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.ViewModel.TaskViewModel
+import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentMainBinding
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 class MainFragment : Fragment() {
     private lateinit var binding : FragmentMainBinding
@@ -24,8 +42,6 @@ class MainFragment : Fragment() {
     private val taskViewModel : TaskViewModel by activityViewModels(){
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
-    // private val taskViewModel : TaskViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,8 +74,13 @@ class MainFragment : Fragment() {
             AddTaskDialog(object : IAddTaskListener {
                 override fun onAddTask(task: Task) {
                     taskViewModel.insertTask(task)
+                    testWorkManager(task)
                 }
             }).show(parentFragmentManager, AddTaskDialog.TAG)
+        }
+        binding.btNotification.setOnClickListener {
+           // testWorkManager()
+           // testNotification()
         }
     }
     private fun initViewPager(){
@@ -86,6 +107,35 @@ class MainFragment : Fragment() {
                 )
             })
         }
+    }
+    private fun testNotification(){
+        val builder = NotificationCompat.Builder(requireContext(), MyApplication.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentTitle("Test notification")
+            .setContentText("This is a test notification")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        with(NotificationManagerCompat.from(requireContext())){
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notify(MyApplication.getNotificationId(), builder.build())
+        }
+    }
+    private fun testWorkManager(task : Task){
+        val initialDelay = DateTimeUtils.getDelayTime(task.dueDate, task.dueTime)
+        val data = Data.Builder()
+            .putString("title", task.title)
+            .putString("content", task.content)
+            .build()
+        val notificationRequest : WorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+            .setInputData(data)
+            .build()
+        WorkManager.getInstance(requireContext()).enqueue(notificationRequest)
     }
 
 

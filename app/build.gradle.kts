@@ -92,5 +92,7 @@ dependencies {
 
     // RecyclerView
     implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
+    // Work Manager
+    implementation("androidx.work:work-runtime-ktx:2.8.0")
 
 }

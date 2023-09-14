@@ -11,15 +11,31 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation_view_linear"
         />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
         android:layout_above="@id/bottom_navigation_view_linear"
-        app:srcCompat="@drawable/ic_add"
-        android:contentDescription="@string/todo" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_navigation_view_linear"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_add" />
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"

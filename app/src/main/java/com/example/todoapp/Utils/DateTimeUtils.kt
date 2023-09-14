@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -64,6 +65,29 @@ object DateTimeUtils {
             return null
         }
         return this.format(formatter)
+    }
+    fun getDelayTime(date: String, time: String): Long {
+        val dayOfMonth = date.split("/")[0].toInt()
+        val month = date.split("/")[1].toInt()
+        val year = date.split("/")[2].toInt()
+        val hour = time.split(":")[0].toInt()
+        val minute = time.split(":")[1].toInt()
+        val notificationTime: Calendar = Calendar.getInstance()
+        notificationTime.apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month - 1)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
+            set(Calendar.SECOND, 0)
+        }
+        val currentTimeMillis = System.currentTimeMillis()
+        var notificationTimeMillis: Long = notificationTime.timeInMillis
+        if (notificationTimeMillis <= currentTimeMillis) {
+            notificationTime.add(Calendar.DAY_OF_MONTH, 1)
+            notificationTimeMillis = notificationTime.timeInMillis
+        }
+        return notificationTimeMillis - currentTimeMillis
     }
 
 
