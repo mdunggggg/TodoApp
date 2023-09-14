@@ -83,11 +83,12 @@ object DateTimeUtils {
         }
         val currentTimeMillis = System.currentTimeMillis()
         var notificationTimeMillis: Long = notificationTime.timeInMillis
-        if (notificationTimeMillis <= currentTimeMillis) {
+        val limit = 5 * 60 * 1000
+        if (notificationTimeMillis - limit <= currentTimeMillis) {
             notificationTime.add(Calendar.DAY_OF_MONTH, 1)
             notificationTimeMillis = notificationTime.timeInMillis
         }
-        return notificationTimeMillis - currentTimeMillis
+        return notificationTimeMillis - currentTimeMillis - limit
     }
 
 

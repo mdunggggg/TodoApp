@@ -24,25 +24,13 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/ic_add" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bt_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_navigation_view_linear"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/todo"
-        app:srcCompat="@drawable/ic_add" />
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="64dp"
         android:elevation="8dp"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="8dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
         <com.gauravk.bubblenavigation.BubbleToggleView

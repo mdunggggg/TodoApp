@@ -19,10 +19,10 @@ class NotificationWorker(
     override fun doWork(): Result {
         val title = inputData.getString("title")
         val content = inputData.getString("content")
-        testNotification(title!!, content!!)
+        showNotification(title!!, content!!)
         return Result.success()
     }
-    private fun testNotification(title : String, content : String){
+    private fun showNotification(title : String, content : String){
         val builder = NotificationCompat.Builder(context, MyApplication.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentTitle(title)
@@ -37,7 +37,6 @@ class NotificationWorker(
                 return
             }
             notify(MyApplication.getNotificationId(), builder.build())
-            Log.d("NotificationWorker", "doTestNotification: ")
         }
     }
 }

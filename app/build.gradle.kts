@@ -95,4 +95,10 @@ dependencies {
     // Work Manager
     implementation("androidx.work:work-runtime-ktx:2.8.0")
 
+    //Rounded Image View
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    //Circle Image View
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 }

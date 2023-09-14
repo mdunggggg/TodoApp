@@ -74,13 +74,9 @@ class MainFragment : Fragment() {
             AddTaskDialog(object : IAddTaskListener {
                 override fun onAddTask(task: Task) {
                     taskViewModel.insertTask(task)
-                    testWorkManager(task)
+                    setTimeNotification(task)
                 }
             }).show(parentFragmentManager, AddTaskDialog.TAG)
-        }
-        binding.btNotification.setOnClickListener {
-           // testWorkManager()
-           // testNotification()
         }
     }
     private fun initViewPager(){
@@ -125,7 +121,7 @@ class MainFragment : Fragment() {
             notify(MyApplication.getNotificationId(), builder.build())
         }
     }
-    private fun testWorkManager(task : Task){
+    private fun setTimeNotification(task : Task){
         val initialDelay = DateTimeUtils.getDelayTime(task.dueDate, task.dueTime)
         val data = Data.Builder()
             .putString("title", task.title)

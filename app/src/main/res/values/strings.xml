@@ -45,5 +45,22 @@
     <string name="chanel_description">This is chanel 1</string>
     <string name="notification_title">Notification</string>
     <string name="account">Account</string>
+    <string name="preferences">Preferences</string>
+    <string name="go_premium">Go Premium!</string>
+    <string name="theme">Theme</string>
+    <string name="color_scheme">Color scheme</string>
+    <string name="more">More</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate">Rate</string>
+    <string name="support">Support</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="terms_of_use">Terms of use</string>
+    <string name="about_us">About us</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change password</string>
+    <string name="faq">FAQ</string>
+    <string name="profile">Profile</string>
+    <string name="dungmanh74_gmail_com">dungmanh74@gmail.com</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>
