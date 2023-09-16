@@ -19,6 +19,7 @@ class TaskRepository(application: Application) {
     suspend fun updateTask(task: Task) = taskDao.updateTask(task)
     suspend fun clearTasks() = taskDao.clearTasks()
     fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskDao.getAllTasksByCategory(titleCategory)
+    fun getAllTasksInRange(date: String): LiveData<List<Task>> = taskDao.getAllTasksInRange(date)
     fun getAllTasksByDate(date: String): LiveData<List<Task>> = taskDao.getAllTasksByDate(date)
     fun getAllTasks() : LiveData<List<Task>> = taskDao.getAllTasks()
     fun getTaskByTitle(title: String) : LiveData<List<Task>> = taskDao.getTaskByTitle(title)

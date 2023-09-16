@@ -135,7 +135,7 @@ class MainFragment : Fragment() {
             .putString("task", taskJson)
             .build()
         val notificationRequest : WorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
-            .setInitialDelay(DateTimeUtils.getDelayTime(task.dueDate, task.dueTime), TimeUnit.MILLISECONDS)
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
             .setInputData(data)
             .build()
         WorkManager.getInstance(requireContext()).enqueue(notificationRequest)

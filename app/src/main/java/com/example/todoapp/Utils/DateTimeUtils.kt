@@ -12,7 +12,7 @@ import java.util.Locale
 
 
 object DateTimeUtils {
-    private const val defaultPatternDate : String = "dd/MM/yyyy"
+    private const val defaultPatternDate : String = "yyyy-MM-dd"
     private const val customPatternDate : String = "MMM d, yyyy"
      private const val patternTime : String = "HH:mm"
 
@@ -42,7 +42,7 @@ object DateTimeUtils {
         } else {
             month.toString()
         }
-        return "$dayString/$monthString/$year"
+        return "$year-$monthString-$day"
     }
     fun getAmPm(time : String) : String{
         val timeSplit = time.split(":")
@@ -68,9 +68,9 @@ object DateTimeUtils {
         return this.format(formatter)
     }
     fun getDelayTime(date: String, time: String): Long {
-        val dayOfMonth = date.split("/")[0].toInt()
-        val month = date.split("/")[1].toInt()
-        val year = date.split("/")[2].toInt()
+        val dayOfMonth = date.split("-")[2].toInt()
+        val month = date.split("-")[1].toInt()
+        val year = date.split("-")[0].toInt()
         val hour = time.split(":")[0].toInt()
         val minute = time.split(":")[1].toInt()
         val notificationTime: Calendar = Calendar.getInstance()

@@ -33,6 +33,7 @@ class TaskViewModel(application: Application) : ViewModel() {
     fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>> = taskRepository.getAllTasksByCategory(titleCategory)
     fun getTaskByTitle(title: String) : LiveData<List<Task>> = taskRepository.getTaskByTitle(title)
     fun getAllTasks() : LiveData<List<Task>> = taskRepository.getAllTasks()
+    fun getAllTasksInRange(date: String): LiveData<List<Task>> = taskRepository.getAllTasksInRange(date)
     fun getAllTasksOrderByFinish() : LiveData<List<Task>> = taskRepository.getAllTasksOrderByFinish()
     fun getAllFinishTasks() : LiveData<List<Task>> = taskRepository.getAllFinishTasks()
     fun getAllUnFinishTasks() : LiveData<List<Task>> = taskRepository.getAllUnFinishTasks()

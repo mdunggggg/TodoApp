@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.todoapp.Adapter.RecyclerViewAdapter.ItemCategoryStatisticAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.ProgressBarAdapter
+import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentStatisticViewPager
 import com.example.todoapp.Model.CategoryAndTask
+import com.example.todoapp.Model.TypeStatistic
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentStatisticBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class StatisticFragment : Fragment() {
@@ -46,35 +49,11 @@ class StatisticFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initComponent(){
-        binding.rvCategoryStatistic.adapter = itemCategoryStatisticAdapter
-        binding.rvProgressBar.adapter = progressBarAdapter
-        taskViewModel.getAllTasks().observe(viewLifecycleOwner){ tasks ->
-                var totalFinishedTask = 0
-                tasks.forEach {
-                    if (it.isFinish) totalFinishedTask += 1
-                }
-                binding.apply {
-                    tvTotalTask.text = tasks.size.toString()
-                    if(tasks.isEmpty()) tvPercentTask.text = "0"
-                    else{
-                        tvPercentTask.text = "${totalFinishedTask * 100 / tasks.size}"
-                    }
-                    tvFinishedTask.text = totalFinishedTask.toString()
-                }
-        }
-        taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
-            val listData : MutableList<CategoryAndTask> = mutableListOf()
-            for(category in it){
-                var totalFinishedTask = 0
-                var totalTask = 0
-                for(task in category.tasks){
-                    if (task.isFinish) totalFinishedTask += 1
-                }
-                totalTask = category.tasks.size
-                listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
-            }
-            itemCategoryStatisticAdapter.submitList(listData.toList())
-            progressBarAdapter.submitList(listData.toList())
-        }
+        val tabType = listOf(TypeStatistic.WEEKLY, TypeStatistic.MONTHLY, TypeStatistic.YEARLY, TypeStatistic.ALL_TIME)
+        val tabTitle = listOf("Weekly", "Monthly", "Yearly", "All")
+        binding.viewPager.adapter = FragmentStatisticViewPager(childFragmentManager, lifecycle, tabType)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = tabType[position].type
+        }.attach()
     }
 }
