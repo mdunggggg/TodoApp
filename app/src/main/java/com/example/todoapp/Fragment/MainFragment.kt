@@ -26,11 +26,16 @@ import com.example.todoapp.Model.Task
 import com.example.todoapp.MyApplication
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
+import com.example.todoapp.Utils.StringUtils
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentMainBinding
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -81,10 +86,10 @@ class MainFragment : Fragment() {
     }
     private fun initViewPager(){
         viewPager.apply {
-            setPageTransformer( ViewPager2.PageTransformer { page, position ->
+            setPageTransformer { page, position ->
                 page.pivotX = (if (position < 0) 0 else page.width).toFloat()
                 page.scaleX = if (position < 0) 1f + position else 1f - position
-            })
+            }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {
                     bubbleNavigationView.setCurrentActiveItem(position)
@@ -123,12 +128,14 @@ class MainFragment : Fragment() {
     }
     private fun setTimeNotification(task : Task){
         val initialDelay = DateTimeUtils.getDelayTime(task.dueDate, task.dueTime)
+        val taskJson = StringUtils.serializeToJson(task)
         val data = Data.Builder()
             .putString("title", task.title)
             .putString("content", task.content)
+            .putString("task", taskJson)
             .build()
         val notificationRequest : WorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
-            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+            .setInitialDelay(DateTimeUtils.getDelayTime(task.dueDate, task.dueTime), TimeUnit.MILLISECONDS)
             .setInputData(data)
             .build()
         WorkManager.getInstance(requireContext()).enqueue(notificationRequest)

@@ -1,6 +1,7 @@
 package com.example.todoapp.Utils
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.time.LocalTime
@@ -88,6 +89,7 @@ object DateTimeUtils {
             notificationTime.add(Calendar.DAY_OF_MONTH, 1)
             notificationTimeMillis = notificationTime.timeInMillis
         }
+        Log.d("DateTimeUtils", "getDelayTime: ${notificationTimeMillis - currentTimeMillis - limit}")
         return notificationTimeMillis - currentTimeMillis - limit
     }
 

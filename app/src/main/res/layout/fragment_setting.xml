@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<!--    android:background="#ebf0f6"-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,13 +83,13 @@
                 android:text="@string/account"
                 />
             <com.google.android.material.card.MaterialCardView
+                style="@style/MyCustomDrawableStyle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="10dp"
                 app:cardMaxElevation="10dp"
                 android:elevation="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true">
@@ -114,7 +114,6 @@
                 app:cardCornerRadius="10dp"
                 app:cardMaxElevation="10dp"
                 android:elevation="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true">
@@ -137,7 +136,6 @@
                 android:layout_height="50dp"
                 android:padding="16dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:clickable="true"
                 android:focusable="true"
                 >
@@ -169,7 +167,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -191,7 +188,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -220,7 +216,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -241,7 +236,6 @@
                 android:layout_height="50dp"
                 android:padding="16dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -265,7 +259,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -287,7 +280,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -309,7 +301,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -331,7 +322,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -353,7 +343,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -375,7 +364,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/white"
                 android:padding="16dp">
                 <ImageView
                     android:layout_width="wrap_content"

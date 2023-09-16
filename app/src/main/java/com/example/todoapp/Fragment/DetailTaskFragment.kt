@@ -158,7 +158,6 @@ class DetailTaskFragment : Fragment() {
                 .show()
         }
         else{
-
             findNavController().navigateUp()
         }
     }
