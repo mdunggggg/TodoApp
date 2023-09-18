@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainFragment_to_trashFragment"
             app:destination="@id/trashFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_pomodoroFragment"
+            app:destination="@id/pomodoroFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailTaskFragment"
@@ -48,4 +51,17 @@
         android:name="com.example.todoapp.Fragment.TrashFragment"
         android:label="fragment_trash"
         tools:layout="@layout/fragment_trash" />
+    <fragment
+        android:id="@+id/pomodoroFragment"
+        android:name="com.example.todoapp.Fragment.PomodoroFragment"
+        android:label="fragment_pomodoro"
+        tools:layout="@layout/fragment_pomodoro" >
+        <argument
+            android:name="pomodoroTimeArgs"
+            app:argType="integer" />
+        <argument android:name="shortBreakArgs"
+            app:argType="integer" />
+        <argument android:name="longBreakArgs"
+            app:argType="integer" />
+    </fragment>
 </navigation>

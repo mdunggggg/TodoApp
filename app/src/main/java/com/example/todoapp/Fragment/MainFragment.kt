@@ -17,6 +17,7 @@ import androidx.work.WorkRequest
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
 import com.example.todoapp.Dialog.AddCategoryDialog
 import com.example.todoapp.Dialog.AddTaskDialog
+import com.example.todoapp.Dialog.PomodoroTimePickerDialog
 import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Model.Category
@@ -106,6 +107,15 @@ class MainFragment : Fragment() {
         binding.btTrash.setOnClickListener {
             onBtnTrashClick()
         }
+        binding.btPomodoro.setOnClickListener {
+            onBtnPomodoroClick()
+        }
+    }
+
+    private fun onBtnPomodoroClick() {
+        PomodoroTimePickerDialog { pomodoroTime, shortBreakTime, longBreakTime ->
+            goToPomodoroFragment(pomodoroTime, shortBreakTime, longBreakTime)
+        }.show(parentFragmentManager, PomodoroTimePickerDialog.TAG)
     }
 
     private fun onBtnTrashClick() {
@@ -115,6 +125,15 @@ class MainFragment : Fragment() {
     private fun goToTrashFragment() {
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToTrashFragment()
+        )
+    }
+    private fun goToPomodoroFragment(pomodoroTime : Int, shortBreakTime : Int, longBreakTime : Int) {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToPomodoroFragment(
+                pomodoroTime,
+                shortBreakTime,
+                longBreakTime
+            )
         )
     }
 
@@ -138,22 +157,27 @@ class MainFragment : Fragment() {
     private fun onBtnAddClick() {
         binding.apply {
             if(btAddTask.visibility == View.VISIBLE){
-                btAdd.startAnimation(rotateCounterClockwise)
+                btAdd.startAnimation(rotateClockwise)
                 btAddTask.visibility = View.GONE
                 btAddCategory.visibility = View.GONE
                 btTrash.visibility = View.GONE
+                btPomodoro.visibility = View.GONE
                 btAddTask.startAnimation(fadeOut)
                 btAddCategory.startAnimation(fadeOut)
                 btTrash.startAnimation(fadeOut)
+                btPomodoro.startAnimation(fadeOut)
             }
             else{
-                btAdd.startAnimation(rotateClockwise)
+                btAdd.startAnimation(rotateCounterClockwise)
                 btAddTask.visibility = View.VISIBLE
                 btAddCategory.visibility = View.VISIBLE
                 btTrash.visibility = View.VISIBLE
+                btPomodoro.visibility = View.VISIBLE
+                btPomodoro.startAnimation(fadeIn)
                 btAddTask.startAnimation(fadeIn)
                 btAddCategory.startAnimation(fadeIn)
                 btTrash.startAnimation(fadeIn)
+
             }
         }
     }
@@ -183,6 +207,7 @@ class MainFragment : Fragment() {
             }
         }
     }
+
     private fun setTimeNotification(task : Task){
         val initialDelay = DateTimeUtils.getDelayTime(task.dueDate, task.dueTime)
         val taskJson = StringUtils.serializeToJson(task)

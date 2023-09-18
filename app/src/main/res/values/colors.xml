@@ -93,5 +93,23 @@
     <color name="md_theme_dark_outlineVariant">#43483F</color>
     <color name="md_theme_dark_scrim">#000000</color>
 
+    <color name="focus">#FFF2F2</color>
+    <color name="short_break">#F2FFF5</color>
+    <color name="long_break">#F2F9FF</color>
+
+    <color name="text_focus">#471515</color>
+    <color name="text_short_break">#14401D</color>
+    <color name="text_long_break">#153047</color>
+
+    <color name="side_button_focus">#FFD9D9</color>
+    <color name="side_button_short_break">#D9FAE1</color>
+    <color name="side_button_long_break">#D9EEFF</color>
+
+    <color name="center_button_focus">#FF8F8F</color>
+    <color name="center_button_short_break">#89E89E</color>
+    <color name="center_button_long_break">#8FCBFF</color>
+
+
+
 
 </resources>

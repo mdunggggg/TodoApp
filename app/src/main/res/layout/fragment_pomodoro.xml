@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/focus"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Fragment.PomodoroFragment">
+    <ImageView
+        android:id="@+id/pomodoro_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/focus_pomodoro"/>
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="1/8"
+        android:textSize="40sp"
+        android:textColor="@color/text_focus"
+        android:gravity="center"
+
+        />
+    <TextView
+        android:id="@+id/pomodoro_time_count_minute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="25"
+        android:textColor="@color/text_focus"
+        android:gravity="center"
+        android:textSize="140sp"
+        />
+
+    <TextView
+        android:id="@+id/pomodoro_time_count_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/text_focus"
+        android:gravity="center"
+        android:textSize="140sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewFilledStyle"
+            android:id="@+id/pomodoro_reset_button"
+            app:cardBackgroundColor="@color/side_button_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_restart"/>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pomodoro_start_button"
+            style="?attr/materialCardViewFilledStyle"
+            app:cardCornerRadius="24dp"
+            app:cardBackgroundColor="@color/center_button_focus"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/pomodoro_start_button_image"
+                 android:layout_marginVertical="24dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ph_play_fill"/>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewFilledStyle"
+            android:id="@+id/pomodoro_next_button"
+            app:cardBackgroundColor="@color/side_button_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ph_fast_forward_fill"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
