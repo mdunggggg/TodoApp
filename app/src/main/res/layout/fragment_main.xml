@@ -13,7 +13,7 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bt_add_task"
+        android:id="@+id/bt_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_navigation_view_linear"
@@ -24,6 +24,50 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/ic_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_add"
+        android:layout_alignParentEnd="true"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:src="@drawable/ic_add_task"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/todo"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_add_category"
+        android:src="@drawable/ic_add_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_add_task"
+        android:layout_alignParentEnd="true"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_trash"
+        android:src="@drawable/ic_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_add_category"
+        android:layout_alignParentEnd="true"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_add" />
+
+
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"

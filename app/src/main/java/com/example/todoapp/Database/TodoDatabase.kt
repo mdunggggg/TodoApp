@@ -10,13 +10,13 @@ import com.example.todoapp.Database.Task.TaskDao
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
 
-@Database(entities = [Category::class, Task::class], version = 4, exportSchema = false)
+@Database(entities = [Category::class, Task::class], version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class TodoDatabase : RoomDatabase(){
     abstract fun taskDao() : TaskDao
     abstract fun categoryDao() : CategoryDao
     companion object{
-        private const val DATABASE_NAME = "todo_db"
+        private const val DATABASE_NAME = "todo_db_5"
         private const val NUMBER_OF_THREADS = 4
         @Volatile
         private var INSTANCE : TodoDatabase? = null

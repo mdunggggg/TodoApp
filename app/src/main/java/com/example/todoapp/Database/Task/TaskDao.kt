@@ -20,21 +20,23 @@ interface TaskDao {
      suspend fun updateTask(task: Task)
     @Query("DELETE FROM task_table")
     suspend fun clearTasks()
-    @Query("SELECT * FROM task_table")
+    @Query("SELECT * FROM task_table WHERE isStored = 0")
     fun getAllTasks(): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE dueDate > :date")
+    @Query("SELECT * FROM task_table WHERE isStored = 1")
+    fun getAllDeletedTasks(): LiveData<List<Task>>
+    @Query("SELECT * FROM task_table WHERE dueDate > :date AND isStored = 0")
     fun getAllTasksInRange(date: String): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table ORDER BY isFinish ASC")
+    @Query("SELECT * FROM task_table WHERE isStored = 0 ORDER BY isFinish ASC")
     fun getAllTasksOrderByFinish(): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE dueDate= :date AND isFinish = 0 ORDER BY dueTime ASC" )
+    @Query("SELECT * FROM task_table WHERE dueDate= :date AND isFinish = 0 AND isStored = 0 ORDER BY dueTime ASC" )
     fun getAllTasksByDate(date: String): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE titleCategory = :titleCategory ORDER BY isFinish ASC")
+    @Query("SELECT * FROM task_table WHERE titleCategory = :titleCategory AND isStored = 0 ORDER BY isFinish ASC")
     fun getAllTasksByCategory(titleCategory: String): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE title LIKE '%' || :title || '%' AND isFinish = 0 ORDER BY isFinish ASC")
+    @Query("SELECT * FROM task_table WHERE title LIKE '%' || :title || '%' AND isFinish = 0 AND isStored = 0 ORDER BY isFinish ASC")
     fun getTaskByTitle(title: String): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE isFinish = 1")
+    @Query("SELECT * FROM task_table WHERE isFinish = 1 AND isStored = 0")
     fun getAllFinishTasks(): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE isFinish = 0")
+    @Query("SELECT * FROM task_table WHERE isFinish = 0 AND isStored = 0")
     fun getAllUnFinishTasks(): LiveData<List<Task>>
 
     @Transaction

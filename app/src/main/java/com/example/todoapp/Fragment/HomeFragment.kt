@@ -3,6 +3,7 @@ package com.example.todoapp.Fragment
 import android.R
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -23,15 +24,19 @@ import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategorySearchViewAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskSearchViewAdapter
+import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentHomeViewPager
+import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentStatisticViewPager
 import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Model.TypeStatistic
 import com.example.todoapp.Utils.SwipeHelper
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.google.android.material.search.SearchView
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
@@ -66,6 +71,10 @@ class HomeFragment() : Fragment() {
     }
     companion object{
         const val TAG = "HomeFragment"
+        enum class TypeView(val type : String){
+            ON_PROGRESS("On progress"),
+            FINISHED("Finished"),
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,30 +84,44 @@ class HomeFragment() : Fragment() {
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initComponent()
-        taskViewModel.getAllTasksOrderByFinish().observe(
-            viewLifecycleOwner
-        ) {
-            homeTaskAdapter.submitList(it)
-        }
+
         taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
             val listData : MutableList<CategoryAndTask> = mutableListOf()
             for(category in it){
-                var totalFinishedTask = 0
-                var totalTask = 0
-                for(task in category.tasks){
-                    if (task.isFinish) totalFinishedTask += 1
-                }
-                totalTask = category.tasks.size
+                val totalFinishedTask = category.tasks.filter { task ->
+                    task.isFinish && !task.isStored
+                }.size
+                val totalTask = category.tasks.filter { task ->
+                    !task.isStored
+                }.size
                 listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
             }
             categoryHomeAdapter.submitList(listData.toList())
-
         }
-        setUpSwipeAction()
+        categoryViewModel.getCategoryWithTasks().observe(viewLifecycleOwner) {
+            val listData: MutableList<CategoryAndTask> = mutableListOf()
+            for (category in it) {
+                val totalFinishedTask = category.tasks.filter { task ->
+                    task.isFinish && !task.isStored
+                }.size
+                val totalTask = category.tasks.filter { task ->
+                    !task.isStored
+                }.size
+                listData.add(
+                    CategoryAndTask(
+                        category.category.titleCategory,
+                        totalTask,
+                        totalFinishedTask,
+                        category.category.color
+                    )
+                )
+            }
+            categoryHomeAdapter.submitList(listData.toList())
+        }
+        initComponent()
+
     }
     private fun initComponent(){
-        binding.rvTaskHome.adapter = homeTaskAdapter
         binding.rvCategoryHome.adapter = categoryHomeAdapter
         binding.rvTaskSearchView.adapter = taskSearchViewAdapter
         binding.rvCategorySearchView.adapter = categorySearchViewAdapter
@@ -122,9 +145,13 @@ class HomeFragment() : Fragment() {
                 }
 
             }
-
         }
-
+        // Init ViewPager
+        val tabType = listOf(TypeView.ON_PROGRESS, TypeView.FINISHED)
+        binding.viewPager.adapter = FragmentHomeViewPager(childFragmentManager, lifecycle, tabType)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = tabType[position].type
+        }.attach()
 
     }
     private fun goToDetailFragment(task: Task){
@@ -138,21 +165,6 @@ class HomeFragment() : Fragment() {
                 MainFragmentDirections.actionMainFragmentToTaskOfCategoryFragment(category)
             )
         }
-    }
-    private fun setUpSwipeAction(){
-        ItemTouchHelper(object : SwipeHelper(requireContext()){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.absoluteAdapterPosition
-                val task = homeTaskAdapter.currentList[position]
-                taskViewModel.deleteTask(task)
-                Snackbar.make(binding.root, "Task deleted", Snackbar.LENGTH_LONG).apply {
-                    setAction("Undo"){
-                        taskViewModel.insertTask(task)
-                    }
-                    show()
-                }
-            }
-        }).attachToRecyclerView(binding.rvTaskHome)
     }
     private val onCountTask = { titleCategory : String ->
         categoryViewModel.getCategoryWithTasksByTitle(titleCategory).tasks.size.toString()

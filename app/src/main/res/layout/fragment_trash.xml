@@ -5,22 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.TaskOfCategoryFragment">
+    tools:context=".Fragment.TrashFragment">
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/ic_back"
-        app:title="Task detail"
+        app:title="Trash"
         app:titleCentered="true" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginHorizontal="16dp"
-        android:id="@+id/rv_task_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/rv_trash"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_task_rv"
         />
-
 
 </LinearLayout>

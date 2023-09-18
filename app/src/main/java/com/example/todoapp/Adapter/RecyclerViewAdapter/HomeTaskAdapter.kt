@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.ItemTaskRvBinding
 
 class HomeTaskAdapter(
@@ -24,7 +25,14 @@ class HomeTaskAdapter(
                                  paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
                              }
                          }
-                         tvTaskTime.text = task.dueTime
+                         tvTime.apply {
+                             text = task.dueTime
+                             paintFlags = if(task.isFinish){
+                                 paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                             }else{
+                                 paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                             }
+                         }
                          tvTaskDescription.apply {
                              text = task.content
                              paintFlags = if(task.isFinish){
@@ -33,10 +41,16 @@ class HomeTaskAdapter(
                                  paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
                              }
                          }
-                          cvCategoryColor.setCardBackgroundColor(task.color)
-                          tvCategoryName.text = task.titleCategory
                           itemView.setOnClickListener {
                                 onItemClicked(task)
+                          }
+                          tvDate.apply {
+                                text = DateTimeUtils.formatToCustomPattern(task.dueDate)
+                                paintFlags = if(task.isFinish){
+                                    paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                                }else{
+                                    paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                }
                           }
 
 

@@ -8,25 +8,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
+import com.example.todoapp.Dialog.AddCategoryDialog
 import com.example.todoapp.Dialog.AddTaskDialog
+import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.IAddTaskListener
+import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
 import com.example.todoapp.MyApplication
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.Utils.StringUtils
+import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentMainBinding
@@ -44,8 +51,37 @@ class MainFragment : Fragment() {
     private lateinit var pagerAdapter: FragmentMainViewPager
     private lateinit var viewPager: ViewPager2
     private lateinit var bubbleNavigationView: BubbleNavigationLinearView
+    private var clicked = false
+
+    private val rotateClockwise: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.rotate_clockwise
+        )
+    }
+    private val rotateCounterClockwise: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.rotate_counter_clockwise
+        )
+    }
+    private val fadeIn: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.fade_in
+        )
+    }
+    private val fadeOut: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.fade_out
+        )
+    }
     private val taskViewModel : TaskViewModel by activityViewModels(){
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
+    }
+    private val categoryViewModel : CategoryViewModel by activityViewModels {
+        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,16 +110,72 @@ class MainFragment : Fragment() {
         viewPager.adapter = pagerAdapter
     }
     private fun initBehavior(){
-
+        binding.btAdd.setOnClickListener {
+            onBtnAddClick()
+        }
+        binding.btAddCategory.setOnClickListener {
+            onBtnAddCategoryClick()
+        }
         binding.btAddTask.setOnClickListener {
-            AddTaskDialog(object : IAddTaskListener {
-                override fun onAddTask(task: Task) {
-                    taskViewModel.insertTask(task)
-                    setTimeNotification(task)
-                }
-            }).show(parentFragmentManager, AddTaskDialog.TAG)
+            onBtnAddTaskClick()
+        }
+        binding.btTrash.setOnClickListener {
+            onBtnTrashClick()
         }
     }
+
+    private fun onBtnTrashClick() {
+        goToTrashFragment()
+    }
+
+    private fun goToTrashFragment() {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToTrashFragment()
+        )
+    }
+
+    private fun onBtnAddCategoryClick() {
+        AddCategoryDialog(object : IAddCategoryListener {
+            override fun onAddCategory(category: Category) {
+                categoryViewModel.insertCategory(category)
+            }
+        }).show(parentFragmentManager, AddCategoryDialog.TAG)
+    }
+
+    private fun onBtnAddTaskClick() {
+        AddTaskDialog(object : IAddTaskListener {
+            override fun onAddTask(task: Task) {
+                taskViewModel.insertTask(task)
+                setTimeNotification(task)
+            }
+        }).show(parentFragmentManager, AddTaskDialog.TAG)
+    }
+
+    private fun onBtnAddClick() {
+        binding.apply {
+            if(btAddTask.visibility == View.VISIBLE){
+                btAdd.startAnimation(rotateCounterClockwise)
+                btAddTask.visibility = View.GONE
+                btAddCategory.visibility = View.GONE
+                btTrash.visibility = View.GONE
+                btAddTask.startAnimation(fadeOut)
+                btAddCategory.startAnimation(fadeOut)
+                btTrash.startAnimation(fadeOut)
+                clicked = false
+            }
+            else{
+                btAdd.startAnimation(rotateClockwise)
+                btAddTask.visibility = View.VISIBLE
+                btAddCategory.visibility = View.VISIBLE
+                btTrash.visibility = View.VISIBLE
+                btAddTask.startAnimation(fadeIn)
+                btAddCategory.startAnimation(fadeIn)
+                btTrash.startAnimation(fadeIn)
+                clicked = true
+            }
+        }
+    }
+
     private fun initViewPager(){
         viewPager.apply {
             setPageTransformer { page, position ->
@@ -107,23 +199,6 @@ class MainFragment : Fragment() {
                     true
                 )
             })
-        }
-    }
-    private fun testNotification(){
-        val builder = NotificationCompat.Builder(requireContext(), MyApplication.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Test notification")
-            .setContentText("This is a test notification")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-        with(NotificationManagerCompat.from(requireContext())){
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                return
-            }
-            notify(MyApplication.getNotificationId(), builder.build())
         }
     }
     private fun setTimeNotification(task : Task){

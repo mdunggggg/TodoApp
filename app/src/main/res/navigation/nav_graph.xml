@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_mainFragment_to_taskOfCategoryFragment"
             app:destination="@id/taskOfCategoryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_trashFragment"
+            app:destination="@id/trashFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailTaskFragment"
@@ -40,4 +43,9 @@
             android:name="categoryArgs"
             app:argType="com.example.todoapp.Model.Category" />
     </fragment>
+    <fragment
+        android:id="@+id/trashFragment"
+        android:name="com.example.todoapp.Fragment.TrashFragment"
+        android:label="fragment_trash"
+        tools:layout="@layout/fragment_trash" />
 </navigation>

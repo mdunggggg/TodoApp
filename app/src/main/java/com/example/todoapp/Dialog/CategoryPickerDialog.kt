@@ -64,7 +64,9 @@ class CategoryPickerDialog(
         }).show(childFragmentManager, AddCategoryDialog.TAG)
     }
     private val onCountTask = { titleCategory : String ->
-        categoryViewModel.getCategoryWithTasksByTitle(titleCategory).tasks.size.toString()
+        categoryViewModel.getCategoryWithTasksByTitle(titleCategory).tasks.filter {
+            !it.isStored
+        }.size.toString()
     }
 
 }
