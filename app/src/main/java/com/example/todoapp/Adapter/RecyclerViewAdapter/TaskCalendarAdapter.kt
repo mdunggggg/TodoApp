@@ -9,7 +9,6 @@ import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.ItemTaskCalendarBinding
-import com.example.todoapp.databinding.ItemTaskRvBinding
 
 class TaskCalendarAdapter(
     private val onItemClicked : (Task) -> Unit

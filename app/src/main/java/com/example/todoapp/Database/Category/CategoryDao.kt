@@ -10,7 +10,6 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Relation.CategoryWithTasks
-import com.example.todoapp.Model.Task
 
 @Dao
 interface CategoryDao {

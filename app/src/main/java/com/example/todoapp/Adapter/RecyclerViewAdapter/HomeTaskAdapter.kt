@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.ItemTaskRvBinding

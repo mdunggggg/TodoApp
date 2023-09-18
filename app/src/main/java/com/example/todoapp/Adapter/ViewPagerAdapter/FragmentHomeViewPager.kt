@@ -7,9 +7,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.todoapp.Fragment.HomeFragment
 import com.example.todoapp.Fragment.HomeTabFragment
-import com.example.todoapp.Fragment.StatisticTabFragment
-import com.example.todoapp.Model.TypeStatistic
-import com.example.todoapp.databinding.FragmentHomeTabBinding
 
 class FragmentHomeViewPager (fragmentManager: FragmentManager, lifecycle: Lifecycle, private val typeFragment : List<HomeFragment.Companion.TypeView>) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

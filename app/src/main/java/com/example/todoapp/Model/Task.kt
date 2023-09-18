@@ -1,13 +1,8 @@
 package com.example.todoapp.Model
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.Date
 @Entity(tableName = "task_table")
 data class Task (
     @PrimaryKey(autoGenerate = true)

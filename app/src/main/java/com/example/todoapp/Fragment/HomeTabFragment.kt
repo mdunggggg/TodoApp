@@ -1,7 +1,6 @@
 package com.example.todoapp.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
-import com.example.todoapp.Adapter.RecyclerViewAdapter.CategorySearchViewAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
-import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskSearchViewAdapter
 import com.example.todoapp.Model.Task
-import com.example.todoapp.R
 import com.example.todoapp.Utils.SwipeHelper
-import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeTabBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,9 +23,6 @@ class HomeTabFragment : Fragment() {
     private val taskViewModel : TaskViewModel by activityViewModels {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
-    private val categoryViewModel : CategoryViewModel by activityViewModels{
-        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
-    }
     private val homeTaskAdapter: HomeTaskAdapter by lazy {
         HomeTaskAdapter { task: Task ->
             goToDetailFragment(task)
@@ -41,7 +32,7 @@ class HomeTabFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeTabBinding.inflate(inflater, container, false)
         return binding.root
     }

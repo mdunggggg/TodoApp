@@ -2,13 +2,11 @@ package com.example.todoapp.Dialog
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.activityViewModels
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Interfaces.IDateListener
@@ -17,16 +15,9 @@ import com.example.todoapp.Model.Task
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.Utils.KeyBoardUtils
 import com.example.todoapp.Utils.KeyBoardUtils.onDone
-import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import java.time.LocalDate
-import java.time.LocalTime
-import kotlin.math.log
 
 class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddTaskDialogBinding
@@ -34,9 +25,6 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     private var time = ""
     private var color = 0
     private lateinit var category: String
-    private val categoryViewModel : CategoryViewModel by activityViewModels {
-        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
-    }
     companion object{
         const val TAG = "AddTaskDialogFragment"
     }

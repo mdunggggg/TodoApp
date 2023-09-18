@@ -2,9 +2,7 @@ package com.example.todoapp.Adapter.RecyclerViewAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.databinding.ColorCircleBinding
 
 class ColorAdapter(

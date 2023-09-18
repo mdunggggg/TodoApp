@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Model.Task
-import com.example.todoapp.databinding.ItemTaskRvBinding
 import com.example.todoapp.databinding.ItemTaskSearchViewBinding
 
 class TaskSearchViewAdapter(

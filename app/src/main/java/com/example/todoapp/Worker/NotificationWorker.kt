@@ -9,10 +9,8 @@ import androidx.work.WorkerParameters
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
-import com.example.todoapp.Fragment.DetailTaskFragment
 import com.example.todoapp.MainActivity
 import com.example.todoapp.Model.Task
 import com.example.todoapp.MyApplication

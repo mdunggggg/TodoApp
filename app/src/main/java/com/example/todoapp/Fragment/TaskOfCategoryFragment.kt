@@ -5,14 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
-import com.example.todoapp.R
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentTaskOfCategoryBinding
 
@@ -32,7 +30,7 @@ class TaskOfCategoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTaskOfCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }

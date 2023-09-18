@@ -1,19 +1,11 @@
 package com.example.todoapp.Fragment
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -29,7 +21,6 @@ import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
-import com.example.todoapp.MyApplication
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.Utils.StringUtils
@@ -38,12 +29,6 @@ import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentMainBinding
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView
-import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 class MainFragment : Fragment() {
@@ -51,7 +36,6 @@ class MainFragment : Fragment() {
     private lateinit var pagerAdapter: FragmentMainViewPager
     private lateinit var viewPager: ViewPager2
     private lateinit var bubbleNavigationView: BubbleNavigationLinearView
-    private var clicked = false
 
     private val rotateClockwise: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -86,7 +70,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainBinding.inflate(
             inflater, container, false
         )
@@ -114,7 +98,7 @@ class MainFragment : Fragment() {
             onBtnAddClick()
         }
         binding.btAddCategory.setOnClickListener {
-            onBtnAddCategoryClick()
+            //onBtnAddCategoryClick()
         }
         binding.btAddTask.setOnClickListener {
             onBtnAddTaskClick()
@@ -161,7 +145,6 @@ class MainFragment : Fragment() {
                 btAddTask.startAnimation(fadeOut)
                 btAddCategory.startAnimation(fadeOut)
                 btTrash.startAnimation(fadeOut)
-                clicked = false
             }
             else{
                 btAdd.startAnimation(rotateClockwise)
@@ -171,7 +154,6 @@ class MainFragment : Fragment() {
                 btAddTask.startAnimation(fadeIn)
                 btAddCategory.startAnimation(fadeIn)
                 btTrash.startAnimation(fadeIn)
-                clicked = true
             }
         }
     }
@@ -193,12 +175,12 @@ class MainFragment : Fragment() {
             setNavigationChangeListener { _, position ->
                 viewPager.setCurrentItem(position, true)
             }
-            setNavigationChangeListener(BubbleNavigationChangeListener { _: View?, position: Int ->
+            setNavigationChangeListener { _: View?, position: Int ->
                 viewPager.setCurrentItem(
                     position,
                     true
                 )
-            })
+            }
         }
     }
     private fun setTimeNotification(task : Task){

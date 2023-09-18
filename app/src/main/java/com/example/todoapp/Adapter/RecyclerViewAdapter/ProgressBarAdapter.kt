@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Utils.ColorUtils
-import com.example.todoapp.databinding.ItemCategoryStatisticsBinding
 import com.example.todoapp.databinding.ItemProgressbarBinding
 
 class ProgressBarAdapter() : ListAdapter<CategoryAndTask, ProgressBarAdapter.ProgressBarViewHolder>(DiffCallback) {

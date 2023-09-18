@@ -1,28 +1,21 @@
 package com.example.todoapp.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskCalendarAdapter
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
-import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentCalendarBinding
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
-
 import java.util.Calendar
-import java.util.Date
 
 class CalendarFragment : Fragment() {
     private lateinit var binding: FragmentCalendarBinding

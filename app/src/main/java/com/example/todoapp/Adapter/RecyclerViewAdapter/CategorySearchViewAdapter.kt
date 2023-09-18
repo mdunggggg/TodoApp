@@ -1,19 +1,11 @@
 package com.example.todoapp.Adapter.RecyclerViewAdapter
 
-import android.util.Log
-import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Model.Category
-import com.example.todoapp.Utils.ColorUtils
-import com.example.todoapp.databinding.ItemCategoryRvBinding
 import com.example.todoapp.databinding.ItemCategorySearchViewBinding
-import com.example.todoapp.databinding.ItemTaskSearchViewBinding
 
 class CategorySearchViewAdapter(
     private val onCountTask : (String) -> String,

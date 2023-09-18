@@ -2,14 +2,12 @@ package com.example.todoapp.Dialog
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.todoapp.Interfaces.ITimeListener
-import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTimePickerDialogBinding
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -25,7 +23,7 @@ class TimePickerDialog(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTimePickerDialogBinding.inflate(inflater, container, false)
         initComponent()
         return binding.root

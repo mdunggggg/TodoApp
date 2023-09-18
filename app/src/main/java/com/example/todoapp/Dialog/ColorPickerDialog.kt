@@ -1,18 +1,10 @@
 package com.example.todoapp.Dialog
 
 import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.todoapp.Adapter.RecyclerViewAdapter.ColorAdapter
-
 import com.example.todoapp.R
-import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.Utils.ColorUtils.getColorArray
 import com.example.todoapp.databinding.FragmentColorPickerDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

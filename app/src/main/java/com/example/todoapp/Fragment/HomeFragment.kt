@@ -1,53 +1,28 @@
 package com.example.todoapp.Fragment
 
-import android.R
-import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategoryHomeAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.CategorySearchViewAdapter
-import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskSearchViewAdapter
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentHomeViewPager
-import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentStatisticViewPager
-import com.example.todoapp.Interfaces.IItemTaskListener
 import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Model.Task
-import com.example.todoapp.Model.TypeStatistic
-import com.example.todoapp.Utils.SwipeHelper
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
-import com.google.android.material.search.SearchView
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class HomeFragment() : Fragment() {
     private lateinit var binding : FragmentHomeBinding
-    private lateinit var onItemClick: IItemTaskListener
-    private val homeTaskAdapter: HomeTaskAdapter by lazy {
-        HomeTaskAdapter { task: Task ->
-            goToDetailFragment(task)
-        }
-    }
     private val categorySearchViewAdapter: CategorySearchViewAdapter by lazy {
         CategorySearchViewAdapter(onCountTask){
             goToTaskByCategoryFragment(it)
@@ -84,8 +59,15 @@ class HomeFragment() : Fragment() {
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initComponent()
+        initBehavior()
+        initObserver()
 
+    }
+
+    private fun initObserver() {
         taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
+            Log.d(TAG, "Observer task: $it")
             val listData : MutableList<CategoryAndTask> = mutableListOf()
             for(category in it){
                 val totalFinishedTask = category.tasks.filter { task ->
@@ -98,33 +80,30 @@ class HomeFragment() : Fragment() {
             }
             categoryHomeAdapter.submitList(listData.toList())
         }
-        categoryViewModel.getCategoryWithTasks().observe(viewLifecycleOwner) {
-            val listData: MutableList<CategoryAndTask> = mutableListOf()
-            for (category in it) {
-                val totalFinishedTask = category.tasks.filter { task ->
-                    task.isFinish && !task.isStored
-                }.size
-                val totalTask = category.tasks.filter { task ->
-                    !task.isStored
-                }.size
-                listData.add(
-                    CategoryAndTask(
-                        category.category.titleCategory,
-                        totalTask,
-                        totalFinishedTask,
-                        category.category.color
-                    )
-                )
-            }
-            categoryHomeAdapter.submitList(listData.toList())
-        }
-        initComponent()
-
+//        categoryViewModel.getCategoryWithTasks().observe(viewLifecycleOwner) {
+//            Log.d(TAG, "Observer category: $it")
+//            val listData: MutableList<CategoryAndTask> = mutableListOf()
+//            for (category in it) {
+//                val totalFinishedTask = category.tasks.filter { task ->
+//                    task.isFinish && !task.isStored
+//                }.size
+//                val totalTask = category.tasks.filter { task ->
+//                    !task.isStored
+//                }.size
+//                listData.add(
+//                    CategoryAndTask(
+//                        category.category.titleCategory,
+//                        totalTask,
+//                        totalFinishedTask,
+//                        category.category.color
+//                    )
+//                )
+//            }
+//            categoryHomeAdapter.submitList(listData.toList())
+//        }
     }
-    private fun initComponent(){
-        binding.rvCategoryHome.adapter = categoryHomeAdapter
-        binding.rvTaskSearchView.adapter = taskSearchViewAdapter
-        binding.rvCategorySearchView.adapter = categorySearchViewAdapter
+
+    private fun initBehavior(){
         binding.searchView.editText.doOnTextChanged { text, _, _, _ ->
             if(text.isNullOrEmpty()) {
                 taskViewModel.getAllUnFinishTasks().observe(
@@ -146,13 +125,19 @@ class HomeFragment() : Fragment() {
 
             }
         }
-        // Init ViewPager
+    }
+    private fun initComponent(){
+        binding.rvCategoryHome.adapter = categoryHomeAdapter
+        binding.rvTaskSearchView.adapter = taskSearchViewAdapter
+        binding.rvCategorySearchView.adapter = categorySearchViewAdapter
+        initViewPager()
+    }
+    private fun initViewPager(){
         val tabType = listOf(TypeView.ON_PROGRESS, TypeView.FINISHED)
         binding.viewPager.adapter = FragmentHomeViewPager(childFragmentManager, lifecycle, tabType)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabType[position].type
         }.attach()
-
     }
     private fun goToDetailFragment(task: Task){
         findNavController().navigate(

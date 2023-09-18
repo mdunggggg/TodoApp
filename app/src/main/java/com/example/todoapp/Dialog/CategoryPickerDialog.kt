@@ -30,7 +30,7 @@ class CategoryPickerDialog(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCategoryPickerDialogBinding.inflate(inflater, container, false)
         initComponent()
         return binding.root

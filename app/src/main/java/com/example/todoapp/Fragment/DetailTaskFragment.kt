@@ -2,25 +2,17 @@ package com.example.todoapp.Fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.afollestad.materialdialogs.MaterialDialog
 import com.example.todoapp.Adapter.RecyclerViewAdapter.SubtasksAdapter
 import com.example.todoapp.Dialog.DatePickerDialog
 import com.example.todoapp.Dialog.TimePickerDialog
@@ -60,7 +52,7 @@ class DetailTaskFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailTaskBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         setUpOnBackPress()
