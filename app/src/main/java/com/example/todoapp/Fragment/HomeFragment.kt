@@ -15,6 +15,7 @@ import com.example.todoapp.Adapter.RecyclerViewAdapter.TaskSearchViewAdapter
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentHomeViewPager
 import com.example.todoapp.Model.CategoryAndTask
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Model.TypeStatus
 import com.example.todoapp.ViewModel.CategoryViewModel
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeBinding
@@ -46,10 +47,6 @@ class HomeFragment() : Fragment() {
     }
     companion object{
         const val TAG = "HomeFragment"
-        enum class TypeView(val type : String){
-            ON_PROGRESS("On progress"),
-            FINISHED("Finished"),
-        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +76,18 @@ class HomeFragment() : Fragment() {
                 listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
             }
             categoryHomeAdapter.submitList(listData.toList())
+            if(listData.isEmpty()){
+                binding.apply {
+                    tvCategory.visibility = View.GONE
+                    rvCategoryHome.visibility = View.GONE
+                }
+            }
+            else{
+                binding.apply {
+                    tvCategory.visibility = View.VISIBLE
+                    rvCategoryHome.visibility = View.VISIBLE
+                }
+            }
         }
 //        categoryViewModel.getCategoryWithTasks().observe(viewLifecycleOwner) {
 //            Log.d(TAG, "Observer category: $it")
@@ -133,10 +142,10 @@ class HomeFragment() : Fragment() {
         initViewPager()
     }
     private fun initViewPager(){
-        val tabType = listOf(TypeView.ON_PROGRESS, TypeView.FINISHED)
+        val tabType = listOf(TypeStatus.ON_PROGRESS, TypeStatus.FINISHED)
         binding.viewPager.adapter = FragmentHomeViewPager(childFragmentManager, lifecycle, tabType)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = tabType[position].type
+            tab.text = tabType[position].status
         }.attach()
     }
     private fun goToDetailFragment(task: Task){

@@ -34,11 +34,12 @@
                  />
          </LinearLayout>
 
-         <androidx.cardview.widget.CardView
+         <com.google.android.material.card.MaterialCardView
              android:layout_weight="6"
              android:layout_width="0dp"
              android:layout_height="wrap_content"
              app:cardCornerRadius="12dp"
+             style="@style/Widget.Material3.CardView.Filled"
              android:id="@+id/cv_task">
              <LinearLayout
                  android:paddingVertical="16dp"
@@ -71,7 +72,7 @@
                      android:maxLines="3"
                      android:text="@string/task_description" />
              </LinearLayout>
-         </androidx.cardview.widget.CardView>
+         </com.google.android.material.card.MaterialCardView>
      </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider

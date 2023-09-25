@@ -100,11 +100,17 @@ dependencies {
 
     //Circle Image View
     implementation ("de.hdodenhof:circleimageview:3.1.0")
-
+    //coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.1")
+
+    //Arc Menu
+    implementation("com.sa90.materialarcmenu:library:2.0.0")
+
+    //Number Picker
+    implementation("com.github.travijuu:numberpicker:1.0.7")
 
 }

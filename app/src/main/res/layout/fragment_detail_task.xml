@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.DetailTaskFragment">
 
@@ -155,11 +156,10 @@
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_subtasks"
-                android:layout_margin="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_subtask_rv"
-                android:padding="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
             <EditText

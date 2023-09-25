@@ -48,15 +48,17 @@ class StatisticTabFragment(
         binding.rvCategoryStatistic.adapter = itemCategoryStatisticAdapter
         binding.rvProgressBar.adapter = progressBarAdapter
         taskViewModel.getAllTasksInRange(rangeDate.toString()).observe(viewLifecycleOwner){ tasks ->
-                var totalFinishedTask = 0
-                tasks.forEach {
-                    if (it.isFinish) totalFinishedTask += 1
-                }
+                val totalFinishedTask = tasks.filter {
+                    it.isFinish && !it.isStored
+                }.size
+                val totalTask = tasks.filter {
+                    !it.isStored
+                }.size
                 binding.apply {
-                    tvTotalTask.text = tasks.size.toString()
-                    if(tasks.isEmpty()) tvPercentTask.text = "0"
+                    tvTotalTask.text = totalTask.toString()
+                    if(totalTask == 0) tvPercentTask.text = "0"
                     else{
-                        tvPercentTask.text = "${totalFinishedTask * 100 / tasks.size}"
+                        tvPercentTask.text = "${totalFinishedTask * 100 / totalTask}"
                     }
                     tvFinishedTask.text = totalFinishedTask.toString()
                 }
@@ -64,23 +66,27 @@ class StatisticTabFragment(
         taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
             val listData : MutableList<CategoryAndTask> = mutableListOf()
             for(category in it){
-                var totalFinishedTask = 0
-                var totalTask = 0
-                for(task in category.tasks){
-                    if(task.dueDate > rangeDate.toString()){
-                        totalTask += 1
-                        if (task.isFinish) totalFinishedTask += 1
-                    }
-                }
+                val totalFinishedTask = category.tasks.filter { task ->
+                    task.isFinish && !task.isStored
+                }.size
+                val totalTask = category.tasks.filter { task ->
+                    !task.isStored
+                }.size
                 listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
             }
             itemCategoryStatisticAdapter.submitList(listData.toList())
             progressBarAdapter.submitList(listData.toList())
+            if(listData.isEmpty()){
+                binding.emptyListBg.visibility = View.VISIBLE
+            }
+            else{
+                binding.emptyListBg.visibility = View.GONE
+            }
         }
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initRangeDate() {
-        typeStatistic = requireArguments().getSerializable("type") as TypeStatistic ?: TypeStatistic.ALL_TIME
+        typeStatistic = requireArguments().getSerializable("type") as TypeStatistic
         rangeDate = when (typeStatistic) {
             TypeStatistic.WEEKLY -> {
                 day.minusDays(day.dayOfWeek.value.toLong() - 1)

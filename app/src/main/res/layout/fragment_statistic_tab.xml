@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,8 +104,14 @@
             tools:listitem="@layout/item_category_statistics"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
-
-
+        <ImageView
+            android:id="@+id/empty_list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/empty_list_bg"
+            android:visibility="gone"
+            />
     </LinearLayout>
+
 
 </ScrollView>

@@ -17,5 +17,12 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     />
+    <ImageView
+        android:id="@+id/empty_list_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_list_bg"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

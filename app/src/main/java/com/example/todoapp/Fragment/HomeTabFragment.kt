@@ -1,6 +1,8 @@
 package com.example.todoapp.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Adapter.RecyclerViewAdapter.HomeTaskAdapter
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Model.TypeStatus
 import com.example.todoapp.Utils.SwipeHelper
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomeTabBinding
@@ -19,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class HomeTabFragment : Fragment() {
    private lateinit var binding : FragmentHomeTabBinding
-   private lateinit var typeView : HomeFragment.Companion.TypeView
+   private lateinit var typeView : TypeStatus
     private val taskViewModel : TaskViewModel by activityViewModels {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
@@ -37,19 +40,47 @@ class HomeTabFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        typeView = requireArguments().getSerializable("type") as HomeFragment.Companion.TypeView
+        typeView = requireArguments().getSerializable("type") as TypeStatus
         when (typeView) {
-            HomeFragment.Companion.TypeView.ON_PROGRESS -> {
+            TypeStatus.ON_PROGRESS -> {
                 binding.rvTaskHome.adapter = homeTaskAdapter
                 taskViewModel.getAllUnFinishTasks().observe(viewLifecycleOwner){ tasks ->
                     homeTaskAdapter.submitList(tasks)
+                    if(tasks.isEmpty()){
+                        binding.apply {
+                            emptyListBg.visibility = View.VISIBLE
+                            tvEmptyTask.visibility = View.VISIBLE
+                            tvEmptyTask.text = "Nothing to do :>>>>"
+                            Log.d("HomeTabFragment", "onViewCreated: Nothing to do")
+                        }
+                    }
+                    else{
+                        binding.apply {
+                            emptyListBg.visibility = View.GONE
+                            tvEmptyTask.visibility = View.GONE
+                        }
+                    }
                 }
             }
-            HomeFragment.Companion.TypeView.FINISHED -> {
+            TypeStatus.FINISHED -> {
                 binding.rvTaskHome.adapter = homeTaskAdapter
                 taskViewModel.getAllFinishTasks().observe(viewLifecycleOwner){ tasks ->
                     homeTaskAdapter.submitList(tasks)
+                    if(tasks.isEmpty()){
+                        binding.apply {
+                            emptyListBg.visibility = View.VISIBLE
+                            tvEmptyTask.visibility = View.VISIBLE
+                            tvEmptyTask.text = "You haven't finished any task yet :>>>>"
+                        }
+                    }
+                    else{
+                        binding.apply {
+                            emptyListBg.visibility = View.GONE
+                            tvEmptyTask.visibility = View.GONE
+                        }
+                    }
                 }
             }
         }

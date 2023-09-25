@@ -7,8 +7,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.todoapp.Fragment.HomeFragment
 import com.example.todoapp.Fragment.HomeTabFragment
+import com.example.todoapp.Model.TypeStatus
 
-class FragmentHomeViewPager (fragmentManager: FragmentManager, lifecycle: Lifecycle, private val typeFragment : List<HomeFragment.Companion.TypeView>) :
+class FragmentHomeViewPager (fragmentManager: FragmentManager, lifecycle: Lifecycle, private val typeFragment : List<TypeStatus>) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return typeFragment.size

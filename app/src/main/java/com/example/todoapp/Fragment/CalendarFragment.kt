@@ -82,6 +82,7 @@ class CalendarFragment : Fragment() {
     private fun setUpRecyclerView(day : Int, month : Int, year : Int){
         val date = DateTimeUtils.formatToDefaultPattern(day, month, year)
         taskViewModel.getAllTasksByDate(date).observe(viewLifecycleOwner){
+            binding.emptyListBg.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
             taskAdapter.submitList(it)
         }
     }

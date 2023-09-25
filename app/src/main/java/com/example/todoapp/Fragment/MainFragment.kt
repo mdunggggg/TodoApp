@@ -98,9 +98,6 @@ class MainFragment : Fragment() {
         binding.btAdd.setOnClickListener {
             onBtnAddClick()
         }
-        binding.btAddCategory.setOnClickListener {
-            //onBtnAddCategoryClick()
-        }
         binding.btAddTask.setOnClickListener {
             onBtnAddTaskClick()
         }
@@ -137,14 +134,6 @@ class MainFragment : Fragment() {
         )
     }
 
-    private fun onBtnAddCategoryClick() {
-        AddCategoryDialog(object : IAddCategoryListener {
-            override fun onAddCategory(category: Category) {
-                categoryViewModel.insertCategory(category)
-            }
-        }).show(parentFragmentManager, AddCategoryDialog.TAG)
-    }
-
     private fun onBtnAddTaskClick() {
         AddTaskDialog(object : IAddTaskListener {
             override fun onAddTask(task: Task) {
@@ -159,25 +148,20 @@ class MainFragment : Fragment() {
             if(btAddTask.visibility == View.VISIBLE){
                 btAdd.startAnimation(rotateClockwise)
                 btAddTask.visibility = View.GONE
-                btAddCategory.visibility = View.GONE
                 btTrash.visibility = View.GONE
                 btPomodoro.visibility = View.GONE
                 btAddTask.startAnimation(fadeOut)
-                btAddCategory.startAnimation(fadeOut)
                 btTrash.startAnimation(fadeOut)
                 btPomodoro.startAnimation(fadeOut)
             }
             else{
                 btAdd.startAnimation(rotateCounterClockwise)
                 btAddTask.visibility = View.VISIBLE
-                btAddCategory.visibility = View.VISIBLE
                 btTrash.visibility = View.VISIBLE
                 btPomodoro.visibility = View.VISIBLE
                 btPomodoro.startAnimation(fadeIn)
                 btAddTask.startAnimation(fadeIn)
-                btAddCategory.startAnimation(fadeIn)
                 btTrash.startAnimation(fadeIn)
-
             }
         }
     }

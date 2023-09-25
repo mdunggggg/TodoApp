@@ -62,5 +62,10 @@
     <string name="profile">Profile</string>
     <string name="dungmanh74_gmail_com">dungmanh74@gmail.com</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="podomoro_time">Podomoro time</string>
+    <string name="pomodoro_time">Pomodoro time</string>
+    <string name="short_break_time">Short break time</string>
+    <string name="long_break_time">Long break time</string>
+    <string name="focus">Focus</string>
 
 </resources>

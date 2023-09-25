@@ -24,7 +24,7 @@ interface TaskDao {
     fun getAllTasks(): LiveData<List<Task>>
     @Query("SELECT * FROM task_table WHERE isStored = 1")
     fun getAllDeletedTasks(): LiveData<List<Task>>
-    @Query("SELECT * FROM task_table WHERE dueDate > :date AND isStored = 0")
+    @Query("SELECT * FROM task_table WHERE dueDate >= :date AND isStored = 0")
     fun getAllTasksInRange(date: String): LiveData<List<Task>>
     @Query("SELECT * FROM task_table WHERE isStored = 0 ORDER BY isFinish ASC")
     fun getAllTasksOrderByFinish(): LiveData<List<Task>>

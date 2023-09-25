@@ -84,6 +84,7 @@ class PomodoroFragment : Fragment() {
         binding.pomodoroResetButton.setOnClickListener {
             countDownTimerPomodoro?.cancel()
             initPomodoro()
+            pauseTimer()
         }
     }
 
