@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.todoapp.Model.Task
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -15,9 +17,10 @@ class StoreToDo(private val context: Context) {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ToDoStore")
         const val KEY_FIRST_TIME_LAUNCH = "KEY_FIRST_TIME_LAUNCH"
         const val KEY_DARK_MODE = "KEY_DARK_MODE"
-    }
-    val getDarkMode : Flow<Boolean?> = context.dataStore.data.map { preferences ->
-        preferences[booleanPreferencesKey(KEY_DARK_MODE)] ?: false
+        const val KEY_USER_NAME = "KEY_USER_NAME"
+        const val KEY_USER_EMAIL = "KEY_USER_EMAIL"
+        const val KEY_AVATAR = "KEY_AVATAR"
+        const val KEY_COVER_IMAGE = "KEY_COVER_IMAGE"
     }
     suspend fun write(key : String, value : Boolean){
         val dataStoreKey = booleanPreferencesKey(key)
@@ -25,9 +28,21 @@ class StoreToDo(private val context: Context) {
             settings[dataStoreKey] = value
         }
     }
-    suspend fun read(key : String, value : Boolean) : Boolean{
+    suspend fun read(key : String, value: Boolean) : Boolean{
         val dataStoreKey = booleanPreferencesKey(key)
         val preferences = context.dataStore.data.first()
         return preferences[dataStoreKey] ?: value
     }
+    suspend fun write(key : String, value : String){
+        val dataStoreKey = stringPreferencesKey(key)
+        context.dataStore.edit { settings ->
+            settings[dataStoreKey] = value
+        }
+    }
+    suspend fun readString(key : String, value: String) : String{
+        val dataStoreKey = stringPreferencesKey(key)
+        val preferences = context.dataStore.data.first()
+        return preferences[dataStoreKey] ?: value
+    }
+
 }

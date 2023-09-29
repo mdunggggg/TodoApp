@@ -22,6 +22,7 @@ import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.IAddTaskListener
 import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Model.TypeNotification
 import com.example.todoapp.R
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.Utils.StringUtils
@@ -196,6 +197,7 @@ class MainFragment : Fragment() {
         val initialDelay = DateTimeUtils.getDelayTime(task.dueDate, task.dueTime)
         val taskJson = StringUtils.serializeToJson(task)
         val data = Data.Builder()
+            .putString("key", TypeNotification.TaskNotification.name)
             .putString("title", task.title)
             .putString("content", task.content)
             .putString("task", taskJson)

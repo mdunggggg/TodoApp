@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.todoapp.MainActivity
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Model.TypeNotification
 import com.example.todoapp.MyApplication
 import com.example.todoapp.R
 import com.example.todoapp.Utils.StringUtils
@@ -21,10 +22,18 @@ class NotificationWorker(
     private val context : Context, workerParams: WorkerParameters
 ) : Worker(context, workerParams){
     override fun doWork(): Result {
-        val title = inputData.getString("title")
-        val content = inputData.getString("content")
-        val task = StringUtils.deserializeFromJson(inputData.getString("task")!!, Task::class.java)
-        showNotification(title!!, content!!, task!!)
+        if(inputData.getString("key").equals(TypeNotification.TaskNotification.name)){
+            val title = inputData.getString("title")
+            val content = inputData.getString("content")
+            val task = StringUtils.deserializeFromJson(inputData.getString("task")!!, Task::class.java)
+            showNotification(title!!, content!!, task!!)
+        }
+        else{
+            val title = inputData.getString("title")
+            val content = inputData.getString("content")
+            showNotification(title!!, content!!)
+        }
+
         return Result.success()
     }
     private fun showNotification(title : String, content : String, task : Task){
@@ -35,6 +44,32 @@ class NotificationWorker(
             .setGraph(R.navigation.nav_graph)
             .setDestination(R.id.detailTaskFragment)
             .setArguments(bundle)
+            .createPendingIntent()
+        val builder = NotificationCompat.Builder(context, MyApplication.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_logo_no_color)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(content))
+            .setColor(ContextCompat.getColor(context, R.color.green_active))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+        with(NotificationManagerCompat.from(context)){
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notify(MyApplication.getNotificationId(), builder.build())
+        }
+    }
+    private fun showNotification(title : String, content : String){
+        val pendingIntent = NavDeepLinkBuilder(context)
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.detailTaskFragment)
             .createPendingIntent()
         val builder = NotificationCompat.Builder(context, MyApplication.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_logo_no_color)

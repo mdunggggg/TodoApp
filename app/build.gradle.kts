@@ -5,6 +5,8 @@ plugins {
     id("com.google.devtools.ksp")
     //safe args
     id("androidx.navigation.safeargs")
+
+
 }
 
 android {
@@ -113,4 +115,11 @@ dependencies {
     //Number Picker
     implementation("com.github.travijuu:numberpicker:1.0.7")
 
+    //Image Picker
+    implementation("com.github.dhaval2404:imagepicker:2.1")
+
+
+
 }
+
+

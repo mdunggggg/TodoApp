@@ -3,12 +3,17 @@ package com.example.todoapp
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ContentResolver
+import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.todoapp.DataStore.StoreToDo
 import com.example.todoapp.DataStore.StoreToDo.Companion.KEY_DARK_MODE
+import com.example.todoapp.DataStore.StoreToDo.Companion.KEY_FIRST_TIME_LAUNCH
 import kotlinx.coroutines.runBlocking
 import java.util.Date
+import kotlin.math.log
 
 class MyApplication : Application() {
     companion object{
@@ -21,9 +26,38 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        getFirstTimeLaunch()
         getDarkMode()
 
     }
+
+    private fun getFirstTimeLaunch() {
+        val firstTimeLaunch = runBlocking {
+            StoreToDo(applicationContext).read(KEY_FIRST_TIME_LAUNCH, true)
+        }
+        if(firstTimeLaunch){
+            runBlocking {
+                StoreToDo(applicationContext).write(KEY_FIRST_TIME_LAUNCH, false)
+                StoreToDo(applicationContext).apply {
+                    write(KEY_DARK_MODE, false)
+                    write(StoreToDo.KEY_USER_NAME, "Guest")
+                    write(StoreToDo.KEY_USER_EMAIL, "")
+                    write(StoreToDo.KEY_AVATAR, getPictureFromDrawable(R.drawable.meo))
+                    write(StoreToDo.KEY_COVER_IMAGE, getPictureFromDrawable(R.drawable.proptit))
+                }
+            }
+        }
+
+    }
+
+    private fun getPictureFromDrawable(id : Int) : String{
+        return  ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(
+            id
+        ) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(
+            id
+        )
+    }
+
     private fun getDarkMode() {
         val darkMode = runBlocking {
             StoreToDo(applicationContext).read(KEY_DARK_MODE, false)

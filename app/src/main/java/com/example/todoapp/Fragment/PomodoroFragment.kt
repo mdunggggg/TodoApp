@@ -11,8 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.navArgs
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import com.example.todoapp.Model.TypeNotification
 import com.example.todoapp.R
+import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentPomodoroBinding
+import java.util.concurrent.TimeUnit
 
 class PomodoroFragment : Fragment() {
     private lateinit var binding: FragmentPomodoroBinding
@@ -106,6 +113,7 @@ class PomodoroFragment : Fragment() {
             }
 
             override fun onFinish() {
+                setNotification()
                 countState++
                 if(countState < 9){
                     initPomodoro()
@@ -145,6 +153,18 @@ class PomodoroFragment : Fragment() {
             binding.pomodoroTimeCountSecond.setTypeface(null, Typeface.NORMAL)
 
         }
+    }
+    private fun setNotification(){
+        val data = Data.Builder()
+            .putString("key", TypeNotification.PomodoroNotification.name)
+            .putString("title", "title")
+            .putString("content","Content")
+            .build()
+        val notificationRequest : WorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+            .setInitialDelay(0, TimeUnit.MILLISECONDS)
+            .setInputData(data)
+            .build()
+        WorkManager.getInstance(requireContext()).enqueue(notificationRequest)
     }
 
 

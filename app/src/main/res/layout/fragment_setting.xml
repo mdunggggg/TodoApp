@@ -60,6 +60,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="center_horizontal" />
             <TextView
+                android:id="@+id/profileEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -83,28 +84,32 @@
                 android:layout_height="wrap_content"
                 android:text="@string/account"
                 />
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ed_profile"
                 style="@style/MyCustomDrawableStyle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
-                app:cardCornerRadius="10dp"
-                app:cardMaxElevation="10dp"
-                android:elevation="10dp"
-                android:padding="16dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:elevation="10dp"
+                android:focusable="true"
+                android:padding="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardMaxElevation="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
-                    android:src="@drawable/user__1_"/>
+                    android:src="@drawable/user__1_" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/edit_profile"/>
+                    android:text="@string/edit_profile" />
 
             </com.google.android.material.card.MaterialCardView>
 
