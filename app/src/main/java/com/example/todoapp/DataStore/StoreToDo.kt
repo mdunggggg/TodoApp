@@ -21,6 +21,8 @@ class StoreToDo(private val context: Context) {
         const val KEY_USER_EMAIL = "KEY_USER_EMAIL"
         const val KEY_AVATAR = "KEY_AVATAR"
         const val KEY_COVER_IMAGE = "KEY_COVER_IMAGE"
+        const val KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER"
+        const val KEY_BIRTHDAY = "KEY_BIRTHDAY"
     }
     suspend fun write(key : String, value : Boolean){
         val dataStoreKey = booleanPreferencesKey(key)

@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mainFragment_to_pomodoroFragment"
             app:destination="@id/pomodoroFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailTaskFragment"
@@ -64,4 +67,9 @@
         <argument android:name="longBreakArgs"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.todoapp.Fragment.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

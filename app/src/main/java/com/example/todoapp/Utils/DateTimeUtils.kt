@@ -43,7 +43,7 @@ object DateTimeUtils {
         } else {
             month.toString()
         }
-        return "$year-$monthString-$day"
+        return "$year-$monthString-$dayString"
     }
     fun getAmPm(time : String) : String{
         val timeSplit = time.split(":")

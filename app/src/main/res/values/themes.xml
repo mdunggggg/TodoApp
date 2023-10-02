@@ -21,7 +21,16 @@
     <style name="MyCustomDrawableStyle">
         <item name="android:background">@color/white</item>
     </style>
-
+    <style name="EditTextHint" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/darker_gray</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/darker_gray</item>
+        <item name="colorControlHighlight">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">8sp</item>
+        <item name="colorPrimary">@color/gray</item>
+    </style>
 
 
 </resources>

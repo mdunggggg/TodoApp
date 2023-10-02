@@ -1,6 +1,7 @@
 package com.example.todoapp.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +82,7 @@ class CalendarFragment : Fragment() {
     }
     private fun setUpRecyclerView(day : Int, month : Int, year : Int){
         val date = DateTimeUtils.formatToDefaultPattern(day, month, year)
+        Log.d(TAG, "setUpRecyclerView: $date")
         taskViewModel.getAllTasksByDate(date).observe(viewLifecycleOwner){
             binding.emptyListBg.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
             taskAdapter.submitList(it)

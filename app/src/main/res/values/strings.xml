@@ -67,5 +67,7 @@
     <string name="short_break_time">Short break time</string>
     <string name="long_break_time">Long break time</string>
     <string name="focus">Focus</string>
+    <string name="full_name">Full name</string>
+    <string name="email">Email</string>
 
 </resources>

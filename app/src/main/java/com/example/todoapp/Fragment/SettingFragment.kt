@@ -11,9 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.todoapp.DataStore.StoreToDo
 import com.example.todoapp.R
+import com.example.todoapp.ViewModel.UserViewModel
 import com.example.todoapp.databinding.FragmentSettingBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -26,7 +29,9 @@ class SettingFragment : Fragment() {
     private lateinit var binding : FragmentSettingBinding
     private val scope = CoroutineScope(Dispatchers.IO)
     private lateinit var todoStore : StoreToDo
-
+    private val userViewModel : UserViewModel by activityViewModels{
+        UserViewModel.UserViewModelFactory(requireActivity().application)
+    }
 
     companion object{
         const val TAG = "SettingFragment"
@@ -43,45 +48,55 @@ class SettingFragment : Fragment() {
 
     private fun initComponent() {
         todoStore = StoreToDo(requireContext())
-        lifecycleScope.launch {
-            val avatar = todoStore.readString(StoreToDo.KEY_AVATAR, getPictureFromDrawable(R.drawable.meo))
-            val coverImage = todoStore.readString(StoreToDo.KEY_COVER_IMAGE, getPictureFromDrawable(R.drawable.proptit))
-            val userName = todoStore.readString(StoreToDo.KEY_USER_NAME, "Guest")
-            val userEmail = todoStore.readString(StoreToDo.KEY_USER_EMAIL, "")
-            binding.profileImage.setImageURI(Uri.parse(avatar))
-            binding.headerProfile.setImageURI(Uri.parse(coverImage))
-            binding.profileName.text = userName
-            if(userEmail.isNotEmpty()){
-                binding.profileEmail.text = userEmail
+//        lifecycleScope.launch {
+//            val avatar = todoStore.readString(StoreToDo.KEY_AVATAR, getPictureFromDrawable(R.drawable.meo))
+//            val coverImage = todoStore.readString(StoreToDo.KEY_COVER_IMAGE, getPictureFromDrawable(R.drawable.proptit))
+//            val userName = todoStore.readString(StoreToDo.KEY_USER_NAME, "Guest")
+//            val userEmail = todoStore.readString(StoreToDo.KEY_USER_EMAIL, "")
+//            binding.profileImage.setImageURI(Uri.parse(avatar))
+//            binding.headerProfile.setImageURI(Uri.parse(coverImage))
+//            binding.profileName.text = userName
+//            if(userEmail.isNotEmpty()){
+//                binding.profileEmail.text = userEmail
+//                binding.profileEmail.visibility = View.VISIBLE
+//            }
+//            else
+//                binding.profileEmail.visibility = View.GONE
+//        }
+//        Log.d(TAG, "initComponent: " + getPictureFromDrawable(R.drawable.meo))
+        userViewModel.userName.observe(viewLifecycleOwner){
+            binding.profileName.text = it
+        }
+        userViewModel.userEmail.observe(viewLifecycleOwner){
+            if(it.isNotEmpty()){
+                binding.profileEmail.text = it
                 binding.profileEmail.visibility = View.VISIBLE
             }
             else
                 binding.profileEmail.visibility = View.GONE
         }
-
-
-    }
-    private fun getPictureFromDrawable(id : Int) : String{
-        return  ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(
-            id
-        ) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(
-            id
-        )
+        userViewModel.userAvatar.observe(viewLifecycleOwner){
+            binding.profileImage.setImageURI(Uri.parse(it))
+        }
+        userViewModel.userBackground.observe(viewLifecycleOwner){
+            binding.headerProfile.setImageURI(Uri.parse(it))
+        }
     }
     private fun initBehavior(){
-
         binding.themeApp.setOnClickListener {
             showThemeDialog()
         }
-        binding.profileImage.setOnClickListener{
-            ImagePicker.with(this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(1080, 1080)
-                .start()
+        binding.edProfile.setOnClickListener {
+            goToEditProfile()
         }
-
     }
+
+    private fun goToEditProfile() {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToEditProfileFragment()
+        )
+    }
+
     private fun showThemeDialog(){
         val singleItems = arrayOf("Light Mode", "Dark Mode", "System Default")
         var checkedItem = if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) 1 else 0
@@ -116,18 +131,5 @@ class SettingFragment : Fragment() {
                 checkedItem = which
             }
             .show()
-    }
-
-    @Deprecated("Deprecated in Java", ReplaceWith(
-        "super.onActivityResult(requestCode, resultCode, data)",
-        "androidx.fragment.app.Fragment"
-    )
-    )
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val uri : Uri? = data?.data
-        binding.profileImage.setImageURI(uri)
-        scope.launch {
-            todoStore.write(StoreToDo.KEY_AVATAR, uri.toString())
-        }
     }
 }
