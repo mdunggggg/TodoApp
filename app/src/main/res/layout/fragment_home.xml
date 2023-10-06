@@ -84,10 +84,11 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_toEndOf="@+id/civ_avatar"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/inter_semibold"
                 tools:text="Jhon Doe"/>
             <TextView
                 android:id="@+id/tv_tasks_today"
@@ -97,6 +98,8 @@
                 android:layout_below="@+id/tv_name"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#7D89B0"
                 tools:text="39 tasks today"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -135,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semibold"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:text="@string/categories"/>
@@ -153,6 +157,7 @@
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="@string/my_tasks"/>
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"

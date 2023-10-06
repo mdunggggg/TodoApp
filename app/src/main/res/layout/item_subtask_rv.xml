@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="24dp"
+    android:layout_marginTop="8dp"
     app:cardBackgroundColor="@color/bg_subtask">
    <RelativeLayout
        android:layout_width="match_parent"
@@ -23,6 +24,8 @@
           android:layout_toEndOf="@+id/cb_subtask_status"
           android:text="@string/go_to_school"
           android:textSize="20sp"
+          android:fontFamily="@font/inter_medium"
+          android:textColor="#30374F"
           android:layout_centerVertical="true"
           android:layout_marginStart="8dp"
           android:maxLines="1"

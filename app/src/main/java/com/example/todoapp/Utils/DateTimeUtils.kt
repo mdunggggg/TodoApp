@@ -13,25 +13,19 @@ import java.util.Locale
 
 
 object DateTimeUtils {
-    private const val defaultPatternDate : String = "yyyy-MM-dd"
-    private const val customPatternDate : String = "MMM d, yyyy"
-     private const val patternTime : String = "HH:mm"
-
-
-    private fun formatDateToPattern(date: String, inputPattern: String, outputPattern: String): String {
+    enum class PatternDate(val pattern : String){
+        DEFAULT_PATTERN_DATE("yyyy-MM-dd"),
+        DEFAULT_PATTERN_DATE_2("dd MMM yyyy"),
+        CUSTOM_PATTERN_DATE("MMM d, yyyy"),
+        DEFAULT_PATTERN_TIME("HH:mm"),
+    }
+    fun formatDateToPattern(date: String, inputPattern: String, outputPattern: String): String {
         val inputFormat = SimpleDateFormat(inputPattern, Locale.ENGLISH)
         val outputFormat = SimpleDateFormat(outputPattern, Locale.ENGLISH)
         val dateNew: Date? = inputFormat.parse(date)
         return dateNew?.let { outputFormat.format(it) } ?: ""
     }
 
-    fun formatToDefaultPattern(date: String): String {
-        return formatDateToPattern(date, customPatternDate, defaultPatternDate) ?: ""
-    }
-
-    fun formatToCustomPattern(date: String): String {
-        return formatDateToPattern(date, defaultPatternDate, customPatternDate) ?: ""
-    }
     fun formatToDefaultPattern(day : Int, month : Int, year : Int) : String{
         val dayString = if(day < 10){
             "0$day"
@@ -62,7 +56,7 @@ object DateTimeUtils {
     }
     private fun LocalTime.toStringTime(): String? {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter.ofPattern(DateTimeUtils.patternTime)
+            DateTimeFormatter.ofPattern(DateTimeUtils.PatternDate.DEFAULT_PATTERN_TIME.pattern)
         } else {
             return null
         }
@@ -84,9 +78,8 @@ object DateTimeUtils {
             set(Calendar.SECOND, 0)
         }
         val currentTimeMillis = System.currentTimeMillis()
-        var notificationTimeMillis: Long = notificationTime.timeInMillis
+        val notificationTimeMillis: Long = notificationTime.timeInMillis
         val limit = 5 * 60 * 1000
-        Log.d("DateTimeUtils", "getDelayTime: ${notificationTimeMillis - currentTimeMillis - limit}")
         return max(0, notificationTimeMillis - currentTimeMillis - limit)
     }
 

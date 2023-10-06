@@ -20,6 +20,8 @@ interface TaskDao {
      suspend fun updateTask(task: Task)
     @Query("DELETE FROM task_table")
     suspend fun clearTasks()
+    @Query("DELETE FROM task_table WHERE titleCategory = :titleCategory")
+    suspend fun clearTasksByCategory(titleCategory: String)
     @Query("SELECT * FROM task_table WHERE isStored = 0")
     fun getAllTasks(): LiveData<List<Task>>
     @Query("SELECT * FROM task_table WHERE isStored = 1")

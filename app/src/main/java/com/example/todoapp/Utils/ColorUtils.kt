@@ -18,6 +18,9 @@ object ColorUtils {
     private fun ContextCompat.getColor(context: Context, color: Int): Int {
         return ContextCompat.getColor(context, color)
     }
+    fun getColor(color : String) : Int {
+        return android.graphics.Color.parseColor(color)
+    }
     fun getColorTransparent(color : Int, alpha : Int = 25) : Int {
         val red = android.graphics.Color.red(color)
         val green = android.graphics.Color.green(color)

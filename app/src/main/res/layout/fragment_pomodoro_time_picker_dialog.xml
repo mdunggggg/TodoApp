@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/inter_semibold"
         android:text="Set time for pomodoro"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -25,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/pomodoro_time"
+            android:fontFamily="@font/inter_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -40,6 +42,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/short_break_time"
+            android:fontFamily="@font/inter_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -55,6 +58,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/long_break_time"
+            android:fontFamily="@font/inter_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

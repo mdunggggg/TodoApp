@@ -21,6 +21,7 @@ import com.example.todoapp.Interfaces.ITimeListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
+import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.Utils.KeyBoardUtils
 import com.example.todoapp.Utils.KeyBoardUtils.onDone
@@ -94,10 +95,19 @@ class DetailTaskFragment : Fragment() {
         binding.apply {
             tvTaskName.setText(task.title)
             tvTaskDescription.setText(task.content)
-            tvTaskDueDate.text = DateTimeUtils.formatToCustomPattern(task.dueDate)
+            tvTaskDueDate.text = DateTimeUtils.formatDateToPattern(task.dueDate, DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE.pattern, DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE_2.pattern)
             tvTaskDueTime.text = task.dueTime
             rvSubtasks.adapter = subtasksAdapter
             cbTaskStatus.isChecked = task.isFinish
+            if(task.isFinish){
+                cvStatus.setCardBackgroundColor(ColorUtils.getColor("#DFF4EA"))
+                tvStatus.setTextColor(ColorUtils.getColor("#039855"))
+                tvStatus.text = "Completed"
+            } else {
+                cvStatus.setCardBackgroundColor(ColorUtils.getColor("#D9E8F4"))
+                tvStatus.setTextColor(ColorUtils.getColor("#025A9A"))
+                tvStatus.text = "On progress"
+            }
         }
 
     }
@@ -179,7 +189,11 @@ class DetailTaskFragment : Fragment() {
         ).show(parentFragmentManager, "SET_DATE")
     }
     private fun setDueDate(date : String){
-        detailTaskViewModel.newDueDate = DateTimeUtils.formatToDefaultPattern(date)
+        detailTaskViewModel.newDueDate = DateTimeUtils.formatDateToPattern(
+            date,
+            DateTimeUtils.PatternDate.CUSTOM_PATTERN_DATE.pattern,
+            DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE.pattern
+        )
         binding.tvTaskDueDate.text =  date
     }
     private fun setDueTime(){

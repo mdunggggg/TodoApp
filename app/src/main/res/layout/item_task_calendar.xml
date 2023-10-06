@@ -22,14 +22,14 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
-                 android:textStyle="bold"
+                 android:fontFamily="@font/inter_medium"
                  android:text="08:30"   />
              <TextView
                  android:id="@+id/tv_task_time_am_pm"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
-                 android:textStyle="bold"
+                 android:fontFamily="@font/inter_medium"
                  android:text="AM"
                  />
          </LinearLayout>
@@ -59,7 +59,7 @@
                      android:layout_marginHorizontal="16dp"
                      android:maxLines="1"
                      android:textSize="20sp"
-                     android:textStyle="bold"
+                     android:fontFamily="@font/inter_bold"
                      android:text="@string/task_name" />
 
                  <TextView
@@ -69,6 +69,8 @@
                      android:layout_marginHorizontal="16dp"
                      android:layout_marginTop="8dp"
                      android:textSize="16sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="#4A5578"
                      android:maxLines="3"
                      android:text="@string/task_description" />
              </LinearLayout>

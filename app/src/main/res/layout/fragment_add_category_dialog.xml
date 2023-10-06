@@ -21,6 +21,7 @@
         android:hint="@string/enter_name_of_category"
         android:inputType="textCapSentences|textShortMessage"
         android:minHeight="64dp"
+        android:fontFamily="@font/inter_medium"
         />
     <RelativeLayout
         android:layout_width="match_parent"

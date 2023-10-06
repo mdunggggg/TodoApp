@@ -32,6 +32,8 @@
             android:layout_toEndOf="@+id/cv_category_color"
             android:layout_marginStart="12dp"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/inter_medium"
+            android:textSize="16sp"
             />
         <TextView
             android:id="@+id/tv_tasks_count"
@@ -39,6 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="#7E8491"
             android:text="@string/tasks"/>
         <TextView
             android:id="@+id/tv_tasks_count_number"
@@ -47,6 +51,8 @@
             android:layout_toStartOf="@+id/tv_tasks_count"
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="#7E8491"
             tools:text="7"
             />
 

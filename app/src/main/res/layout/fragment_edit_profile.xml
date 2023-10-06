@@ -18,6 +18,7 @@
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
+            android:fontFamily="@font/inter_medium"
             android:layout_marginTop="20dp" />
         <RelativeLayout
             android:layout_width="match_parent"
@@ -61,6 +62,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_full_name"
+                android:fontFamily="@font/inter_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -77,6 +79,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_email"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/inter_medium"
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +94,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_date_of_birth"
+                android:fontFamily="@font/inter_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -102,10 +106,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:hint="Phone number"
+            android:fontFamily="@font/inter_medium"
+            android:hint="@string/phone_number"
             app:layout_constraintTop_toTopOf="parent">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_phone_number"
+                android:fontFamily="@font/inter_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -114,17 +120,17 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_height="65dp"
             android:layout_gravity="bottom|center"
-            android:text="SUBMIT"
+            android:text="@string/submit"
             android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textAllCaps="false"
             android:backgroundTint="#1573fe"
             app:cornerRadius="10dp"
+            android:fontFamily="@font/inter_medium"
             android:id="@+id/updateProfileFunction">
         </com.google.android.material.button.MaterialButton>
     </LinearLayout>

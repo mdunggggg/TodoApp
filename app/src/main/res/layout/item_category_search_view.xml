@@ -12,6 +12,7 @@
             tools:text="Design Dribble concept"
             android:layout_toEndOf="@+id/cv_category_color_search_view"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/inter_medium"
             android:textSize="18sp"
             />
 
@@ -36,7 +37,8 @@
             android:layout_toStartOf="@+id/tv_tasks_count"
             android:layout_marginEnd="8dp"
             android:layout_centerVertical="true"
-            android:alpha="0.8"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="#7E8491"
             tools:text="19"
             />
         <TextView
@@ -46,7 +48,8 @@
             android:text="@string/tasks"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:alpha="0.8"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="#7E8491"
             />
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"

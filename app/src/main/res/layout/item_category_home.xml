@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="16dp"
     android:layout_marginEnd="16dp"
-    app:cardElevation="5dp"
+    app:cardElevation="1dp"
     android:padding="16dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
             android:paddingHorizontal="16dp"
             android:gravity="center">
             <TextView
+                android:fontFamily="@font/inter_semibold"
                 android:id="@+id/tv_category_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="12 Projects"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#7D89B0"
                 />
         </LinearLayout>
 
@@ -56,6 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="#4A5578"
                 android:text="@string/progress"
                 />
             <TextView
@@ -64,6 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="#344054"
                 tools:text="70%"/>
 
         </RelativeLayout>

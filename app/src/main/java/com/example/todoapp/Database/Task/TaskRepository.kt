@@ -13,6 +13,7 @@ class TaskRepository(application: Application) {
 
     suspend fun insertTask(task: Task) = taskDao.insertTask(task)
     suspend fun deleteTask(task: Task) = taskDao.deleteTask(task)
+    suspend fun clearTasksByCategory(titleCategory: String) = taskDao.clearTasksByCategory(titleCategory)
     suspend fun updateTask(task: Task) = taskDao.updateTask(task)
     suspend fun clearTasks() = taskDao.clearTasks()
     fun getAllDeletedTasks(): LiveData<List<Task>> = taskDao.getAllDeletedTasks()

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.Model.Task
+import com.example.todoapp.Utils.ColorUtils
 import com.example.todoapp.Utils.DateTimeUtils
 import com.example.todoapp.databinding.ItemTaskRvBinding
 
@@ -44,12 +45,26 @@ class HomeTaskAdapter(
                                 onItemClicked(task)
                           }
                           tvDate.apply {
-                                text = DateTimeUtils.formatToCustomPattern(task.dueDate)
+                                text = DateTimeUtils.formatDateToPattern(
+                                    task.dueDate,
+                                    DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE.pattern,
+                                    DateTimeUtils.PatternDate.CUSTOM_PATTERN_DATE.pattern
+                                )
                                 paintFlags = if(task.isFinish){
                                     paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
                                 }else{
                                     paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
                                 }
+                          }
+                          if (task.isFinish){
+                              cvStatus.setCardBackgroundColor(ColorUtils.getColor("#DFF4EA"))
+                              tvStatus.setTextColor(ColorUtils.getColor("#039855"))
+                              tvStatus.text = "Completed"
+                          }
+                          else{
+                              cvStatus.setCardBackgroundColor(ColorUtils.getColor("#D9E8F4"))
+                              tvStatus.setTextColor(ColorUtils.getColor("#025A9A"))
+                              tvStatus.text = "On progress"
                           }
 
 

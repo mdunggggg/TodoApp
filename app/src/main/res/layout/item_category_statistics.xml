@@ -28,6 +28,7 @@
         android:textSize="18sp"
         android:layout_toEndOf="@+id/cv_category_color"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/inter_medium"
         android:textStyle="bold"
         />
     <LinearLayout
@@ -61,21 +62,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="418"
+            android:fontFamily="@font/inter_medium"
             android:textStyle="bold"
             android:textSize="18sp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0.6"
+            android:fontFamily="@font/inter_medium"
             android:textSize="13sp"
+            android:textColor="#7E8491"
             android:text="@string/divide" />
         <TextView
             android:id="@+id/tv_total_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            android:alpha="0.6"
+            android:textColor="#7E8491"
+            android:fontFamily="@font/inter_medium"
             tools:text="418" />
     </LinearLayout>
     <com.google.android.material.divider.MaterialDivider

@@ -69,5 +69,7 @@
     <string name="focus">Focus</string>
     <string name="full_name">Full name</string>
     <string name="email">Email</string>
+    <string name="submit">SUBMIT</string>
+    <string name="phone_number">Phone number</string>
 
 </resources>
