@@ -45,23 +45,28 @@ class StatisticTabFragment(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRangeDate()
+        initComponent()
+
+    }
+
+    private fun initComponent() {
         binding.rvCategoryStatistic.adapter = itemCategoryStatisticAdapter
         binding.rvProgressBar.adapter = progressBarAdapter
         taskViewModel.getAllTasksInRange(rangeDate.toString()).observe(viewLifecycleOwner){ tasks ->
-                val totalFinishedTask = tasks.filter {
-                    it.isFinish && !it.isStored
-                }.size
-                val totalTask = tasks.filter {
-                    !it.isStored
-                }.size
-                binding.apply {
-                    tvTotalTask.text = totalTask.toString()
-                    if(totalTask == 0) tvPercentTask.text = "0"
-                    else{
-                        tvPercentTask.text = "${totalFinishedTask * 100 / totalTask}"
-                    }
-                    tvFinishedTask.text = totalFinishedTask.toString()
+            val totalFinishedTask = tasks.filter {
+                it.isFinish && !it.isStored
+            }.size
+            val totalTask = tasks.filter {
+                !it.isStored
+            }.size
+            binding.apply {
+                tvTotalTask.text = totalTask.toString()
+                if(totalTask == 0) tvPercentTask.text = "0"
+                else{
+                    tvPercentTask.text = "${totalFinishedTask * 100 / totalTask}"
                 }
+                tvFinishedTask.text = totalFinishedTask.toString()
+            }
         }
         taskViewModel.getCategoryWithTasks().observe(viewLifecycleOwner){
             val listData : MutableList<CategoryAndTask> = mutableListOf()
@@ -84,6 +89,7 @@ class StatisticTabFragment(
             }
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initRangeDate() {
         typeStatistic = requireArguments().getSerializable("type") as TypeStatistic
@@ -101,7 +107,6 @@ class StatisticTabFragment(
                 LocalDate.of(2021, 1, 1)
             }
         }
-        Log.d("StatisticTabFragment", "initRangeDate: $rangeDate")
     }
 
 }

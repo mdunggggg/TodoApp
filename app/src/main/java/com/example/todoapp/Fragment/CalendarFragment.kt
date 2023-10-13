@@ -1,7 +1,7 @@
 package com.example.todoapp.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,16 +47,22 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rvTaskCalendar.adapter = taskAdapter
-        setUpRecyclerView(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+        initComponent()
+
         setUpCalendar()
 
     }
+
+    private fun initComponent() {
+        binding.rvTaskCalendar.adapter = taskAdapter
+        setUpRecyclerView(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+        setUpTitle(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+    }
+
     private fun setUpCalendar(){
         startDate.add(Calendar.MONTH, -1)
         endDate.add(Calendar.MONTH, 1)
@@ -76,13 +82,13 @@ class CalendarFragment : Fragment() {
                     date.get(Calendar.MONTH) + 1,
                     date.get(Calendar.YEAR)
                 )
+                setUpTitle(date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH) + 1, date.get(Calendar.YEAR))
             }
 
         }
     }
     private fun setUpRecyclerView(day : Int, month : Int, year : Int){
         val date = DateTimeUtils.formatToDefaultPattern(day, month, year)
-        Log.d(TAG, "setUpRecyclerView: $date")
         taskViewModel.getAllTasksByDate(date).observe(viewLifecycleOwner){
             binding.emptyListBg.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
             taskAdapter.submitList(it)
@@ -92,6 +98,14 @@ class CalendarFragment : Fragment() {
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToDetailTaskFragment(task)
         )
+    }
+    @SuppressLint("SetTextI18n")
+    private fun setUpTitle(day : Int, month : Int, year : Int){
+        binding.tvTaskOfDay.text = "Task of " +  DateTimeUtils.formatDateToPattern(
+            DateTimeUtils.formatToDefaultPattern(day, month, year),
+            DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE.pattern,
+            DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE_3.pattern)
+      //  Log.d(TAG, "setUpTitle: ${DateTimeUtils.formatToDefaultPattern(day, month, year)}")
     }
 
 }

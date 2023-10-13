@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Model.Category
 import com.example.todoapp.databinding.FragmentAddCategoryDialogBinding
@@ -15,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class AddCategoryDialog(private val onAddCategory : IAddCategoryListener) : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddCategoryDialogBinding
     private var color = Color.BLACK
+    private var title = ""
     companion object{
         const val TAG = "AddCategoryDialog"
     }
@@ -46,6 +48,10 @@ class AddCategoryDialog(private val onAddCategory : IAddCategoryListener) : Bott
         colorPickerDialog.show(childFragmentManager, ColorPickerDialog.TAG)
     }
     private fun addCategory(){
+        if(binding.etCategoryName.text.toString() == ""){
+            Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
         onAddCategory.onAddCategory(
             Category(titleCategory = binding.etCategoryName.text.toString(), color = color)
         )

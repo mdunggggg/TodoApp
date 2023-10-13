@@ -5,7 +5,6 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -161,7 +160,7 @@ class HomeFragment() : Fragment() {
         binding.rvCategorySearchView.adapter = categorySearchViewAdapter
         todoStore = StoreToDo(requireContext())
         lifecycleScope.launch {
-            val avatar = todoStore.readString(StoreToDo.KEY_AVATAR, getPictureFromDrawable(R.drawable.meo))
+            val avatar = todoStore.readString(StoreToDo.KEY_AVATAR, getPictureFromDrawable(R.drawable.user))
             val userName = todoStore.readString(StoreToDo.KEY_USER_NAME, "Guest")
             binding.civAvatar.setImageURI(Uri.parse(avatar))
             binding.tvName.text = userName

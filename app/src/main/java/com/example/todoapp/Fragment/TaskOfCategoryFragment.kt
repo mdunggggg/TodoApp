@@ -37,6 +37,10 @@ class TaskOfCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         receiveData()
+        initComponent()
+    }
+
+    private fun initComponent() {
         binding.rvTaskHome.adapter = taskAdapter
         binding.toolbar.title = category.titleCategory
         binding.toolbar.setNavigationOnClickListener {
@@ -48,6 +52,7 @@ class TaskOfCategoryFragment : Fragment() {
             taskAdapter.submitList(it)
         }
     }
+
     private fun receiveData(){
         category = args.categoryArgs
     }

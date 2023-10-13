@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,12 +16,9 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.example.todoapp.Adapter.ViewPagerAdapter.FragmentMainViewPager
-import com.example.todoapp.Dialog.AddCategoryDialog
 import com.example.todoapp.Dialog.AddTaskDialog
 import com.example.todoapp.Dialog.PomodoroTimePickerDialog
-import com.example.todoapp.Interfaces.IAddCategoryListener
 import com.example.todoapp.Interfaces.IAddTaskListener
-import com.example.todoapp.Model.Category
 import com.example.todoapp.Model.Task
 import com.example.todoapp.Model.TypeNotification
 import com.example.todoapp.R
@@ -65,9 +63,6 @@ class MainFragment : Fragment() {
     }
     private val taskViewModel : TaskViewModel by activityViewModels(){
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
-    }
-    private val categoryViewModel : CategoryViewModel by activityViewModels {
-        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -206,8 +201,14 @@ class MainFragment : Fragment() {
             .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
             .setInputData(data)
             .build()
-        WorkManager.getInstance(requireContext()).enqueue(notificationRequest)
+        context?.let {
+            WorkManager.getInstance(it).enqueue(notificationRequest)
+        }?:{
+            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+        }
     }
+
+
 
 
 }

@@ -16,9 +16,14 @@ class PomodoroTimePickerDialog(
     }
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentPomodoroTimePickerDialogBinding.inflate(layoutInflater)
-        val dialog = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
+        val dialog = context?.let {
+            MaterialAlertDialogBuilder(it).setView(binding.root)
+        }
         initBehavior()
-        return dialog.create()
+        if (dialog != null) {
+            return dialog.create()
+        }
+        return super.onCreateDialog(savedInstanceState)
     }
 
     private fun initBehavior() {
@@ -34,14 +39,14 @@ class PomodoroTimePickerDialog(
     }
     private fun onGotPomodoroTime(pomodoroTime : String, shortBreakTime : String, longBreakTime : String){
         if(pomodoroTime.isEmpty() || shortBreakTime.isEmpty() || longBreakTime.isEmpty()){
-            Toast.makeText(requireContext(), "Please fill all the field", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please fill all the field", Toast.LENGTH_SHORT).show()
             return
         }
        try {
            goToPomodoroFragment(pomodoroTime.toInt(), shortBreakTime.toInt(), longBreakTime.toInt())
        }
          catch (e : Exception){
-             Toast.makeText(requireContext(), "Time must be a number", Toast.LENGTH_SHORT).show()
+             Toast.makeText(context, "Time must be a number", Toast.LENGTH_SHORT).show()
          }
     }
 

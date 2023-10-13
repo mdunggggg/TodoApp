@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -68,6 +69,7 @@ class CategoryPickerDialog(
         AddCategoryDialog(object : IAddCategoryListener{
             override fun onAddCategory(category: Category) {
                 categoryViewModel.insertCategory(category)
+                Log.d(TAG, "onAddCategory: ${category.titleCategory}")
             }
         }).show(childFragmentManager, AddCategoryDialog.TAG)
     }
@@ -77,23 +79,27 @@ class CategoryPickerDialog(
         }.size.toString()
     }
     private fun setUpSwipeAction(){
-        ItemTouchHelper(object : SwipeHelper(requireContext()){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.absoluteAdapterPosition
-                val category = categoryAdapter.currentList[position]
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Delete the category and all tasks")
-                    .setMessage("Are you sure want to delete this category and all tasks ")
-                    .setPositiveButton("Yes"){ _, _ ->
-                        categoryViewModel.deleteCategory(category)
-                        taskViewModel.clearTasksByCategory(category.titleCategory)
-                    }
-                    .setNegativeButton("No"){ _, _ ->
-                        categoryAdapter.notifyItemChanged(position)
-                    }
-                    .show()
-            }
-        }).attachToRecyclerView(binding.rvCategories)
+        context?.let {
+            ItemTouchHelper(object : SwipeHelper(it){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.absoluteAdapterPosition
+                    val category = categoryAdapter.currentList[position]
+                    MaterialAlertDialogBuilder(context!!)
+                        .setTitle("Delete the category and all tasks")
+                        .setMessage("Are you sure want to delete this category and all tasks ")
+                        .setPositiveButton("Yes"){ _, _ ->
+                            categoryViewModel.deleteCategory(category)
+                            taskViewModel.clearTasksByCategory(category.titleCategory)
+                        }
+                        .setNegativeButton("No"){ _, _ ->
+                            categoryAdapter.notifyItemChanged(position)
+                        }
+                        .show()
+                }
+            }).attachToRecyclerView(binding.rvCategories)
+        }?:{
+            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

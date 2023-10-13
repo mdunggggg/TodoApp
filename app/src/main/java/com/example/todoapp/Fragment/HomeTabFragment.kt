@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -42,7 +43,13 @@ class HomeTabFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        typeView = requireArguments().getSerializable("type") as TypeStatus
+        receiveData()
+        initComponent()
+        setUpSwipeAction()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initComponent() {
         when (typeView) {
             TypeStatus.ON_PROGRESS -> {
                 binding.rvTaskHome.adapter = homeTaskAdapter
@@ -84,33 +91,41 @@ class HomeTabFragment : Fragment() {
                 }
             }
         }
-        setUpSwipeAction()
     }
+
+    private fun receiveData() {
+        typeView = requireArguments().getSerializable("type") as TypeStatus
+    }
+
     private fun goToDetailFragment(task: Task){
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToDetailTaskFragment(task)
         )
     }
     private fun setUpSwipeAction(){
-        ItemTouchHelper(object : SwipeHelper(requireContext()){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.absoluteAdapterPosition
-                val task = homeTaskAdapter.currentList[position]
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Move to trash")
-                    .setMessage("Are you sure want to " +
-                            "move this task to trash?")
-                    .setPositiveButton("Yes"){ _, _ ->
-                        taskViewModel.updateTask(task.copy(isStored = true))
-                        Snackbar.make(binding.root, "Task is moved to trash", Snackbar.LENGTH_LONG).show()
-                    }
-                    .setNegativeButton("No"){ dialog, _ ->
-                        dialog.dismiss()
-                        homeTaskAdapter.notifyItemChanged(position)
-                    }
-                    .show()
-            }
-        }).attachToRecyclerView(binding.rvTaskHome)
+        context?.let {
+            ItemTouchHelper(object : SwipeHelper(it){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.absoluteAdapterPosition
+                    val task = homeTaskAdapter.currentList[position]
+                    MaterialAlertDialogBuilder(context!!)
+                        .setTitle("Move to trash")
+                        .setMessage("Are you sure want to " +
+                                "move this task to trash?")
+                        .setPositiveButton("Yes"){ _, _ ->
+                            taskViewModel.updateTask(task.copy(isStored = true))
+                            Snackbar.make(binding.root, "Task is moved to trash", Snackbar.LENGTH_LONG).show()
+                        }
+                        .setNegativeButton("No"){ dialog, _ ->
+                            dialog.dismiss()
+                            homeTaskAdapter.notifyItemChanged(position)
+                        }
+                        .show()
+                }
+            }).attachToRecyclerView(binding.rvTaskHome)
+        }?:{
+            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

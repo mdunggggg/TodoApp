@@ -16,7 +16,6 @@ class StoreToDo(private val context: Context) {
     companion object{
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ToDoStore")
         const val KEY_FIRST_TIME_LAUNCH = "KEY_FIRST_TIME_LAUNCH"
-        const val KEY_DARK_MODE = "KEY_DARK_MODE"
         const val KEY_USER_NAME = "KEY_USER_NAME"
         const val KEY_USER_EMAIL = "KEY_USER_EMAIL"
         const val KEY_AVATAR = "KEY_AVATAR"

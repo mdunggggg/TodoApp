@@ -24,7 +24,7 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     private var date = ""
     private var time = ""
     private var color = 0
-    private lateinit var category: String
+    private var category = ""
     companion object{
         const val TAG = "AddTaskDialogFragment"
     }
@@ -34,12 +34,11 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTaskDialogBinding.inflate(inflater, container, false)
-        initComponent()
         initBehavior()
         return binding.root
     }
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun initComponent(){
+    private fun initBehavior(){
         binding.apply{
             etTaskDescription.apply {
                 onDone {
@@ -65,9 +64,6 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
             }
 
         }
-    }
-    private fun initBehavior(){
-
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueDate() {
@@ -116,13 +112,13 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addTask(){
-        if (binding.etTaskName.text.toString().isEmpty() || binding.etTaskDescription.text.toString().isEmpty() || binding.btSetCategory.text.toString().isEmpty() || binding.btSetDueDate.text.toString().isEmpty()){
+        if (this.time == "" || this.date == "" || category == "" || binding.etTaskName.text.toString() == "" || binding.etTaskDescription.text.toString() == ""){
             Toast.makeText(context, "Please fill all information", Toast.LENGTH_SHORT).show()
             return
         }
         addTaskListener.onAddTask(
             Task(
-               title = binding.etTaskName.text.toString(),
+                title = binding.etTaskName.text.toString(),
                 content = binding.etTaskDescription.text.toString(),
                 titleCategory = category,
                 dateCreated = LocalDate.now().toString(),

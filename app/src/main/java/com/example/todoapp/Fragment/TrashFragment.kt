@@ -1,11 +1,11 @@
 package com.example.todoapp.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
@@ -67,24 +67,27 @@ class TrashFragment : Fragment() {
     private fun initComponent() {
         binding.rvTrash.adapter = homeTaskAdapter
         taskViewModel.getAllDeletedTasks().observe(viewLifecycleOwner){ tasks ->
-            Log.d(TAG, "initComponent: $tasks")
             homeTaskAdapter.submitList(tasks)
         }
     }
     private fun deleteOrRestoreTask(task: Task){
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete or Restore")
-            .setMessage("Do you want to delete or restore this task?")
-            .setPositiveButton("Delete"){ _, _ ->
-                taskViewModel.deleteTask(task)
-            }
-            .setNegativeButton("Restore"){ _, _ ->
-                taskViewModel.updateTask(task.copy(isStored = false))
-            }
-            .setNeutralButton("Cancel"){ dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Delete or Restore")
+                .setMessage("Do you want to delete or restore this task?")
+                .setPositiveButton("Delete"){ _, _ ->
+                    taskViewModel.deleteTask(task)
+                }
+                .setNegativeButton("Restore"){ _, _ ->
+                    taskViewModel.updateTask(task.copy(isStored = false))
+                }
+                .setNeutralButton("Cancel"){ dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }?:{
+            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+        }
     }
     private fun onBack(){
         findNavController().navigateUp()

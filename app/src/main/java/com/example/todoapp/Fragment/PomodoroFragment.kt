@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.navArgs
 import androidx.work.Data
@@ -39,14 +40,36 @@ class PomodoroFragment : Fragment() {
          savedInstanceState: Bundle?
     ): View {
         binding = FragmentPomodoroBinding.inflate(inflater, container, false)
-        pomodoroTime  = (args.pomodoroTimeArgs * 60 * 1000L) . toString()
-        shortBreakTime = (args.shortBreakArgs  * 60 * 1000L).toString()
-        longBreakTime  =  (args.longBreakArgs * 60 * 1000L).toString()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        receiveData()
         initPomodoro()
+        initBehavior()
+    }
+
+    private fun initBehavior() {
+        binding.pomodoroNextButton.setOnClickListener {
+            countState++
+            if(countState == 9){
+                countState = 1
+            }
+            countDownTimerPomodoro?.cancel()
+            initPomodoro()
+        }
+        binding.pomodoroResetButton.setOnClickListener {
+            countDownTimerPomodoro?.cancel()
+            initPomodoro()
+            pauseTimer()
+        }
+    }
+
+    private fun receiveData() {
+        pomodoroTime  = (args.pomodoroTimeArgs * 60 * 1000L) . toString()
+        shortBreakTime = (args.shortBreakArgs  * 60 * 1000L).toString()
+        longBreakTime  =  (args.longBreakArgs * 60 * 1000L).toString()
     }
 
     private fun initPomodoro() {
@@ -80,19 +103,7 @@ class PomodoroFragment : Fragment() {
             }
 
         }
-        binding.pomodoroNextButton.setOnClickListener {
-            countState++
-            if(countState == 9){
-                countState = 1
-            }
-            countDownTimerPomodoro?.cancel()
-            initPomodoro()
-        }
-        binding.pomodoroResetButton.setOnClickListener {
-            countDownTimerPomodoro?.cancel()
-            initPomodoro()
-            pauseTimer()
-        }
+
     }
 
 
@@ -157,14 +168,16 @@ class PomodoroFragment : Fragment() {
     private fun setNotification(){
         val data = Data.Builder()
             .putString("key", TypeNotification.PomodoroNotification.name)
-            .putString("title", "title")
-            .putString("content","Content")
+            .putString("title", if (countState % 2 == 0) "Focus" else "Short Break")
+            .putString("content", if (countState % 2 == 0) "Time to focus" else "Time for a short break")
             .build()
         val notificationRequest : WorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
             .setInitialDelay(0, TimeUnit.MILLISECONDS)
             .setInputData(data)
             .build()
-        WorkManager.getInstance(requireContext()).enqueue(notificationRequest)
+        context?.let {
+            WorkManager.getInstance(it).enqueue(notificationRequest)
+        }?: Toast.makeText(context, "Context is null", Toast.LENGTH_SHORT).show()
     }
 
 

@@ -20,7 +20,7 @@ class UserViewModel(application: Application) : ViewModel() {
     companion object{
         const val DEFAULT_USER_NAME = "Guest"
         const val DEFAULT_USER_EMAIL = ""
-        const val DEFAULT_AVATAR = "android.resource://com.example.todoapp/drawable/meo"
+        const val DEFAULT_AVATAR = "android.resource://com.example.todoapp/drawable/user"
         const val DEFAULT_COVER_IMAGE = "android.resource://com.example.todoapp/drawable/proptit"
         const val DEFAULT_PHONE_NUMBER = ""
         const val DEFAULT_BIRTHDAY = ""

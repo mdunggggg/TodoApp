@@ -16,8 +16,11 @@ object DateTimeUtils {
     enum class PatternDate(val pattern : String){
         DEFAULT_PATTERN_DATE("yyyy-MM-dd"),
         DEFAULT_PATTERN_DATE_2("dd MMM yyyy"),
+        DEFAULT_PATTERN_DATE_3("dd MMMM yyyy"),
+        DEFAULT_PATTERN_DATE_4("dd MM yyyy"),
         CUSTOM_PATTERN_DATE("MMM d, yyyy"),
         DEFAULT_PATTERN_TIME("HH:mm"),
+
     }
     fun formatDateToPattern(date: String, inputPattern: String, outputPattern: String): String {
         val inputFormat = SimpleDateFormat(inputPattern, Locale.ENGLISH)

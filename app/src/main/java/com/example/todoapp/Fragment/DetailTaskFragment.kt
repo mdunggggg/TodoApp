@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -143,21 +144,25 @@ class DetailTaskFragment : Fragment() {
     private fun onBack(){
         updateDetailTaskViewModel()
         if (detailTaskViewModel.isChanged()){
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Save changes")
-                .setMessage("Do you want to save changes?")
-                .setIcon(R.drawable.ic_save)
-                .setPositiveButton("Yes"){ _, _ ->
-                    taskViewModel.updateTask(detailTaskViewModel.getNewTask())
-                    findNavController().navigateUp()
-                }
-                .setNegativeButton("No"){ _, _ ->
-                    findNavController().navigateUp()
-                }
-                .setNeutralButton("Cancel"){ dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            context?.let {
+                MaterialAlertDialogBuilder(it)
+                    .setTitle("Save changes")
+                    .setMessage("Do you want to save changes?")
+                    .setIcon(R.drawable.ic_save)
+                    .setPositiveButton("Yes"){ _, _ ->
+                        taskViewModel.updateTask(detailTaskViewModel.getNewTask())
+                        findNavController().navigateUp()
+                    }
+                    .setNegativeButton("No"){ _, _ ->
+                        findNavController().navigateUp()
+                    }
+                    .setNeutralButton("Cancel"){ dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }?:{
+                Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+            }
         }
         else{
             findNavController().navigateUp()

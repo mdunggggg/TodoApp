@@ -21,14 +21,17 @@ class ColorPickerDialog(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentColorPickerDialogBinding.inflate(layoutInflater)
         initBehavior()
-        val dialog = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
-        return dialog.create()
+        val dialog = context?.let { MaterialAlertDialogBuilder(it).setView(binding.root) }
+        if (dialog != null) {
+            return dialog.create()
+        }
+        return super.onCreateDialog(savedInstanceState)
     }
 
     private fun initBehavior() {
 
         binding.rvColorPicker.apply {
-            adapter = ColorAdapter(requireContext().getColorArray(R.array.colors),
+            adapter = ColorAdapter(context.getColorArray(R.array.colors),
                 {color -> onColorClicked(color)},
                 this@ColorPickerDialog::dismiss
             )

@@ -11,10 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    <TextView
+        android:id="@+id/tv_task_of_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semibold"
+        android:layout_marginVertical="16dp"
+        android:textSize="24sp"
+        android:layout_marginStart="16dp"
+        tools:text="Task of 13 septemble"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_task_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:listitem="@layout/item_task_calendar"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     />
     <ImageView
