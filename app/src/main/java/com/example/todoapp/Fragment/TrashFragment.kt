@@ -55,7 +55,27 @@ class TrashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initComponent()
+        observeData()
         initBehavior()
+    }
+
+    private fun observeData() {
+        taskViewModel.getAllDeletedTasks().observe(viewLifecycleOwner){ tasks ->
+            homeTaskAdapter.submitList(tasks)
+            if(tasks.isEmpty()){
+                binding.apply {
+                    emptyListBg.visibility = View.VISIBLE
+                    tvEmptyTask.visibility = View.VISIBLE
+                    tvEmptyTask.text = "No task in trash :>>>>"
+                }
+            }
+            else{
+                binding.apply {
+                    emptyListBg.visibility = View.GONE
+                    tvEmptyTask.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun initBehavior() {
@@ -66,9 +86,6 @@ class TrashFragment : Fragment() {
 
     private fun initComponent() {
         binding.rvTrash.adapter = homeTaskAdapter
-        taskViewModel.getAllDeletedTasks().observe(viewLifecycleOwner){ tasks ->
-            homeTaskAdapter.submitList(tasks)
-        }
     }
     private fun deleteOrRestoreTask(task: Task){
         context?.let {
@@ -86,7 +103,7 @@ class TrashFragment : Fragment() {
                 }
                 .show()
         }?:{
-            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "An error has occurred!! Please restart the app.", Toast.LENGTH_SHORT).show()
         }
     }
     private fun onBack(){

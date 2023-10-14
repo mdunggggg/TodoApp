@@ -4,13 +4,13 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import java.lang.Long.max
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-
 
 object DateTimeUtils {
     enum class PatternDate(val pattern : String){
@@ -23,8 +23,8 @@ object DateTimeUtils {
 
     }
     fun formatDateToPattern(date: String, inputPattern: String, outputPattern: String): String {
-        val inputFormat = SimpleDateFormat(inputPattern, Locale.ENGLISH)
-        val outputFormat = SimpleDateFormat(outputPattern, Locale.ENGLISH)
+        val inputFormat = SimpleDateFormat(inputPattern, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(outputPattern, Locale.getDefault())
         val dateNew: Date? = inputFormat.parse(date)
         return dateNew?.let { outputFormat.format(it) } ?: ""
     }

@@ -2,6 +2,7 @@ package com.example.todoapp.Dialog
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,11 @@ import com.example.todoapp.Utils.KeyBoardUtils
 import com.example.todoapp.Utils.KeyBoardUtils.onDone
 import com.example.todoapp.databinding.FragmentAddTaskDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.time.LocalDate
+import java.time.LocalTime
 
 class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddTaskDialogBinding
@@ -67,23 +72,29 @@ class AddTaskDialog(private val addTaskListener: IAddTaskListener) : BottomSheet
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueDate() {
-        DatePickerDialog(
-            object : IDateListener {
-                override fun onDateSelected(date: String) {
-                    setDueDate(date)
-                }
-            }
-        ).show(parentFragmentManager, "SET_DATE")
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setTitleText("Select date")
+            .build()
+        datePicker.addOnPositiveButtonClickListener {
+            setDueDate(datePicker.headerText)
+        }
+        datePicker.show(childFragmentManager, "DatePickerDialog")
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueTime(){
-        TimePickerDialog(
-            object : ITimeListener {
-                override fun onTimeSelected(hour: Int, minute: Int) {
-                    setDueTime(hour, minute)
-                }
-            }
-        ).show(parentFragmentManager, "SET_TIME")
+        val timePicker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(LocalTime.now().hour)
+            .setMinute(LocalTime.now().minute)
+            .setTitleText("Select time")
+            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+            .build()
+        timePicker.addOnPositiveButtonClickListener {
+            setDueTime(timePicker.hour, timePicker.minute)
+        }
+
+        timePicker.show(childFragmentManager, "TimePickerDialog")
     }
 
     private fun setDueDate(date : String){

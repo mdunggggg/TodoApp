@@ -38,19 +38,28 @@ class TaskOfCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         receiveData()
         initComponent()
+        initBehavior()
+        observeData()
     }
 
-    private fun initComponent() {
-        binding.rvTaskHome.adapter = taskAdapter
-        binding.toolbar.title = category.titleCategory
+    private fun initBehavior() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun observeData() {
         taskViewModel.getAllTasksByCategory(category.titleCategory).observe(
             viewLifecycleOwner
         ) {
             taskAdapter.submitList(it)
         }
+    }
+
+    private fun initComponent() {
+        binding.rvTaskHome.adapter = taskAdapter
+        binding.toolbar.title = category.titleCategory
+
     }
 
     private fun receiveData(){

@@ -105,7 +105,6 @@ class CalendarFragment : Fragment() {
             DateTimeUtils.formatToDefaultPattern(day, month, year),
             DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE.pattern,
             DateTimeUtils.PatternDate.DEFAULT_PATTERN_DATE_3.pattern)
-      //  Log.d(TAG, "setUpTitle: ${DateTimeUtils.formatToDefaultPattern(day, month, year)}")
     }
 
 }

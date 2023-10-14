@@ -4,12 +4,17 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentResolver
+import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.todoapp.DataStore.StoreToDo
 import com.example.todoapp.DataStore.StoreToDo.Companion.KEY_FIRST_TIME_LAUNCH
 import kotlinx.coroutines.runBlocking
 import java.util.Date
+import java.util.Locale
+
+
+
 
 class MyApplication : Application() {
     companion object{
@@ -22,7 +27,16 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        setLocale()
         getFirstTimeLaunch()
+    }
+
+    private fun setLocale() {
+        val locale = Locale("en")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     private fun getFirstTimeLaunch() {

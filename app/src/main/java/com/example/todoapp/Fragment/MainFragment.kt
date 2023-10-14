@@ -204,7 +204,7 @@ class MainFragment : Fragment() {
         context?.let {
             WorkManager.getInstance(it).enqueue(notificationRequest)
         }?:{
-            Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "An error has occurred!! Please restart the app.", Toast.LENGTH_SHORT).show()
         }
     }
 

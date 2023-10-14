@@ -20,6 +20,7 @@ import com.example.todoapp.Model.TypeNotification
 import com.example.todoapp.R
 import com.example.todoapp.Worker.NotificationWorker
 import com.example.todoapp.databinding.FragmentPomodoroBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.concurrent.TimeUnit
 
 class PomodoroFragment : Fragment() {
@@ -129,9 +130,27 @@ class PomodoroFragment : Fragment() {
                 if(countState < 9){
                     initPomodoro()
                 }
+                else{
+                    doYouWantToContinue()
+                }
             }
         }.start()
         timeRunning = true
+    }
+    private fun doYouWantToContinue(){
+        context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Pomodoro is over")
+                .setMessage("Do you want to continue?")
+                .setPositiveButton("Yes") { _, _ ->
+                    countState = 1
+                    initPomodoro()
+                }
+                .setNegativeButton("No") { _, _ ->
+                    return@setNegativeButton
+                }
+                .show()
+        }
     }
     private fun updateText(){
         val minutes = (timeLeft.toLong() / 1000) / 60

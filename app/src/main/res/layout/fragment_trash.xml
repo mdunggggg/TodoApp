@@ -18,10 +18,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/rv_trash"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_task_rv"
+        />
+
+    <ImageView
+        android:id="@+id/empty_list_bg"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/ic_empty_task"
+        android:visibility="gone"
+        />
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_empty_task"
+        android:gravity="center"
         />
 
 </LinearLayout>

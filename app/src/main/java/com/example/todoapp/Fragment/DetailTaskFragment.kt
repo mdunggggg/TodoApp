@@ -15,10 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.Adapter.RecyclerViewAdapter.SubtasksAdapter
-import com.example.todoapp.Dialog.DatePickerDialog
-import com.example.todoapp.Dialog.TimePickerDialog
-import com.example.todoapp.Interfaces.IDateListener
-import com.example.todoapp.Interfaces.ITimeListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
@@ -30,7 +26,11 @@ import com.example.todoapp.ViewModel.DetailTaskViewModel
 import com.example.todoapp.ViewModel.DetailTaskViewModelFactory
 import com.example.todoapp.ViewModel.TaskViewModel
 import com.example.todoapp.databinding.FragmentDetailTaskBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import java.time.LocalTime
 
 
 class DetailTaskFragment : Fragment() {
@@ -72,6 +72,7 @@ class DetailTaskFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         receiveData()
@@ -112,6 +113,7 @@ class DetailTaskFragment : Fragment() {
         }
 
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initBehavior(){
         binding.toolbar.setNavigationOnClickListener {
             onBack()
@@ -161,7 +163,7 @@ class DetailTaskFragment : Fragment() {
                     }
                     .show()
             }?:{
-                Toast.makeText(context, "Có lỗi xảy ra!! Vui lòng khởi động lại app", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "An error has occurred!! Please restart the app.", Toast.LENGTH_SHORT).show()
             }
         }
         else{
@@ -185,13 +187,14 @@ class DetailTaskFragment : Fragment() {
         KeyBoardUtils.hideSoftKeyboard(binding.root, requireActivity())
     }
     private fun setDueDate(){
-        DatePickerDialog(
-            object : IDateListener {
-                override fun onDateSelected(date: String) {
-                    setDueDate(date)
-                }
-            }
-        ).show(parentFragmentManager, "SET_DATE")
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setTitleText("Select date")
+            .build()
+        datePicker.addOnPositiveButtonClickListener {
+            setDueDate(datePicker.headerText)
+        }
+        datePicker.show(childFragmentManager, "DatePickerDialog")
     }
     private fun setDueDate(date : String){
         detailTaskViewModel.newDueDate = DateTimeUtils.formatDateToPattern(
@@ -201,15 +204,21 @@ class DetailTaskFragment : Fragment() {
         )
         binding.tvTaskDueDate.text =  date
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueTime(){
-        TimePickerDialog(
-            object : ITimeListener {
-                @RequiresApi(Build.VERSION_CODES.O)
-                override fun onTimeSelected(hour: Int, minute: Int) {
-                    setDueTime(hour, minute)
-                }
-            }
-        ).show(parentFragmentManager, "SET_TIME")
+        val timePicker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(LocalTime.now().hour)
+            .setMinute(LocalTime.now().minute)
+            .setTitleText("Select time")
+            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+            .build()
+        timePicker.addOnPositiveButtonClickListener {
+            setDueTime(timePicker.hour, timePicker.minute)
+        }
+        timePicker.addOnDismissListener {
+        }
+        timePicker.show(childFragmentManager, "TimePickerDialog")
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDueTime(hour : Int, minute : Int){

@@ -46,12 +46,11 @@ class StatisticTabFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRangeDate()
         initComponent()
+        observeData()
 
     }
 
-    private fun initComponent() {
-        binding.rvCategoryStatistic.adapter = itemCategoryStatisticAdapter
-        binding.rvProgressBar.adapter = progressBarAdapter
+    private fun observeData() {
         taskViewModel.getAllTasksInRange(rangeDate.toString()).observe(viewLifecycleOwner){ tasks ->
             val totalFinishedTask = tasks.filter {
                 it.isFinish && !it.isStored
@@ -88,6 +87,12 @@ class StatisticTabFragment(
                 binding.emptyListBg.visibility = View.GONE
             }
         }
+    }
+
+    private fun initComponent() {
+        binding.rvCategoryStatistic.adapter = itemCategoryStatisticAdapter
+        binding.rvProgressBar.adapter = progressBarAdapter
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

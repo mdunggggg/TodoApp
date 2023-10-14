@@ -13,16 +13,17 @@
        android:layout_marginTop="16dp"
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
        tools:listitem="@layout/item_task_rv"
+
        />
    <ImageView
        android:id="@+id/empty_list_bg"
        android:layout_width="match_parent"
-       android:layout_height="200dp"
+       android:layout_height="180dp"
        android:src="@drawable/ic_empty_task"
        android:visibility="gone"
        />
    <TextView
-       android:layout_marginTop="16dp"
+       android:layout_marginTop="8dp"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/tv_empty_task"

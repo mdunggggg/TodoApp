@@ -36,11 +36,11 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initComponent()
+        observeData()
         initBehavior()
     }
 
-    private fun initComponent() {
-        todoStore = StoreToDo(requireContext())
+    private fun observeData() {
         userViewModel.userName.observe(viewLifecycleOwner){
             binding.profileName.text = it
         }
@@ -59,37 +59,42 @@ class SettingFragment : Fragment() {
             binding.headerProfile.setImageURI(Uri.parse(it))
         }
     }
+
+    private fun initComponent() {
+        todoStore = StoreToDo(requireContext())
+
+    }
     private fun initBehavior(){
         binding.apply {
             changePassword.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The fu", Toast.LENGTH_SHORT).show()
             }
             themeApp.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             colorScheme.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             feedback.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             rate.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             support.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             faq.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             privacyPolicy.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             termsOfUse.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             aboutUs.setOnClickListener {
-                Toast.makeText(context, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             goPremium.setOnClickListener {
                 showQrDialog();
