@@ -67,7 +67,7 @@ class SettingFragment : Fragment() {
     private fun initBehavior(){
         binding.apply {
             changePassword.setOnClickListener {
-                Toast.makeText(context, "The fu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()
             }
             themeApp.setOnClickListener {
                 Toast.makeText(context, "The function is currently under development.", Toast.LENGTH_SHORT).show()

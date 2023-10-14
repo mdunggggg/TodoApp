@@ -97,8 +97,6 @@ class CategoryPickerDialog(
                         .show()
                 }
             }).attachToRecyclerView(binding.rvCategories)
-        }?:{
-            Toast.makeText(context, "An error has occurred!! Please restart the app.", Toast.LENGTH_SHORT).show()
         }
     }
 

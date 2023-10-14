@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.Adapter.RecyclerViewAdapter.SubtasksAdapter
+import com.example.todoapp.Dialog.CategoryPickerDialog
+import com.example.todoapp.Interfaces.ICategoryListener
 import com.example.todoapp.Model.Subtask
 import com.example.todoapp.Model.Task
 import com.example.todoapp.R
@@ -38,6 +40,7 @@ class DetailTaskFragment : Fragment() {
     private lateinit var task : Task
     private val args : DetailTaskFragmentArgs by navArgs()
     private lateinit var subtasksAdapter: SubtasksAdapter
+    private var color = 0
     private val taskViewModel : TaskViewModel by activityViewModels {
         TaskViewModel.TaskViewModelFactory(requireActivity().application)
     }
@@ -101,6 +104,8 @@ class DetailTaskFragment : Fragment() {
             tvTaskDueTime.text = task.dueTime
             rvSubtasks.adapter = subtasksAdapter
             cbTaskStatus.isChecked = task.isFinish
+            chipCategory.text = task.titleCategory
+            color = task.color
             if(task.isFinish){
                 cvStatus.setCardBackgroundColor(ColorUtils.getColor("#DFF4EA"))
                 tvStatus.setTextColor(ColorUtils.getColor("#039855"))
@@ -130,6 +135,15 @@ class DetailTaskFragment : Fragment() {
         }
         binding.tvTaskDueTime.setOnClickListener{
             setDueTime()
+        }
+        binding.chipCategory.setOnClickListener{
+            val category = CategoryPickerDialog(object : ICategoryListener {
+                override fun onClickCategory(nameCategory: String, colorCategory : Int) {
+                    binding.chipCategory.text = nameCategory
+                    color = colorCategory
+                }
+            })
+            category.show(childFragmentManager, CategoryPickerDialog.TAG)
         }
     }
     private fun addSubtask(){
@@ -175,6 +189,9 @@ class DetailTaskFragment : Fragment() {
             newTitle = binding.tvTaskName.text.toString().trim()
             newDescription = binding.tvTaskDescription.text.toString().trim()
             newIsFinished = binding.cbTaskStatus.isChecked
+            newCategory = binding.chipCategory.text.toString()
+            newColor = color
+
         }
     }
     private fun onUpdateSubtask(position : Int){

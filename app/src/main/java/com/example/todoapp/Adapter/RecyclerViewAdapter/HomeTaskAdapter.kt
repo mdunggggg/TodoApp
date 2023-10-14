@@ -66,7 +66,7 @@ class HomeTaskAdapter(
                               tvStatus.setTextColor(ColorUtils.getColor("#025A9A"))
                               tvStatus.text = "On progress"
                           }
-
+                          chipCategory.text = task.titleCategory
 
                       }
                }

@@ -71,10 +71,10 @@ class StatisticTabFragment(
             val listData : MutableList<CategoryAndTask> = mutableListOf()
             for(category in it){
                 val totalFinishedTask = category.tasks.filter { task ->
-                    task.isFinish && !task.isStored
+                    task.isFinish && !task.isStored && task.dueDate >= rangeDate.toString()
                 }.size
                 val totalTask = category.tasks.filter { task ->
-                    !task.isStored
+                    !task.isStored && task.dueDate >= rangeDate.toString()
                 }.size
                 listData.add(CategoryAndTask(category.category.titleCategory, totalTask, totalFinishedTask, category.category.color))
             }

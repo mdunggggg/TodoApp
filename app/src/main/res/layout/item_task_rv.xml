@@ -15,26 +15,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
-        <TextView
-            android:id="@+id/tv_task_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/task_name" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_task_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/task_name" />
 
-        <TextView
-            android:id="@+id/tv_task_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            android:maxLines="2"
-            android:fontFamily="@font/inter_regular"
-            android:textColor="#5D6B98"
-            android:text="@string/task_description" />
+            <TextView
+                android:layout_below="@+id/tv_task_name"
+                android:id="@+id/tv_task_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#5D6B98"
+                android:text="@string/task_description" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_category"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/ic_baseline_folder_open_24"
+                tools:text="default" />
+
+        </RelativeLayout>
+
         <com.google.android.material.divider.MaterialDivider
             android:layout_marginTop="16dp"
             android:layout_width= "match_parent"

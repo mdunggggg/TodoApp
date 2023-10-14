@@ -52,6 +52,7 @@ class TaskOfCategoryFragment : Fragment() {
         taskViewModel.getAllTasksByCategory(category.titleCategory).observe(
             viewLifecycleOwner
         ) {
+            binding.emptyListBg.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
             taskAdapter.submitList(it)
         }
     }

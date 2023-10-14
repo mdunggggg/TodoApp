@@ -196,7 +196,12 @@ class PomodoroFragment : Fragment() {
             .build()
         context?.let {
             WorkManager.getInstance(it).enqueue(notificationRequest)
-        }?: Toast.makeText(context, "Context is null", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimerPomodoro?.cancel()
     }
 
 
