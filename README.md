@@ -2,7 +2,7 @@
 Todo App Project is a mobile application developed to help users efficiently manage and track their daily tasks and assignments.
 ## The features
 ```
-Like any others note apps, Superb ToDo has basic features for instance: adding notes, deleting notes, updating notes, searching notes , pomodoro... 
+Like any others note apps,ToDo has basic features for instance: adding notes, deleting notes, updating notes, searching notes , pomodoro... 
 Which is very simple to implement.
 ```
 ## Demo images
